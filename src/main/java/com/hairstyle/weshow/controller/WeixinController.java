@@ -61,7 +61,7 @@ public class WeixinController extends WeixinSupport{
     private static final String secret = "aa2c4031799c35fb656da3ea2a0071b3";	//微信小程序密钥
     private static final String grant_type = "authorization_code";
     
-    @Value("$(http://47.94.144.77:9090/weixin/wxnotify)")
+    @Value("$(wxpay_callback_url)")
     public String notify_url;
 
     @Autowired
