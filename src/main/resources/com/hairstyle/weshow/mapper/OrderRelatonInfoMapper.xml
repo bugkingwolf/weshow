@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hairstyle.weshow.dao.OrderRelatonInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hairstyle.weshow.domain.OrderRelatonInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="no_limit_time" property="noLimitTime" jdbcType="INTEGER" />
+    <result column="adjust_time" property="adjustTime" jdbcType="INTEGER" />
+    <result column="positions" property="positions" jdbcType="VARCHAR" />
+    <result column="no_limit_store" property="noLimitStore" jdbcType="INTEGER" />
+    <result column="adjust_store" property="adjustStore" jdbcType="INTEGER" />
+    <result column="store_ids" property="storeIds" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, no_limit_time, adjust_time, positions, no_limit_store, adjust_store, 
+    store_ids
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from weshow_order_relation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from weshow_order_relation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hairstyle.weshow.domain.OrderRelatonInfo" >
+    insert into weshow_order_relation (id, order_id, no_limit_time, 
+      adjust_time, positions, no_limit_store, 
+      adjust_store, store_ids)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{noLimitTime,jdbcType=INTEGER}, 
+      #{adjustTime,jdbcType=INTEGER}, #{positions,jdbcType=VARCHAR}, #{noLimitStore,jdbcType=INTEGER}, 
+      #{adjustStore,jdbcType=INTEGER}, #{storeIds,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.OrderRelatonInfo" >
+    insert into weshow_order_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="noLimitTime != null" >
+        no_limit_time,
+      </if>
+      <if test="adjustTime != null" >
+        adjust_time,
+      </if>
+      <if test="positions != null" >
+        positions,
+      </if>
+      <if test="noLimitStore != null" >
+        no_limit_store,
+      </if>
+      <if test="adjustStore != null" >
+        adjust_store,
+      </if>
+      <if test="storeIds != null" >
+        store_ids,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="noLimitTime != null" >
+        #{noLimitTime,jdbcType=INTEGER},
+      </if>
+      <if test="adjustTime != null" >
+        #{adjustTime,jdbcType=INTEGER},
+      </if>
+      <if test="positions != null" >
+        #{positions,jdbcType=VARCHAR},
+      </if>
+      <if test="noLimitStore != null" >
+        #{noLimitStore,jdbcType=INTEGER},
+      </if>
+      <if test="adjustStore != null" >
+        #{adjustStore,jdbcType=INTEGER},
+      </if>
+      <if test="storeIds != null" >
+        #{storeIds,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hairstyle.weshow.domain.OrderRelatonInfo" >
+    update weshow_order_relation
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="noLimitTime != null" >
+        no_limit_time = #{noLimitTime,jdbcType=INTEGER},
+      </if>
+      <if test="adjustTime != null" >
+        adjust_time = #{adjustTime,jdbcType=INTEGER},
+      </if>
+      <if test="positions != null" >
+        positions = #{positions,jdbcType=VARCHAR},
+      </if>
+      <if test="noLimitStore != null" >
+        no_limit_store = #{noLimitStore,jdbcType=INTEGER},
+      </if>
+      <if test="adjustStore != null" >
+        adjust_store = #{adjustStore,jdbcType=INTEGER},
+      </if>
+      <if test="storeIds != null" >
+        store_ids = #{storeIds,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hairstyle.weshow.domain.OrderRelatonInfo" >
+    update weshow_order_relation
+    set order_id = #{orderId,jdbcType=INTEGER},
+      no_limit_time = #{noLimitTime,jdbcType=INTEGER},
+      adjust_time = #{adjustTime,jdbcType=INTEGER},
+      positions = #{positions,jdbcType=VARCHAR},
+      no_limit_store = #{noLimitStore,jdbcType=INTEGER},
+      adjust_store = #{adjustStore,jdbcType=INTEGER},
+      store_ids = #{storeIds,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from weshow_order_relation
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  
+  <update id="updateByOrderIdSelective" parameterType="com.hairstyle.weshow.domain.OrderRelatonInfo" >
+    update weshow_order_relation
+    <set >
+      <if test="noLimitTime != null" >
+        no_limit_time = #{noLimitTime,jdbcType=INTEGER},
+      </if>
+      <if test="adjustTime != null" >
+        adjust_time = #{adjustTime,jdbcType=INTEGER},
+      </if>
+      <if test="positions != null" >
+        positions = #{positions,jdbcType=VARCHAR},
+      </if>
+      <if test="noLimitStore != null" >
+        no_limit_store = #{noLimitStore,jdbcType=INTEGER},
+      </if>
+      <if test="adjustStore != null" >
+        adjust_store = #{adjustStore,jdbcType=INTEGER},
+      </if>
+      <if test="storeIds != null" >
+        store_ids = #{storeIds,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hairstyle.weshow.dao.CustomerInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hairstyle.weshow.domain.CustomerInfo" >
+    <id column="customer_id" property="customerId" jdbcType="INTEGER" />
+    <result column="head_id" property="headId" jdbcType="INTEGER" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="frequency" property="frequency" jdbcType="INTEGER" />
+    <result column="member_status" property="memberStatus" jdbcType="INTEGER" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="alipay_id" property="alipayId" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="wechat_authentication" property="wechatAuthentication" jdbcType="INTEGER" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="haircut_status" property="haircutStatus" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="headurl" property="headurl" jdbcType="VARCHAR" />
+    <result column="coming_time" property="comingTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    customer_id, head_id, gender, age, register_time, updated_time, score, frequency,member_status, 
+    mobile, country, province, city, level, open_id, alipay_id, position, wechat_authentication, id_card, 
+    status, haircut_status, store_id, name, headurl,coming_time
+  </sql>
+  <sql id="Base_My_Customer_Column_List" >
+    customer.customer_id, customer.head_id, customer.gender, customer.age, customer.register_time, customer.updated_time,
+    customer.score, customer.frequency, customer.member_status,customer.mobile, customer.country, customer.province, 
+    customer.city, customer.level, customer.open_id, customer.alipay_id, customer.position, 
+    customer.wechat_authentication, customer.id_card, customer.status, customer.haircut_status, 
+	customer.store_id, customer.name, customer.headurl,customer.coming_time
+  </sql>
+  <sql id="Base_My_Customer_Column_List_Temp" >
+    temp.head_id, temp.gender, temp.age, temp.register_time, temp.updated_time,
+    temp.score, temp.frequency, temp.member_status,temp.mobile, temp.country, temp.province, 
+    temp.city, temp.level, temp.open_id, temp.alipay_id, temp.position, 
+    temp.wechat_authentication, temp.id_card, temp.status, temp.haircut_status, 
+	temp.store_id, temp.name, temp.headurl,temp.coming_time
+  </sql>
+  <sql id="Base_Column_List_Order" >
+    customer.customer_id, customer.head_id, customer.gender, customer.age, customer.register_time, 
+    customer.updated_time, customer.score, customer.frequency, customer.member_status, 
+    customer.mobile, customer.country, customer.province, customer.city, customer.level, customer.open_id, 
+    customer.alipay_id, customer.position, customer.wechat_authentication, customer.id_card, 
+    customer.status, customer.haircut_status, customer.store_id, customer.name, customer.headurl,
+    customer.coming_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from weshow_customer
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from weshow_customer
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hairstyle.weshow.domain.CustomerInfo" useGeneratedKeys="true" keyProperty="customerId">
+    insert into weshow_customer (customer_id, head_id, gender, 
+      age, register_time, updated_time, 
+      score, frequency, member_status, mobile, 
+      country, province, city, level, open_id, 
+      alipay_id, position, wechat_authentication, 
+      id_card, status, haircut_status, 
+      store_id, name, headurl, coming_time)
+    values (#{customerId,jdbcType=INTEGER}, #{headId,jdbcType=INTEGER}, #{gender,jdbcType=INTEGER}, 
+      #{age,jdbcType=INTEGER}, #{registerTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{score,jdbcType=INTEGER}, #{frequency,jdbcType=INTEGER}, #{memberStatus,jdbcType=INTEGER}, 
+      #{mobile,jdbcType=VARCHAR},  #{country,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, 
+      #{alipayId,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{wechatAuthentication,jdbcType=INTEGER}, 
+      #{idCard,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{haircutStatus,jdbcType=INTEGER}, 
+      #{storeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{headurl,jdbcType=VARCHAR},
+      #{comingTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.CustomerInfo" >
+    insert into weshow_customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="headId != null" >
+        head_id,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="registerTime != null" >
+        register_time,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="frequency != null" >
+        frequency,
+      </if>
+      <if test="memberStatus != null" >
+        member_status,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="alipayId != null" >
+        alipay_id,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="wechatAuthentication != null" >
+        wechat_authentication,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="haircutStatus != null" >
+        haircut_status,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="headurl != null" >
+        headurl,
+      </if>
+      <if test="comingTime != null" >
+        coming_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="customerId != null" >
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="headId != null" >
+        #{headId,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null" >
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="frequency != null" >
+        #{frequency,jdbcType=INTEGER},
+      </if>
+      <if test="memberStatus != null" >
+        #{memberStatus,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayId != null" >
+        #{alipayId,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatAuthentication != null" >
+        #{wechatAuthentication,jdbcType=INTEGER},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="haircutStatus != null" >
+        #{haircutStatus,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="headurl != null" >
+        #{headurl,jdbcType=VARCHAR},
+      </if>
+      <if test="comingTime != null" >
+        #{comingTime,jdbcType=VARTIMESTAMPCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hairstyle.weshow.domain.CustomerInfo" >
+    update weshow_customer
+    <set >
+      <if test="headId != null" >
+        head_id = #{headId,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="frequency != null" >
+        frequency = #{frequency,jdbcType=INTEGER},
+      </if>
+      <if test="memberStatus != null" >
+        member_status = #{memberStatus,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayId != null" >
+        alipay_id = #{alipayId,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatAuthentication != null" >
+        wechat_authentication = #{wechatAuthentication,jdbcType=INTEGER},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="haircutStatus != null" >
+        haircut_status = #{haircutStatus,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="headurl != null" >
+        headurl = #{headurl,jdbcType=VARCHAR},
+      </if>
+      <if test="comingTime != null" >
+        comingTime = #{comingTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hairstyle.weshow.domain.CustomerInfo" >
+    update weshow_customer
+    set head_id = #{headId,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      score = #{score,jdbcType=INTEGER},
+      frequency = #{frequency,jdbcType=INTEGER},
+      member_status = #{memberStatus,jdbcType=INTEGER},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      open_id = #{openId,jdbcType=VARCHAR},
+      alipay_id = #{alipayId,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      wechat_authentication = #{wechatAuthentication,jdbcType=INTEGER},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      haircut_status = #{haircutStatus,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER}
+      name = #{name,jdbcType=VARCHAR},
+      headurl = #{headurl,jdbcType=VARCHAR},
+      comingTime = #{comingTime,jdbcType=TIMESTAMP},
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from weshow_customer 
+  	where store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  <select id="getByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List_Order" />
+    FROM weshow_customer customer
+	LEFT JOIN weshow_order orders ON customer.customer_id = orders.customer_id
+	WHERE orders.order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getMyCustomerList" resultMap="BaseResultMap" >
+    SELECT DISTINCT
+	temp.customer_id,
+	temp.head_id,
+	temp.gender,
+	temp.age,
+	temp.register_time,
+	temp.updated_time,
+	temp.score,
+	temp.frequency,
+	temp.member_status,
+	temp.mobile,
+	temp.country,
+	temp.province,
+	temp.city,
+	temp. LEVEL,
+	temp.open_id,
+	temp.alipay_id,
+	temp.position,
+	temp.wechat_authentication,
+	temp.id_card,
+	temp. STATUS,
+	temp.haircut_status,
+	temp.store_id,
+	temp. NAME,
+	temp.headurl,
+	temp.coming_time,
+	temp.created_time AS hairCutTime
+	FROM
+	(
+		SELECT
+			customer.customer_id,
+			customer.head_id,
+			customer.gender,
+			customer.age,
+			customer.register_time,
+			customer.updated_time,
+			customer.score,
+			customer.frequency,
+			customer.member_status,
+			customer.mobile,
+			customer.country,
+			customer.province,
+			customer.city,
+			customer. LEVEL,
+			customer.open_id,
+			customer.alipay_id,
+			customer.position,
+			customer.wechat_authentication,
+			customer.id_card,
+			customer. STATUS,
+			customer.haircut_status,
+			customer.store_id,
+			customer. NAME,
+			customer.headurl,
+			customer.coming_time,
+			orders.created_time
+		FROM
+			weshow_order orders
+		LEFT JOIN weshow_barber barber ON barber.barber_id = #{barberId,jdbcType=INTEGER}
+		RIGHT JOIN weshow_customer customer ON orders.customer_id = customer.customer_id
+		AND orders.barber_id = barber.barber_id
+		ORDER BY
+			orders.created_time DESC
+		limit #{count,jdbcType=INTEGER}
+	) temp
+	GROUP BY temp.customer_id
+  </select>
+  
+  <select id="getMyCustomerOrderCount" resultType="int" parameterType="java.lang.Integer" >
+    	SELECT
+			count(1)
+		FROM
+			weshow_order orders
+		WHERE orders.barber_id = #{barberId,jdbcType=INTEGER}
+  </select>
+<!--   <select id="getMyCustomerOrderCount" resultType="int" parameterType="java.lang.Integer" >
+    	SELECT
+			count(1)
+		FROM
+			weshow_order orders
+		LEFT JOIN weshow_barber barber ON barber.barber_id = #{barberId,jdbcType=INTEGER}
+		LEFT JOIN weshow_customer customer ON orders.customer_id = customer.customer_id
+		AND orders.barber_id = barber.barber_id
+  </select> -->
+
+  <select id="getbyOpenId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    	SELECT
+			<include refid="Base_Column_List" />
+		FROM
+			weshow_customer
+		WHERE
+			open_id = #{openId,jdbcType=VARCHAR}
+  </select>
+  
+  <update id="updateByOpenId" parameterType="com.hairstyle.weshow.domain.CustomerInfo" >
+    update weshow_customer
+    <set >
+      <if test="headId != null" >
+        head_id = #{headId,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="frequency != null" >
+        frequency = #{frequency,jdbcType=INTEGER},
+      </if>
+      <if test="memberStatus != null" >
+        member_status = #{memberStatus,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="alipayId != null" >
+        alipay_id = #{alipayId,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatAuthentication != null" >
+        wechat_authentication = #{wechatAuthentication,jdbcType=INTEGER},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="haircutStatus != null" >
+        haircut_status = #{haircutStatus,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="headurl != null" >
+        headurl = #{headurl,jdbcType=VARCHAR},
+      </if>
+      <if test="comingTime != null" >
+        comingTime = #{comingTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where open_id = #{openId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="getHistoryCustomerList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	SELECT 
+		customer.customer_id, 
+		customer.head_id, 
+		customer.gender, 
+		customer.age, 
+		customer.register_time, 
+		customer.updated_time,
+	    customer.score, 
+	    customer.frequency, 
+	    customer.member_status,
+	    customer.mobile, 
+	    customer.country, 
+	    customer.province, 
+	    customer.city, 
+	    customer.level, 
+	    customer.open_id, 
+	    customer.alipay_id, 
+	    customer.position, 
+	    customer.wechat_authentication, 
+	    customer.id_card, 
+	    customer.status, 
+	    customer.haircut_status, 
+		customer.store_id, 
+		customer.name, 
+		customer.headurl,
+		customer.coming_time 
+	FROM 
+		weshow_order orders
+	LEFT JOIN 
+		weshow_customer customer ON orders.customer_id = customer.customer_id
+	WHERE 
+		orders.store_id = #{storeId,jdbcType=INTEGER}
+	GROUP BY 
+		orders.customer_id
+  </select>
+</mapper>

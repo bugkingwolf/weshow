@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hairstyle.weshow.dao.BarberInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hairstyle.weshow.domain.BarberInfo" >
+    <id column="barber_id" property="barberId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="head_id" property="headId" jdbcType="INTEGER" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="empirical_value" property="empiricalValue" jdbcType="INTEGER" />
+    <result column="good_at" property="goodAt" jdbcType="VARCHAR" />
+    <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="years" property="years" jdbcType="INTEGER" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="alipay_id" property="alipayId" jdbcType="VARCHAR" />
+    <result column="haircut_ability_value" property="haircutAbilityValue" jdbcType="INTEGER" />
+    <result column="hairdye_ability_value" property="hairdyeAbilityValue" jdbcType="INTEGER" />
+    <result column="shampoo_ability_value" property="shampooAbilityValue" jdbcType="INTEGER" />
+    <result column="cosmetology_ability_value" property="cosmetologyAbilityValue" jdbcType="INTEGER" />
+    <result column="perm_ability_value" property="permAbilityValue" jdbcType="INTEGER" />
+    <result column="growth_plan" property="growthPlan" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="service_status" property="serviceStatus" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="starting_price" property="startingPrice" jdbcType="INTEGER" />
+    <result column="face_id" property="faceId" jdbcType="VARCHAR" />
+    <result column="idcardfaceurl" property="idcardfaceurl" jdbcType="VARCHAR" />
+    <result column="idcardbackurl" property="idcardbackurl" jdbcType="VARCHAR" />
+    <result column="registerfaceurl" property="registerfaceurl" jdbcType="VARCHAR" />
+    <result column="distance" property="distance" jdbcType="INTEGER" />
+    <result column="orderNum" property="orderNum" jdbcType="INTEGER" />
+    <association property="barberAddress" javaType="com.hairstyle.weshow.domain.BarberAddressInfo">
+    	<result column="id" property="id" jdbcType="INTEGER" />
+    	<result column="barber_id" property="barberId" jdbcType="INTEGER" />
+    	<result column="longitude" property="longitude" jdbcType="INTEGER" />
+    	<result column="latitude" property="latitude" jdbcType="INTEGER" />
+    	<result column="created_time" property="createdTime" jdbcType="INTEGER" />
+    	<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    barber_id, user_id, head_id, gender, age, empirical_value, good_at, register_time, 
+    updated_time, score, mobile, address, level, years, open_id, alipay_id, haircut_ability_value, 
+    hairdye_ability_value, shampoo_ability_value, cosmetology_ability_value, perm_ability_value, 
+    growth_plan, id_card, service_status, status,store_id,nickname,name,introduction,starting_price,
+    face_id, idcardfaceurl, idcardbackurl, registerfaceurl
+  </sql>
+  <sql id="Base_Column_List_Order" >
+    barber.barber_id, barber.user_id, barber.head_id, barber.gender, barber.age, barber.empirical_value, 
+    barber.good_at, barber.register_time, barber.updated_time, barber.score, barber.mobile, 
+    barber.address, barber.level, barber.years, barber.open_id, barber.alipay_id, barber.haircut_ability_value, 
+    barber.hairdye_ability_value, barber.shampoo_ability_value, barber.cosmetology_ability_value, 
+    barber.perm_ability_value, barber.growth_plan, barber.id_card, barber.service_status, barber.status,
+    barber.store_id, barber.nickname, barber.name, barber.introduction,barber.starting_price,barber.face_id
+  </sql>
+  <sql id="Base_Column_List_Address" >
+    barber.barber_id, barber.user_id, barber.head_id, barber.gender, barber.age, barber.empirical_value, barber.good_at, 
+    barber.register_time, barber.updated_time, barber.score, barber.mobile, barber.address, barber.level, barber.years, 
+    barber.open_id, barber.alipay_id, barber.haircut_ability_value,barber.hairdye_ability_value, 
+    barber.shampoo_ability_value, barber.cosmetology_ability_value, barber.perm_ability_value, barber.growth_plan, 
+    barber.id_card, barber.service_status, barber.status,barber.store_id,barber.nickname,barber.name,barber.introduction,
+    barber.starting_price, barber.face_id, barber.idcardfaceurl, barber.idcardbackurl, barber.registerfaceurl, 
+    address.longitude,address.latitude
+  </sql>
+  
+  <!-- 查询条件 -->
+  <sql id="queryWhere">
+  	WHERE barber.`status` = 1
+  	<if test="type == 1">
+  		AND barber.service_status = 2
+  	</if>
+  	<if test="type == 2">
+  		AND barber.gender = 1
+  	</if>
+  </sql>
+  
+  <!-- 排序条件 -->	
+  <sql id="queryOrder">
+      <if test="orderType==1">
+          <![CDATA[
+              ORDER BY distance ASC
+              ]]>
+      </if>
+      <if test="orderType==2">
+          <![CDATA[
+              ORDER BY orderNum DESC, distance ASC
+              ]]>
+      </if>
+      <if test="orderType==3">
+          <![CDATA[
+              ORDER BY barber.level DESC, distance ASC
+              ]]>
+      </if>
+      <if test="orderType==4">
+          <![CDATA[
+              ORDER BY barber.years DESC, distance ASC
+              ]]>
+      </if>
+  </sql>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from weshow_barber
+    where barber_id = #{barberId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from weshow_barber
+    where barber_id = #{barberId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hairstyle.weshow.domain.BarberInfo" >
+    insert into weshow_barber (barber_id, user_id, head_id, 
+      gender, age, empirical_value, 
+      good_at, register_time, updated_time, 
+      score, mobile, address, 
+      level, years, open_id, 
+      alipay_id, haircut_ability_value, hairdye_ability_value, 
+      shampoo_ability_value, cosmetology_ability_value, 
+      perm_ability_value, growth_plan, id_card, service_status, status, 
+      store_id, nickname, name,introduction,starting_price,face_id,
+      idcardfaceurl, idcardbackurl, registerfaceurl)
+    values (#{barberId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{headId,jdbcType=INTEGER}, 
+      #{gender,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, #{empiricalValue,jdbcType=INTEGER}, 
+      #{goodAt,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{score,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{years,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, 
+      #{alipayId,jdbcType=VARCHAR}, #{haircutAbilityValue,jdbcType=INTEGER}, #{hairdyeAbilityValue,jdbcType=INTEGER}, 
+      #{shampooAbilityValue,jdbcType=INTEGER}, #{cosmetologyAbilityValue,jdbcType=INTEGER}, 
+      #{permAbilityValue,jdbcType=INTEGER}, #{growthPlan,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
+      #{serviceStatus,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},#{storeId,jdbcType=INTEGER},
+      #{nickname,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{introduction,jdbcType=VARCHAR},
+      #{startingPrice,jdbcType=INTEGER}, #{faceId,jdbcType=VARCHAR}, #{idcardfaceurl,jdbcType=VARCHAR},
+      #{idcardbackurl,jdbcType=VARCHAR}, #{registerfaceurl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.BarberInfo" >
+    insert into weshow_barber
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="barberId != null" >
+        barber_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="headId != null" >
+        head_id,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="empiricalValue != null" >
+        empirical_value,
+      </if>
+      <if test="goodAt != null" >
+        good_at,
+      </if>
+      <if test="registerTime != null" >
+        register_time,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="years != null" >
+        years,
+      </if>
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="alipayId != null" >
+        alipay_id,
+      </if>
+      <if test="haircutAbilityValue != null" >
+        haircut_ability_value,
+      </if>
+      <if test="hairdyeAbilityValue != null" >
+        hairdye_ability_value,
+      </if>
+      <if test="shampooAbilityValue != null" >
+        shampoo_ability_value,
+      </if>
+      <if test="cosmetologyAbilityValue != null" >
+        cosmetology_ability_value,
+      </if>
+      <if test="permAbilityValue != null" >
+        perm_ability_value,
+      </if>
+      <if test="growthPlan != null" >
+        growth_plan,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="serviceStatus != null" >
+        service_status,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="nickname != null" >
+        nickname,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="startingPrice != null" >
+        starting_price,
+      </if>
+      <if test="faceId != null" >
+        face_id,
+      </if>
+      <if test="idcardfaceurl != null" >
+        idcardfaceurl,
+      </if>
+      <if test="idcardbackurl != null" >
+        idcardbackurl,
+      </if>
+      <if test="registerfaceurl != null" >
+        registerfaceurl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="barberId != null" >
+        #{barberId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="headId != null" >
+        #{headId,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="empiricalValue != null" >
+        #{empiricalValue,jdbcType=INTEGER},
+      </if>
+      <if test="goodAt != null" >
+        #{goodAt,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null" >
+        #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="years != null" >
+        #{years,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayId != null" >
+        #{alipayId,jdbcType=VARCHAR},
+      </if>
+      <if test="haircutAbilityValue != null" >
+        #{haircutAbilityValue,jdbcType=INTEGER},
+      </if>
+      <if test="hairdyeAbilityValue != null" >
+        #{hairdyeAbilityValue,jdbcType=INTEGER},
+      </if>
+      <if test="shampooAbilityValue != null" >
+        #{shampooAbilityValue,jdbcType=INTEGER},
+      </if>
+      <if test="cosmetologyAbilityValue != null" >
+        #{cosmetologyAbilityValue,jdbcType=INTEGER},
+      </if>
+      <if test="permAbilityValue != null" >
+        #{permAbilityValue,jdbcType=INTEGER},
+      </if>
+      <if test="growthPlan != null" >
+        #{growthPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceStatus != null" >
+        #{serviceStatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="startingPrice != null" >
+        #{startingPrice,jdbcType=INTEGER},
+      </if>
+      <if test="faceId != null" >
+        #{faceId,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardfaceurl != null" >
+        #{idcardfaceurl,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardbackurl != null" >
+        #{idcardbackurl,jdbcType=VARCHAR},
+      </if>
+      <if test="registerfaceurl != null" >
+        #{registerfaceurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hairstyle.weshow.domain.BarberInfo" >
+    update weshow_barber
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="headId != null" >
+        head_id = #{headId,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="empiricalValue != null" >
+        empirical_value = #{empiricalValue,jdbcType=INTEGER},
+      </if>
+      <if test="goodAt != null" >
+        good_at = #{goodAt,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="years != null" >
+        years = #{years,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="alipayId != null" >
+        alipay_id = #{alipayId,jdbcType=VARCHAR},
+      </if>
+      <if test="haircutAbilityValue != null" >
+        haircut_ability_value = #{haircutAbilityValue,jdbcType=INTEGER},
+      </if>
+      <if test="hairdyeAbilityValue != null" >
+        hairdye_ability_value = #{hairdyeAbilityValue,jdbcType=INTEGER},
+      </if>
+      <if test="shampooAbilityValue != null" >
+        shampoo_ability_value = #{shampooAbilityValue,jdbcType=INTEGER},
+      </if>
+      <if test="cosmetologyAbilityValue != null" >
+        cosmetology_ability_value = #{cosmetologyAbilityValue,jdbcType=INTEGER},
+      </if>
+      <if test="permAbilityValue != null" >
+        perm_ability_value = #{permAbilityValue,jdbcType=INTEGER},
+      </if>
+      <if test="growthPlan != null" >
+        growth_plan = #{growthPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceStatus != null" >
+        service_status = #{serviceStatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null" >
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="startingPrice != null" >
+        starting_price = #{startingPrice,jdbcType=INTEGER},
+      </if>
+      <if test="faceId != null" >
+        face_id = #{faceId,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardfaceurl != null" >
+        idcardfaceurl = #{idcardfaceurl,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardbackurl != null" >
+        idcardbackurl = #{idcardbackurl,jdbcType=VARCHAR},
+      </if>
+      <if test="registerfaceurl != null" >
+        registerfaceurl = #{registerfaceurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where barber_id = #{barberId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hairstyle.weshow.domain.BarberInfo" >
+    update weshow_barber
+    set user_id = #{userId,jdbcType=INTEGER},
+      head_id = #{headId,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      empirical_value = #{empiricalValue,jdbcType=INTEGER},
+      good_at = #{goodAt,jdbcType=VARCHAR},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      score = #{score,jdbcType=INTEGER},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      years = #{years,jdbcType=INTEGER},
+      open_id = #{openId,jdbcType=VARCHAR},
+      alipay_id = #{alipayId,jdbcType=VARCHAR},
+      haircut_ability_value = #{haircutAbilityValue,jdbcType=INTEGER},
+      hairdye_ability_value = #{hairdyeAbilityValue,jdbcType=INTEGER},
+      shampoo_ability_value = #{shampooAbilityValue,jdbcType=INTEGER},
+      cosmetology_ability_value = #{cosmetologyAbilityValue,jdbcType=INTEGER},
+      perm_ability_value = #{permAbilityValue,jdbcType=INTEGER},
+      growth_plan = #{growthPlan,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      service_status = #{serviceStatus,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      starting_price = #{startingPrice,jdbcType=INTEGER}
+      face_id = #{faceId,jdbcType=VARCHAR},
+      idcardfaceurl = #{idcardfaceurl,jdbcType=VARCHAR},
+      idcardbackurl = #{idcardbackurl,jdbcType=VARCHAR},
+      registerfaceurl = #{registerfaceurl,jdbcType=VARCHAR},
+    where barber_id = #{barberId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from weshow_barber 
+  	where store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="list" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.StoreInfo" >
+    select 
+    <include refid="Base_Column_List_Address" />
+    FROM weshow_barber barber
+	LEFT JOIN weshow_barber_address address ON address.barber_id = barber.barber_id
+	limit #{start},#{limit}
+  </select>
+  
+  <select id="getByOrderId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List_Order" />
+    FROM weshow_barber barber
+	LEFT JOIN weshow_order orders ON barber.barber_id = orders.barber_id
+	WHERE orders.order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getBarberHeamUrlById" resultType="String" parameterType="java.lang.Integer" >
+    SELECT customer.headurl FROM weshow_customer customer
+	LEFT JOIN weshow_barber barber ON customer.customer_id = barber.user_id
+	WHERE barber.barber_id = #{barberId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getBarberCountByFaceId" resultType="int" parameterType="java.lang.String" >
+    SELECT 
+	COUNT(1)
+	FROM weshow_barber 
+	WHERE face_id = #{faceId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getBarberByFaceId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT 
+	<include refid="Base_Column_List" />
+	FROM weshow_barber 
+	WHERE face_id = #{faceId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getMyBarberList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    	SELECT 
+    	<include refid="Base_Column_List_Order" /> 
+		FROM 
+			weshow_barber barber
+		LEFT JOIN weshow_order orders ON barber.barber_id = orders.barber_id
+		LEFT JOIN weshow_customer customer ON orders.customer_id = customer.customer_id
+		WHERE customer.customer_id = #{customerId,jdbcType=INTEGER}
+		GROUP BY barber.barber_id
+  </select>
+  
+  <select id="getHistoryBarberList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT 
+    	barber.barber_id, 
+    	barber.user_id, 
+    	barber.head_id, 
+    	barber.gender, 
+    	barber.age, 
+    	barber.empirical_value, 
+    	barber.good_at, 
+	    barber.register_time, 
+	    barber.updated_time, 
+	    barber.score, 
+	    barber.mobile, 
+	    barber.address, 
+	    barber.level, 
+	    barber.years, 
+	    barber.open_id, 
+	    barber.alipay_id, 
+	    barber.haircut_ability_value,
+	    barber.hairdye_ability_value, 
+	    barber.shampoo_ability_value, 
+	    barber.cosmetology_ability_value, 
+	    barber.perm_ability_value, 
+	    barber.growth_plan, 
+	    barber.id_card, 
+	    barber.service_status, 
+	    barber.status,
+	    barber.store_id,
+	    barber.nickname,
+	    barber.name,
+	    barber.introduction,
+	    barber.starting_price, 
+	    barber.face_id,
+	    barber.idcardfaceurl
+	    barber.idcardbackurl
+	    barber.registerfaceurl
+    FROM 
+    	weshow_order orders
+	LEFT JOIN 
+		weshow_barber barber ON orders.barber_id = barber.barber_id
+	WHERE 
+		orders.store_id = #{storeId,jdbcType=INTEGER}
+	GROUP BY 
+		orders.barber_id
+  </select>
+  
+  <select id="getByCustomerId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    	SELECT 
+    	<include refid="Base_Column_List_Order" /> 
+		FROM  
+			weshow_barber barber
+		WHERE 
+			customer.customer_id = #{customerId,jdbcType=INTEGER}
+  </select>
+  
+  <update id="updateStoreId" parameterType="com.hairstyle.weshow.domain.BarberInfo" >
+		UPDATE weshow_barber 
+		SET store_id =  #{storeId,jdbcType=INTEGER}
+		WHERE face_id = #{faceId,jdbcType=VARCHAR}
+  </update>
+  <select id="getListOrder" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.StoreInfo" >
+    select 
+    <include refid="Base_Column_List_Address" />,
+    (round(6367000 * 2 * 
+		asin(sqrt(pow(sin(((address.latitude * pi()) / 180 - (39.93 * pi()) / 180) / 2),2) + 
+				 cos((39.93 * pi()) / 180) * 
+				 cos((address.latitude * pi()) / 180) * 
+				 pow(sin(((address.longitude * pi()) / 180 - (116.45 * pi()) / 180) / 2),2)))
+		)
+	) AS distance,temps.orderNum AS orderNum
+	
+	FROM weshow_barber barber
+	LEFT JOIN weshow_barber_address address ON address.barber_id = barber.barber_id
+	LEFT JOIN (SELECT COUNT(1) AS orderNum, barber_id FROM weshow_order GROUP BY barber_id) temps ON temps.barber_id = barber.barber_id
+	<include refid="queryWhere" />
+	HAVING distance &lt; 5000
+	<include refid="queryOrder"></include>
+	limit #{start}, #{limit}
+  </select>
+  
+</mapper>

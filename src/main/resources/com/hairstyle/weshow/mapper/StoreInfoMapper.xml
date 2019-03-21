@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hairstyle.weshow.dao.StoreInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hairstyle.weshow.domain.StoreInfo" >
+    <id column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="category" property="category" jdbcType="INTEGER" />
+    <result column="starting_price" property="startingPrice" jdbcType="INTEGER" />
+    <result column="customer_id" property="customerId" jdbcType="INTEGER" />
+    <result column="shopowner_id" property="shopownerId" jdbcType="INTEGER" />
+    <result column="acreage" property="acreage" jdbcType="INTEGER" />
+    <result column="seat_num" property="seatNum" jdbcType="INTEGER" />
+    <result column="intelligent_device" property="intelligentDevice" jdbcType="VARCHAR" />
+    <result column="head_id" property="headId" jdbcType="INTEGER" />
+    <result column="business_time" property="businessTime" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="share" property="share" jdbcType="INTEGER" />
+    <result column="distance" property="distance" jdbcType="INTEGER" />
+    <result column="historyOrderNum" property="historyOrderNum" jdbcType="INTEGER" />
+    <association property="storeAddress" javaType="com.hairstyle.weshow.domain.StoreAddressInfo">
+    	<result column="id" property="id" jdbcType="INTEGER" />
+    	<result column="store_id" property="storeId" jdbcType="INTEGER" />
+    	<result column="longitude" property="longitude" jdbcType="INTEGER" />
+    	<result column="latitude" property="latitude" jdbcType="INTEGER" />
+    	<result column="created_time" property="createdTime" jdbcType="INTEGER" />
+    	<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    store_id, name, mobile, created_time, updated_time, category, starting_price, 
+    customer_id, shopowner_id, acreage, seat_num, intelligent_device, head_id,address,
+    business_time, status, share
+  </sql>
+
+  <sql id="Base_Column_List_Address" >
+    store.store_id, 
+    store.name, 
+    store.mobile, 
+    store.created_time, 
+    store.updated_time, 
+    store.category, 
+    store.address, 
+    store.starting_price, 
+    store.customer_id, 
+    store.shopowner_id, 
+    store.acreage, 
+    store.seat_num, 
+    store.intelligent_device, 
+    store.head_id,
+    store.business_time,
+    store.status,
+    store.share,
+    address.longitude,
+    address.latitude,
+    address.created_time,
+    address.update_time
+  </sql>
+
+  <!-- 排序条件 -->	
+  <sql id="queryOrder">
+      <if test="orderType==1">
+          <![CDATA[
+              ORDER BY distance ASC
+              ]]>
+      </if>
+      <if test="orderType==2">
+          <![CDATA[
+              ORDER BY historyOrderNum DESC, distance ASC
+              ]]>
+      </if>
+      <if test="orderType==3">
+          <![CDATA[
+              ORDER BY store.acreage DESC, distance ASC
+              ]]>
+      </if>
+  </sql>
+   
+  <!-- 查询条件 -->
+  <sql id="queryWhere">
+  	WHERE store.`status` = 1 AND store.share = 1
+  	<if test="category != null and category != ''">
+  		AND store.category = #{category}
+  	</if>
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from weshow_store
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from weshow_store
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hairstyle.weshow.domain.StoreInfo" >
+    insert into weshow_store (store_id, name, mobile, 
+      created_time, updated_time, category, 
+      starting_price, customer_id, 
+      shopowner_id, acreage, seat_num, 
+      intelligent_device, head_id, address, business_time, status, share)
+    values (#{storeId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{category,jdbcType=INTEGER}, 
+      #{startingPrice,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, 
+      #{shopownerId,jdbcType=INTEGER}, #{acreage,jdbcType=INTEGER}, #{seatNum,jdbcType=INTEGER}, 
+      #{intelligentDevice,jdbcType=VARCHAR}, #{headId,jdbcType=INTEGER}), #{address,jdbcType=VARCHAR}, 
+      #{businessTime,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{share,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.StoreInfo" >
+    insert into weshow_store
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="startingPrice != null" >
+        starting_price,
+      </if>
+      <if test="customerId != null" >
+        customer_id,
+      </if>
+      <if test="shopownerId != null" >
+        shopowner_id,
+      </if>
+      <if test="acreage != null" >
+        acreage,
+      </if>
+      <if test="seatNum != null" >
+        seat_num,
+      </if>
+      <if test="intelligentDevice != null" >
+        intelligent_device,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="headId != null" >
+        head_id,
+      </if>
+      <if test="businessTime != null" >
+        business_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="share != null" >
+        share,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=INTEGER},
+      </if>
+      <if test="startingPrice != null" >
+        #{startingPrice,jdbcType=INTEGER},
+      </if>
+      <if test="customerId != null" >
+        #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="shopownerId != null" >
+        #{shopownerId,jdbcType=INTEGER},
+      </if>
+      <if test="acreage != null" >
+        #{acreage,jdbcType=INTEGER},
+      </if>
+      <if test="seatNum != null" >
+        #{seatNum,jdbcType=INTEGER},
+      </if>
+      <if test="intelligentDevice != null" >
+        #{intelligentDevice,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="headId != null" >
+        #{headId,jdbcType=INTEGER},
+      </if>
+      <if test="businessTime != null" >
+        #{businessTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="share != null" >
+        #{share,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hairstyle.weshow.domain.StoreInfo" >
+    update weshow_store
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="startingPrice != null" >
+        starting_price = #{startingPrice,jdbcType=INTEGER},
+      </if>
+      <if test="customerId != null" >
+        customer_id = #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="shopownerId != null" >
+        shopowner_id = #{shopownerId,jdbcType=INTEGER},
+      </if>
+      <if test="acreage != null" >
+        acreage = #{acreage,jdbcType=INTEGER},
+      </if>
+      <if test="seatNum != null" >
+        seat_num = #{seatNum,jdbcType=INTEGER},
+      </if>
+      <if test="intelligentDevice != null" >
+        intelligent_device = #{intelligentDevice,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="headId != null" >
+        head_id = #{headId,jdbcType=INTEGER},
+      </if>
+      <if test="businessTime != null" >
+        business_time = #{businessTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="share != null" >
+        share = #{share,jdbcType=INTEGER},
+      </if>
+    </set>
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hairstyle.weshow.domain.StoreInfo" >
+    update weshow_store
+    set name = #{name,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      category = #{category,jdbcType=INTEGER},
+      starting_price = #{startingPrice,jdbcType=INTEGER},
+      customer_id = #{customerId,jdbcType=INTEGER},
+      shopowner_id = #{shopownerId,jdbcType=INTEGER},
+      acreage = #{acreage,jdbcType=INTEGER},
+      seat_num = #{seatNum,jdbcType=INTEGER},
+      intelligent_device = #{intelligentDevice,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      head_id = #{headId,jdbcType=INTEGER}
+      business_time = #{businessTime,jdbcType=VARCHAR}
+      status = #{status,jdbcType=INTEGER}
+      share = #{share,jdbcType=INTEGER}
+    where store_id = #{storeId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="list" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.StoreInfo" >
+    select 
+    <include refid="Base_Column_List_Address" />
+    from weshow_store store
+    left join weshow_store_address address ON store.store_id = address.store_id
+    where store.share = 1
+    limit #{start},#{limit}
+  </select>
+
+  <select id="getServicingStore" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.BarberInfo" >
+    select 
+	    store.store_id, 
+	    store.name, 
+	    store.mobile, 
+	    store.created_time, 
+	    store.updated_time, 
+	    store.category, 
+	    store.address, 
+	    store.starting_price, 
+	    store.customer_id, 
+	    store.shopowner_id, 
+	    store.acreage, 
+	    store.seat_num, 
+	    store.intelligent_device, 
+	    store.head_id,
+	    store.business_time,
+	    store.status,
+	    store.share
+	from  
+		weshow_store_barber_relation relation
+	LEFT JOIN weshow_barber barber ON relation.barber_id = barber.barber_id 
+	LEFT JOIN  weshow_store store ON relation.store_id = store.store_id 
+	WHERE 
+		barber.barber_id = #{barberId,jdbcType=INTEGER}
+		and relation.deleted = 1
+  </select>
+  
+  <select id="getMyStoreList" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.CustomerInfo" >
+    select 
+	    <include refid="Base_Column_List" />
+	from  
+		weshow_store store
+	WHERE 
+		customer_id = #{customerId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getSumIncome" resultType="int" parameterType="java.lang.Integer" >
+    SELECT 
+    	SUM(amount) 
+    FROM 
+		weshow_order 
+	WHERE 
+		store_id = #{storeId,jdbcType=INTEGER}
+	ORDER BY 
+		created_time DESC 
+  </select>
+
+  <select id="getOrderNum" resultType="int" parameterType="java.lang.Integer" >
+    SELECT 
+    	COUNT(1) 
+    FROM 
+		weshow_order 
+	WHERE 
+		store_id = #{storeId,jdbcType=INTEGER}
+  </select>
+
+  <select id="listNearStore" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.StoreInfo" >
+    SELECT
+	<include refid="Base_Column_List_Address" />
+	FROM
+		weshow_store store
+	LEFT JOIN weshow_store_address address ON store.store_id = address.store_id
+	WHERE
+		sqrt(
+			(
+				(
+					(#{longitude} - address.longitude) * PI() * 12656 * cos(
+						((#{latitude} + address.latitude) / 5) * PI() / 180
+					) / 180
+				) * (
+					(#{longitude} - address.longitude) * PI() * 12656 * cos(
+						((#{latitude} + address.latitude) / 5) * PI() / 180
+					) / 180
+				)
+			) + (
+				(
+					(#{latitude} - address.latitude) * PI() * 12656 / 180
+				) * (
+					(#{latitude} - address.latitude) * PI() * 12656 / 180
+				)
+			)
+		) &lt; 5 AND store.share = 1
+  </select>
+
+  <select id="getListOrder" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.StoreInfo" >
+    SELECT
+	 <include refid="Base_Column_List_Address" />,
+	 (round(6367000 * 2 * 
+		asin(sqrt(pow(sin(((address.latitude * pi()) / 180 - (#{latitude} * pi()) / 180) / 2),2) + 
+				 cos((#{latitude} * pi()) / 180) * 
+				 cos((address.latitude * pi()) / 180) * 
+				 pow(sin(((address.longitude * pi()) / 180 - (#{longitude} * pi()) / 180) / 2),2)))
+		)
+	) AS distance,
+	temps.orderNum AS historyOrderNum
+	
+	FROM weshow_store store
+	LEFT JOIN weshow_store_address address ON store.store_id = address.store_id
+	LEFT JOIN (SELECT  COUNT(1) AS orderNum,store_id FROM  weshow_order GROUP BY store_id) temps ON temps.store_id = store.store_id
+	<include refid="queryWhere" />
+	HAVING distance &lt; 5000
+	<include refid="queryOrder"></include>
+	limit #{start}, #{limit}
+  </select>
+  
+</mapper>

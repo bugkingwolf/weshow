@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hairstyle.weshow.dao.BarberServiceServiceInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hairstyle.weshow.domain.BarberServiceServiceInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="barber_service_id" property="barberServiceId" jdbcType="INTEGER" />
+    <result column="service" property="service" jdbcType="VARCHAR" />
+    <result column="online_price" property="onlinePrice" jdbcType="DOUBLE" />
+    <result column="store_price" property="storePrice" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, barber_service_id, service, online_price, store_price
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from weshow_barber_service_service
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from weshow_barber_service_service
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hairstyle.weshow.domain.BarberServiceServiceInfo" >
+    insert into weshow_barber_service_service (id, barber_service_id, service, 
+      online_price, store_price)
+    values (#{id,jdbcType=INTEGER}, #{barberServiceId,jdbcType=INTEGER}, #{service,jdbcType=VARCHAR}, 
+      #{onlinePrice,jdbcType=DOUBLE}, #{storePrice,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.BarberServiceServiceInfo" >
+    insert into weshow_barber_service_service
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="barberServiceId != null" >
+        barber_service_id,
+      </if>
+      <if test="service != null" >
+        service,
+      </if>
+      <if test="onlinePrice != null" >
+        online_price,
+      </if>
+      <if test="storePrice != null" >
+        store_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="barberServiceId != null" >
+        #{barberServiceId,jdbcType=INTEGER},
+      </if>
+      <if test="service != null" >
+        #{service,jdbcType=VARCHAR},
+      </if>
+      <if test="onlinePrice != null" >
+        #{onlinePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="storePrice != null" >
+        #{storePrice,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hairstyle.weshow.domain.BarberServiceServiceInfo" >
+    update weshow_barber_service_service
+    <set >
+      <if test="barberServiceId != null" >
+        barber_service_id = #{barberServiceId,jdbcType=INTEGER},
+      </if>
+      <if test="service != null" >
+        service = #{service,jdbcType=VARCHAR},
+      </if>
+      <if test="onlinePrice != null" >
+        online_price = #{onlinePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="storePrice != null" >
+        store_price = #{storePrice,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hairstyle.weshow.domain.BarberServiceServiceInfo" >
+    update weshow_barber_service_service
+    set barber_service_id = #{barberServiceId,jdbcType=INTEGER},
+      service = #{service,jdbcType=VARCHAR},
+      online_price = #{onlinePrice,jdbcType=DOUBLE},
+      store_price = #{storePrice,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getByBarberServiceId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from weshow_barber_service_service
+    where barber_service_id = #{barberServiceId,jdbcType=INTEGER}
+  </select>
+</mapper>
