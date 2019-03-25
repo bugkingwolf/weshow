@@ -20,6 +20,7 @@ import com.hairstyle.weshow.common.Constant;
 import com.hairstyle.weshow.dao.BarberAddressInfoMapper;
 import com.hairstyle.weshow.dao.BarberInfoMapper;
 import com.hairstyle.weshow.dao.BarberServiceInfoMapper;
+import com.hairstyle.weshow.dao.BarberServiceServiceInfoMapper;
 import com.hairstyle.weshow.dao.CustomerIncomeInfoMapper;
 import com.hairstyle.weshow.dao.CustomerInfoMapper;
 import com.hairstyle.weshow.dao.ImageInfoMapper;
@@ -28,6 +29,7 @@ import com.hairstyle.weshow.dao.SubscribeManagementInfoMapper;
 import com.hairstyle.weshow.domain.BarberAddressInfo;
 import com.hairstyle.weshow.domain.BarberInfo;
 import com.hairstyle.weshow.domain.BarberServiceInfo;
+import com.hairstyle.weshow.domain.BarberServiceServiceInfo;
 import com.hairstyle.weshow.domain.CustomerInfo;
 import com.hairstyle.weshow.domain.ImageInfo;
 import com.hairstyle.weshow.domain.OrderInfo;
@@ -50,6 +52,8 @@ public class BarberServiceImpl implements BarberService {
 	BarberInfoMapper barberInfoMapper;
 	@Autowired
 	BarberServiceInfoMapper barberServiceInfoMapper;
+	@Autowired
+	BarberServiceServiceInfoMapper barberServiceServiceInfoMapper;
 	@Autowired
 	ImageInfoMapper imageInfoMapper;
 	@Autowired
@@ -317,6 +321,13 @@ public class BarberServiceImpl implements BarberService {
 
 	@Override
 	public int sendSms(String mobile) throws ClientException {
+		
+		SmsInfo sms = smsInfoMapper.getByMobile(mobile);
+		if(sms != null){
+			//此手机号已注册
+			return 2;
+		}
+		
 		int status = 0;
 		// 发送短信
 		String code = SmsUtils.getCode();
@@ -407,6 +418,60 @@ public class BarberServiceImpl implements BarberService {
 		return barberAddressInfoMapper.insertSelective(barberAddressInfo);
 	}
 	
+	@Override
+	public int barberUpdate(BarberInfo barberInfo, String barberImageUrl) throws Exception{
+		
+		Integer barberId = barberInfo.getBarberId();
+			
+		if(barberImageUrl == null){
+			ImageInfo imageInfo = new ImageInfo();
+			imageInfo.setUrl(barberImageUrl);
+			imageInfo.setCreateTime(new Date());
+			imageInfo.setType(2);
+			imageInfo.setBarberId(barberId);
+			imageInfo.setDeleted(1);
+			int insertimage = imageInfoMapper.insertSelective(imageInfo);
+			if(insertimage > 0 ){
+				log.info("保存头像成功,barberId:" + barberId);
+			}
+			barberInfo.setHeadId(imageInfo.getId());
+		}
+		//更新理发师基本信息
+		int updatebarber = barberInfoMapper.updateByPrimaryKeySelective(barberInfo);//
+		
+		if(updatebarber > 0){
+			
+			log.info("理发师信息更新成功,barberId:" + barberId);
+			List<BarberServiceInfo> barberServiceList = barberInfo.getBarberServiceList();
+			
+			if(barberServiceList != null && !barberServiceList.isEmpty()){
+				//删除所有理发师大项目
+				int deleted = barberServiceInfoMapper.deleteByBarberId(barberId);
+				for (BarberServiceInfo barberServiceInfo : barberServiceList) {
+//					List<BarberServiceInfo> byBarberId = barberServiceInfoMapper.getByBarberId(barberId);
+					//新增大项目
+					int insertBarberService = barberServiceInfoMapper.insertSelective(barberServiceInfo);
+					Integer barberServiceId = barberServiceInfo.getId();//大项目id
+					
+					//删除理发师小项目
+					int deleted2 = barberServiceServiceInfoMapper.deleteByBarberServiceId(barberServiceId);
+					
+					List<BarberServiceServiceInfo> barberServiceServiceList = barberServiceInfo.getBarberServiceServiceList();
+					for (BarberServiceServiceInfo barberServiceServiceInfo : barberServiceServiceList) {
+						barberServiceServiceInfo.setBarberServiceId(barberServiceId);
+						//新增小项目
+						int insertbarberServiceService = barberServiceServiceInfoMapper.insertSelective(barberServiceServiceInfo);
+					}
+					
+				}
+			}
+			
+		}
+		log.info("修改理发师信息成功: 理发师id:" + barberId);
+		return 1;
+	}
+
+	
 	public static void main(String[] args) {
 		// 初始化一个AipFace
 		AipFace client = new AipFace(Constant.APP_ID, Constant.API_KEY, Constant.SECRET_KEY);
@@ -426,5 +491,6 @@ public class BarberServiceImpl implements BarberService {
 				Constant.IMAGE_TYPE_URL, "imcou01", "222", options);
 		System.out.println(res.toString());
 	}
+
 
 }

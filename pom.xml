@@ -158,30 +158,6 @@
 	</dependencies>
 
 
-	<profiles>
-        <profile>
-            <id>test</id>
-            <properties>
-                <!--数据库连接-->
-                <mvn.jdbc.url>
-                    <![CDATA[jdbc:mysql://47.94.144.77:3306/weshow?useUnicode=true&characterEncoding=utf-8]]></mvn.jdbc.url>
-                <mvn.jdbc.user>admin</mvn.jdbc.user>
-                <mvn.jdbc.pwd>admin</mvn.jdbc.pwd>
-                <!--阿里云endpoint-->
-                <mvn.aliyun.oss.endpoint>oss-cn-beijing.aliyuncs.com</mvn.aliyun.oss.endpoint>
-                <!--阿里云accessKeyId-->
-                <mvn.aliyun.oss.accesskeyid>LTAI49csnneu5RSn</mvn.aliyun.oss.accesskeyid>
-                <!--阿里云accessKeySecret-->
-                <mvn.aliyun.oss.accesskeysecret>jnxvpJlK2sdeWrk674B1qgKn3Olhgy</mvn.aliyun.oss.accesskeysecret>
-                <!--阿里云bucket name-->
-                <mvn.aliyun.oss.bucket>barbertest</mvn.aliyun.oss.bucket>
-				<!-- 微信支付回调 -->
-                <mvn.wxpay.callback.url>http://47.94.144.77:9090/weixin/wxnotify</mvn.wxpay.callback.url>
-            </properties>
-        </profile>
-    </profiles>
-    
-    
 	<build>
 		<plugins>
 			<plugin>

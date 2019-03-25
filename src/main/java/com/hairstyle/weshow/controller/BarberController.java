@@ -24,8 +24,10 @@ import com.hairstyle.weshow.domain.SubscribeManagementInfo;
 import com.hairstyle.weshow.service.BarberService;
 import com.hairstyle.weshow.service.CustomerService;
 import com.hairstyle.weshow.service.FaceService;
+import com.hairstyle.weshow.utils.AliyunOSSClientUtil;
 import com.hairstyle.weshow.utils.ConvertUtils;
 import com.hairstyle.weshow.utils.JsonUtils;
+import com.hairstyle.weshow.utils.MultipartFileUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -267,7 +269,11 @@ public class BarberController {
 			}
 
 			String mobile = paramMap.get("mobile") + "";
-			int status = barberService.sendSms(mobile);// stauts 0失败 1成功
+			int status = barberService.sendSms(mobile);// stauts 0失败 1成功 2已注册
+			if(status == 2){
+				httpResponseBody.setErrorMessage(GlobalErrorMessage.SMS_CODE_FAIL);
+				return httpResponseBody;
+			}
 			result.put("status", status);
 			httpResponseBody.setBizContent(result);
 
@@ -289,10 +295,7 @@ public class BarberController {
 	 */
 	@SuppressWarnings("rawtypes")
 	@PostMapping("/register")
-	public HttpResponseBody registerBarber(HttpServletRequest request, @RequestPart(required = true) String body,
-			@RequestBody(required = true) MultipartFile faceImageFile,
-			@RequestBody(required = true) MultipartFile faceIdCardImageFile,
-			@RequestBody(required = true) MultipartFile backIdCardImageFile) {
+	public HttpResponseBody registerBarber(HttpServletRequest request, @RequestBody(required = true) String body) {
 		HttpResponseBody httpResponseBody = new HttpResponseBody(GlobalErrorMessage.SUCCESS);
 		Map<String, Integer> result = new HashMap<>();
 		try {
@@ -305,6 +308,9 @@ public class BarberController {
 			if (paramMap.get("mobile") == null || StringUtils.isEmpty(paramMap.get("mobile").toString().trim())
 					|| paramMap.get("code") == null || StringUtils.isEmpty(paramMap.get("code").toString().trim())
 					|| paramMap.get("idCard") == null|| StringUtils.isEmpty(paramMap.get("idCard").toString().trim())
+					|| paramMap.get("faceImageFile") == null|| StringUtils.isEmpty(paramMap.get("faceImageFile").toString().trim())
+					|| paramMap.get("faceIdCardImageFile") == null|| StringUtils.isEmpty(paramMap.get("faceIdCardImageFile").toString().trim())
+					|| paramMap.get("backIdCardImageFile") == null|| StringUtils.isEmpty(paramMap.get("backIdCardImageFile").toString().trim())
 					|| paramMap.get("customerId") == null|| StringUtils.isEmpty(paramMap.get("customerId").toString().trim())) {
 				httpResponseBody.setErrorMessage(GlobalErrorMessage.MISSING_PARAMETERS);
 				return httpResponseBody;
@@ -314,6 +320,14 @@ public class BarberController {
 			String code = paramMap.get("code") + "";
 			String idCard = paramMap.get("idCard") + "";
 			Integer customerId = Integer.parseInt(paramMap.get("customerId") + "");
+			String faceImageFileBase64 = paramMap.get("faceImageFile") + "";
+			String faceIdCardImageFileBase64 = paramMap.get("faceIdCardImageFile") + "";
+			String backIdCardImageFileBase64 = paramMap.get("backIdCardImageFile") + "";
+			
+			MultipartFile faceImageFile = MultipartFileUtil.base64ToMultipart(faceImageFileBase64);
+			MultipartFile faceIdCardImageFile = MultipartFileUtil.base64ToMultipart(faceIdCardImageFileBase64);
+			MultipartFile backIdCardImageFile = MultipartFileUtil.base64ToMultipart(backIdCardImageFileBase64);
+			
 			int status = barberService.registerBarber(customerId,mobile, code, idCard, faceImageFile, faceIdCardImageFile,
 					backIdCardImageFile);// stauts 0失败 1成功 2短信验证码失败
 			if(status == 2){
@@ -334,6 +348,53 @@ public class BarberController {
 		}
 		return httpResponseBody;
 	}
+//	@SuppressWarnings("rawtypes")
+//	@PostMapping("/register")
+//	public HttpResponseBody registerBarber(HttpServletRequest request, @RequestPart(required = true) String body,
+//			@RequestBody(required = true) MultipartFile faceImageFile,
+//			@RequestBody(required = true) MultipartFile faceIdCardImageFile,
+//			@RequestBody(required = true) MultipartFile backIdCardImageFile) {
+//		HttpResponseBody httpResponseBody = new HttpResponseBody(GlobalErrorMessage.SUCCESS);
+//		Map<String, Integer> result = new HashMap<>();
+//		try {
+//			log.info("调用理发师注册接口【registerBarber】开始，body：" + body);
+//			HttpRequestBody httpRequestBody = ConvertUtils.convertData(body);
+//			String bizContent = httpRequestBody.getBizContent();
+//			log.info("调用理发师注册接口【registerBarber】开始，请求参数：" + bizContent);
+//			
+//			Map paramMap = JsonUtils.fromJSON(bizContent, Map.class);
+//			if (paramMap.get("mobile") == null || StringUtils.isEmpty(paramMap.get("mobile").toString().trim())
+//					|| paramMap.get("code") == null || StringUtils.isEmpty(paramMap.get("code").toString().trim())
+//					|| paramMap.get("idCard") == null|| StringUtils.isEmpty(paramMap.get("idCard").toString().trim())
+//					|| paramMap.get("customerId") == null|| StringUtils.isEmpty(paramMap.get("customerId").toString().trim())) {
+//				httpResponseBody.setErrorMessage(GlobalErrorMessage.MISSING_PARAMETERS);
+//				return httpResponseBody;
+//			}
+//			
+//			String mobile = paramMap.get("mobile") + "";
+//			String code = paramMap.get("code") + "";
+//			String idCard = paramMap.get("idCard") + "";
+//			Integer customerId = Integer.parseInt(paramMap.get("customerId") + "");
+//			int status = barberService.registerBarber(customerId,mobile, code, idCard, faceImageFile, faceIdCardImageFile,
+//					backIdCardImageFile);// stauts 0失败 1成功 2短信验证码失败
+//			if(status == 2){
+//				httpResponseBody.setErrorMessage(GlobalErrorMessage.SMS_CODE_FAIL);
+//				return httpResponseBody;
+//			}else if(status == 3){
+//				httpResponseBody.setErrorMessage(GlobalErrorMessage.REGISTER_FAIL);
+//				return httpResponseBody;
+//			}
+//			result.put("status", status);
+//			httpResponseBody.setBizContent(result);
+//			
+//		} catch (Exception e) {
+//			log.info("调用理发师注册接口【registerBarber】异常 :异常[" + e.getMessage() + "]", e);
+//			httpResponseBody = new HttpResponseBody(GlobalErrorMessage.BUSINESS_FAILED);
+//		} finally {
+//			log.info("调用理发师注册接口【registerBarber】结束，结果：" + JsonUtils.toJSON(httpResponseBody));
+//		}
+//		return httpResponseBody;
+//	}
 
 	@SuppressWarnings("rawtypes")
 	@PostMapping("/insertaddress")
@@ -368,4 +429,42 @@ public class BarberController {
 		return httpResponseBody;
 	}
 
+	@SuppressWarnings("rawtypes")
+	@PostMapping("/barberupdate")
+	public HttpResponseBody barberUpdate(HttpServletRequest request, @RequestPart(required = true) String body,
+			@RequestBody(required = false) MultipartFile barberImageFile) {
+		HttpResponseBody httpResponseBody = new HttpResponseBody(GlobalErrorMessage.SUCCESS);
+		Map<String, Integer> result = new HashMap<>();
+		try {
+			String barberImageUrl = null;
+
+			log.info("调用修改理发师资料接口【barberUpdate】开始，body：" + body);
+			HttpRequestBody httpRequestBody = ConvertUtils.convertData(body);
+			String bizContent = httpRequestBody.getBizContent();
+			log.info("调用修改理发师资料接口【barberUpdate】开始，请求参数：" + bizContent);
+			
+			Map paramMap = JsonUtils.fromJSON(bizContent, Map.class);
+			if (paramMap.get("barberId") == null || StringUtils.isEmpty(paramMap.get("barberId").toString().trim())) {
+				httpResponseBody.setErrorMessage(GlobalErrorMessage.MISSING_PARAMETERS);
+				return httpResponseBody;
+			}
+			
+			if(barberImageFile != null){
+				AliyunOSSClientUtil ossClient=new AliyunOSSClientUtil();
+				barberImageUrl = ossClient.uploadImg2Oss(barberImageFile);
+			}
+			
+			BarberInfo barberInfo = JsonUtils.fromJSON(bizContent, BarberInfo.class);
+			int status = barberService.barberUpdate(barberInfo,barberImageUrl);// stauts 0失败 1成功 
+			result.put("status", status);
+			httpResponseBody.setBizContent(result);
+			
+		} catch (Exception e) {
+			log.info("调用修改理发师资料接口【barberUpdate】异常 :异常[" + e.getMessage() + "]", e);
+			httpResponseBody = new HttpResponseBody(GlobalErrorMessage.BUSINESS_FAILED);
+		} finally {
+			log.info("调用修改理发师资料接口【barberUpdate】结束，结果：" + JsonUtils.toJSON(httpResponseBody));
+		}
+		return httpResponseBody;
+	}
 }

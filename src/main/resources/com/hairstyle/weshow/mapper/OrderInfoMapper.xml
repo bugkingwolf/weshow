@@ -81,7 +81,7 @@
   </delete>
   
   <insert id="insert" parameterType="com.hairstyle.weshow.domain.OrderInfo" useGeneratedKeys="true" keyProperty="orderId">
-    insert into weshow_order (barber_id, customer_id, store_id
+    insert into weshow_order (barber_id, customer_id, store_id,
       settlement_time, start_time, end_time, 
       created_time, updated_time, service_ids, 
       service_num, browse_num, pay_status, 

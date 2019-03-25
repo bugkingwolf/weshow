@@ -38,20 +38,20 @@ public class OrderController {
 	public HttpResponseBody insert(HttpServletRequest request, @RequestBody(required = true) String body) {
 
 		HttpResponseBody httpResponseBody = new HttpResponseBody(GlobalErrorMessage.SUCCESS);
-		Map<String, Integer> result = new HashMap<>();
+		Map<String, OrderInfo> result = new HashMap<>();
 		try {
+			log.info("调用下订单接口【insert】开始，body：" + body);
 			HttpRequestBody httpRequestBody = ConvertUtils.convertData(body);
 			String bizContent = httpRequestBody.getBizContent();
 			log.info("调用下订单接口【insert】开始，请求参数：" + bizContent);
 			
 			OrderInfo orderInfo = JsonUtils.fromJSON(bizContent, OrderInfo.class);
-			int status = ordreService.insert(orderInfo);
-			result.put("status", status);
+			OrderInfo order = ordreService.insert(orderInfo);
+			result.put("orderInfo", order);
 			httpResponseBody.setBizContent(result);
 		} catch (Exception e) {
 			log.info("调用下订单接口【insert】异常 :异常[" + e.getMessage() + "]", e);
 			httpResponseBody = new HttpResponseBody(GlobalErrorMessage.BUSINESS_FAILED);
-			e.printStackTrace();
 		} finally {
 			log.info("调用下订单接口【insert】结束，结果：" + JsonUtils.toJSON(httpResponseBody));
         }

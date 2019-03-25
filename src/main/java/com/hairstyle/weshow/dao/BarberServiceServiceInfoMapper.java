@@ -18,4 +18,6 @@ public interface BarberServiceServiceInfoMapper {
     int updateByPrimaryKey(BarberServiceServiceInfo record);
 
     List<BarberServiceServiceInfo> getByBarberServiceId(Integer barberServiceId);
+
+	int deleteByBarberServiceId(Integer barberServiceId);
 }

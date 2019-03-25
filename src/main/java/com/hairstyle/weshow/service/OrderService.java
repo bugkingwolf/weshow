@@ -6,7 +6,7 @@ import com.hairstyle.weshow.domain.OrderInfo;
 
 public interface OrderService {
 
-	int insert(OrderInfo orderInfo);
+	OrderInfo insert(OrderInfo orderInfo) throws Exception; 
 
 	List<OrderInfo> getBarberOrderlist(OrderInfo orderInfo);
 

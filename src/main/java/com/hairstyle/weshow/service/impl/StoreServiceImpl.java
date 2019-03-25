@@ -243,6 +243,11 @@ public class StoreServiceImpl implements StoreService {
 		Integer storeId = storeInfo.getStoreId();
 		StoreInfo store = storeInfoMapper.selectByPrimaryKey(storeId);
 		
+		List<ImageInfo> imageInfoList= imageInfoMapper.getByStoreId(storeId);//店铺图片
+		if(imageInfoList != null && !imageInfoList.isEmpty()){
+			store.setHeadImage(imageInfoList.get(0).getUrl());
+		}
+		
 		//收益
 		Integer income = storeInfoMapper.getSumIncome(storeId);
 		if(income != null){

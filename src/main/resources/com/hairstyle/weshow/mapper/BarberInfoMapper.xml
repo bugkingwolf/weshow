@@ -583,8 +583,8 @@
 	    barber.introduction,
 	    barber.starting_price, 
 	    barber.face_id,
-	    barber.idcardfaceurl
-	    barber.idcardbackurl
+	    barber.idcardfaceurl,
+	    barber.idcardbackurl,
 	    barber.registerfaceurl
     FROM 
     	weshow_order orders

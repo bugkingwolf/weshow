@@ -55,46 +55,46 @@ public class OrderServiceImpl implements OrderService {
 
 	@SuppressWarnings("unused")
 	@Override
-	public int insert(OrderInfo orderInfo) {
-		try {
-			
-			String code = SmsUtils.getCode();//六位预约码
-			// 插入订单
-			orderInfo.setCreatedTime(new Date());
-			orderInfo.setCode(Integer.parseInt(code));
-			orderInfo.setStatus(OrderStatusEnum.WAIT_PAY.getCode());
-			
-			int row = orderInfoMapper.insert(orderInfo);
-			List<OrderServiceInfo> barberServiceList = orderInfo.getBarberServiceList();
+	public OrderInfo insert(OrderInfo orderInfo) throws Exception{
+		Integer orderId = 0 ;
+		Integer amount = orderInfo.getAmount();
+		
+		String code = SmsUtils.getCode();//六位预约码
+		// 插入订单
+		orderInfo.setCreatedTime(new Date());
+		orderInfo.setCode(Integer.parseInt(code));
+		orderInfo.setStatus(OrderStatusEnum.WAIT_PAY.getCode());
+		
+		int row = orderInfoMapper.insert(orderInfo);
+		List<OrderServiceInfo> barberServiceList = orderInfo.getBarberServiceList();
 
-			OrderRelatonInfo orderRelaton = orderInfo.getOrderRelaton();
-			orderRelaton.setOrderId(orderInfo.getOrderId());
-			orderRelaton.setPositions(orderRelaton.getPositions());
-			orderRelaton.setStoreIds(orderRelaton.getStoreIds());
-			int row2 = orderRelatonInfoMapper.insert(orderRelaton);
+		orderId = orderInfo.getOrderId();
+		OrderRelatonInfo orderRelaton = orderInfo.getOrderRelaton();
+		orderRelaton.setOrderId(orderId);
+		orderRelaton.setPositions(orderRelaton.getPositions());
+		orderRelaton.setStoreIds(orderRelaton.getStoreIds());
+		int row2 = orderRelatonInfoMapper.insert(orderRelaton);
 
-			for (OrderServiceInfo orderServiceInfo : barberServiceList) {
+		for (OrderServiceInfo orderServiceInfo : barberServiceList) {
 
-				// 插入项目(5个大项目)
-				orderServiceInfo.setOrderId(orderInfo.getOrderId());
-				int row3 = orderServiceInfoMapper.insert(orderServiceInfo);
+			// 插入项目(5个大项目)
+			orderServiceInfo.setOrderId(orderId);
+			int row3 = orderServiceInfoMapper.insert(orderServiceInfo);
 
-				// 插入项目(子项目)
-				if (orderServiceInfo.getBarberServiceServiceList() != null
-						&& orderServiceInfo.getBarberServiceServiceList().size() != 0) {
-					OrderServiceServiceInfo orderServiceService = orderServiceInfo.getBarberServiceServiceList().get(0);
-					orderServiceService.setOrderServiceId(orderServiceInfo.getId());
-					int row4 = orderServiceServiceInfoMapper.insert(orderServiceService);
-				}
-
+			// 插入项目(子项目)
+			if (orderServiceInfo.getBarberServiceServiceList() != null
+					&& orderServiceInfo.getBarberServiceServiceList().size() != 0) {
+				OrderServiceServiceInfo orderServiceService = orderServiceInfo.getBarberServiceServiceList().get(0);
+				orderServiceService.setOrderServiceId(orderServiceInfo.getId());
+				int row4 = orderServiceServiceInfoMapper.insert(orderServiceService);
 			}
-			
-			
-			
-		} catch (Exception e) {
-			return 0;
+
 		}
-		return 1;
+		
+		OrderInfo order = new OrderInfo();
+		order.setOrderId(orderId);
+		order.setAmount(amount);
+		return order;
 	}
 
 	@Override

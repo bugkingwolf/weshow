@@ -37,7 +37,7 @@
 		#{onlinePrice,jdbcType=INTEGER},
 		#{storePrice,jdbcType=INTEGER})
 	</insert>
-	<insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.BarberServiceInfo">
+	<insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.BarberServiceInfo" useGeneratedKeys="true" keyProperty="id">
 		insert into weshow_barber_service
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -112,4 +112,9 @@
 		weshow_barber_service
 		where barber_id = #{barberId,jdbcType=INTEGER}
 	</select>
+	<delete id="deleteByBarberId" parameterType="java.lang.Integer">
+		DELETE FROM 
+		weshow_barber_service 
+		WHERE barber_id =#{barberId,jdbcType=INTEGER}
+	</delete>
 </mapper>

@@ -97,7 +97,7 @@ public class BarberInfo {
     
     private int type;
 
-    private Integer staringPrice;
+    private Integer startingPrice;
 
     private String faceId;
 

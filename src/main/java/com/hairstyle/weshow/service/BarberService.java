@@ -29,4 +29,6 @@ public interface BarberService {
 
 	int insertBarberAddress(BarberAddressInfo barberAddressInfo);
 
+	int barberUpdate(BarberInfo barberInfo, String barberImageUrl) throws Exception;
+
 }

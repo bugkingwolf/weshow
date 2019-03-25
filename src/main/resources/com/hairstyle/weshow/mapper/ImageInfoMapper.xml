@@ -46,7 +46,7 @@
       #{faceId,jdbcType=VARCHAR}, #{hairStatus,jdbcType=INTEGER}, #{faceToken,jdbcType=VARCHAR}, 
       #{trackId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.ImageInfo" >
+  <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.ImageInfo" useGeneratedKeys="true" keyProperty="id">
     insert into weshow_image
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

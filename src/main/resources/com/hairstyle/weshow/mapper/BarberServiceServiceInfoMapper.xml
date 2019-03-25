@@ -97,4 +97,9 @@
     from weshow_barber_service_service
     where barber_service_id = #{barberServiceId,jdbcType=INTEGER}
   </select>
+  <delete id="deleteByBarberServiceId" parameterType="java.lang.Integer" >
+    DELETE FROM 
+    weshow_barber_service_service 
+    WHERE barber_service_id = #{barberServiceId,jdbcType=INTEGER}
+  </delete>
 </mapper>
