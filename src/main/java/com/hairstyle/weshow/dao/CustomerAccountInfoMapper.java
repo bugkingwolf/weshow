@@ -15,7 +15,7 @@ public interface CustomerAccountInfoMapper {
 
     int updateByPrimaryKey(CustomerAccountInfo record);
 
-	int updateByCustomerIdSelective(CustomerAccountInfo customerAccountInfo);
+    int updateByCustomerIdSelective(CustomerAccountInfo customerAccountInfo);
 
-	CustomerAccountInfo getByCustomerId(Integer customerId);
+    CustomerAccountInfo getByCustomerId(Integer customerId);
 }

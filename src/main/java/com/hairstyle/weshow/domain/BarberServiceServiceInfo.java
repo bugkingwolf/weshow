@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class BarberServiceServiceInfo {
-	
+
     private Integer id;
 
     private Integer barberServiceId;

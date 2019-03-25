@@ -32,5 +32,5 @@ public class CustomerFaceInfo {
 
     private Date updateTime;
 
-    
+
 }

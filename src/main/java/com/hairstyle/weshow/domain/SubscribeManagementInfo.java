@@ -17,5 +17,5 @@ public class SubscribeManagementInfo {
     private Integer position;
 
     private Integer type;
-		
+
 }

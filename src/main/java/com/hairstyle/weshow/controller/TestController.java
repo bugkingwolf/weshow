@@ -9,12 +9,12 @@ import com.hairstyle.weshow.service.TestService;
 @RestController
 public class TestController {
 
-	@Autowired 
-	TestService testService;
-	
-	@GetMapping("/hello")
-	public String test() {
-		return testService.test();
-	}
+    @Autowired
+    TestService testService;
+
+    @GetMapping("/hello")
+    public String test() {
+        return testService.test();
+    }
 
 }

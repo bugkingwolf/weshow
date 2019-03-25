@@ -15,7 +15,7 @@ public interface OrderRelatonInfoMapper {
 
     int updateByPrimaryKey(OrderRelatonInfo record);
 
-	OrderRelatonInfo selectByOrderId(Integer orderId);
+    OrderRelatonInfo selectByOrderId(Integer orderId);
 
-	int updateByOrderIdSelective(OrderRelatonInfo orderRelatonInfo);
+    int updateByOrderIdSelective(OrderRelatonInfo orderRelatonInfo);
 }

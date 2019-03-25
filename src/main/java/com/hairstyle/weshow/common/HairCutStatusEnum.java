@@ -9,7 +9,6 @@ public enum HairCutStatusEnum {
     GETOUT(6, "离店");
 
 
-
     private Integer code;
     private String info;
 
@@ -26,7 +25,7 @@ public enum HairCutStatusEnum {
             case 5:
                 return HAIRDYE;
             case 6:
-            	return GETOUT;
+                return GETOUT;
         }
         return null;
     }
@@ -47,11 +46,11 @@ public enum HairCutStatusEnum {
             case 5:
                 return HAIRDYE.getInfo();
             case 6:
-            	return GETOUT.getInfo();
+                return GETOUT.getInfo();
         }
         return "";
     }
-    
+
     HairCutStatusEnum(int code, String info) {
         this.code = code;
         this.info = info;

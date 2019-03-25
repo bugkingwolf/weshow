@@ -22,12 +22,11 @@ public class SmsUtils {
     static final String domain = "dysmsapi.aliyuncs.com";
 
     // TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
-    static final String accessKeyId = "LTAI49csnneu5RSn";           
-    static final String accessKeySecret = "jnxvpJlK2sdeWrk674B1qgKn3Olhgy"; 
+    static final String accessKeyId = "LTAI49csnneu5RSn";
+    static final String accessKeySecret = "jnxvpJlK2sdeWrk674B1qgKn3Olhgy";
 
-    static final String sign = "位来云智"; 
-    static final String modelCode = "SMS_160306554"; 
-
+    static final String sign = "位来云智";
+    static final String modelCode = "SMS_160306554";
 
 
     public static SendSmsResponse sendSms(String telephone, String code) throws ClientException {
@@ -60,36 +59,39 @@ public class SmsUtils {
         request.setMethod(MethodType.POST);
         // hint 此处可能会抛出异常，注意catch
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
-        if(sendSmsResponse.getCode()!= null && sendSmsResponse.getCode().equals("OK")){
-                System.out.println("短信发送成功！");
-        }else {
-                System.out.println("短信发送失败！");
+        if (sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
+            System.out.println("短信发送成功！");
+        } else {
+            System.out.println("短信发送失败！");
         }
         return sendSmsResponse;
     }
 
     //以下为测试代码，随机生成验证码
     private static int newcode;
+
     public static int getNewcode() {
         return newcode;
     }
-    public static void setNewcode(){
-         newcode = (int)(Math.random()*9999)+100;  //每次调用生成一次四位数的随机数
-     }
-    
-    
+
+    public static void setNewcode() {
+        newcode = (int) (Math.random() * 9999) + 100;  //每次调用生成一次四位数的随机数
+    }
+
+
     public static String getCode() {
-    	return String.valueOf(new Random().nextInt(899999) + 100000);
-	}
+        return String.valueOf(new Random().nextInt(899999) + 100000);
+    }
+
     public static void main(String[] args) throws Exception {
-         String code = getCode();
-         System.out.println(code);
-         SendSmsResponse sendSms =sendSms("18410425048",code);//填写你需要测试的手机号码
-         System.out.println("短信接口返回的数据----------------");
-         System.out.println("Code=" + sendSms.getCode());
-         System.out.println("Message=" + sendSms.getMessage());
-         System.out.println("RequestId=" + sendSms.getRequestId());
-         System.out.println("BizId=" + sendSms.getBizId());
+        String code = getCode();
+        System.out.println(code);
+        SendSmsResponse sendSms = sendSms("18410425048", code);//填写你需要测试的手机号码
+        System.out.println("短信接口返回的数据----------------");
+        System.out.println("Code=" + sendSms.getCode());
+        System.out.println("Message=" + sendSms.getMessage());
+        System.out.println("RequestId=" + sendSms.getRequestId());
+        System.out.println("BizId=" + sendSms.getBizId());
 
     }
 }

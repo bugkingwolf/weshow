@@ -12,17 +12,17 @@ import lombok.ToString;
 @Getter
 @Setter
 public class BarberInfo {
-	
-	/**
-	 * 开始下标
-	 */
-	private Integer start = 0;
 
-	/**
-	 * 界限值
-	 */
-	private Integer limit = 20;
-	
+    /**
+     * 开始下标
+     */
+    private Integer start = 0;
+
+    /**
+     * 界限值
+     */
+    private Integer limit = 20;
+
     private Integer barberId;
 
     private Integer userId;
@@ -78,23 +78,23 @@ public class BarberInfo {
     private Integer storeId;
 
     private String name;
-    
+
     private String nickname;
 
     private String introduction;
 
     private Double distance;
-    
+
     private BigDecimal longitude;
-	
-	private BigDecimal latitude;
+
+    private BigDecimal latitude;
 
     private List<BarberServiceInfo> barberServiceList;
-    
+
     private BarberAddressInfo barberAddress;
 
     private int orderType;
-    
+
     private int type;
 
     private Integer startingPrice;
@@ -106,15 +106,15 @@ public class BarberInfo {
     private String idcardfaceurl;
 
     private String idcardbackurl;
-    
+
     private String registerfaceurl;
-    
+
     private List<Integer> positions;
-    
+
     private Integer orderNum;
-    
+
     private Integer customerNum;
 
     private Integer totalIncome;
-    
+
 }

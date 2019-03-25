@@ -19,18 +19,18 @@ public interface CustomerInfoMapper {
 
     int updateByPrimaryKey(CustomerInfo record);
 
-	List<CustomerInfo> getByStoreId(Integer storeId);
+    List<CustomerInfo> getByStoreId(Integer storeId);
 
-	CustomerInfo getByOrderId(Integer orderId);
+    CustomerInfo getByOrderId(Integer orderId);
 
-	List<CustomerInfo> getMyCustomerList(@Param("barberId") Integer barberId, @Param("count") Integer count);
+    List<CustomerInfo> getMyCustomerList(@Param("barberId") Integer barberId, @Param("count") Integer count);
 
-	Integer getMyCustomerOrderCount(Integer barberId);
+    Integer getMyCustomerOrderCount(Integer barberId);
 
-	CustomerInfo getbyOpenId(String openId);
+    CustomerInfo getbyOpenId(String openId);
 
-	int updateByOpenId(CustomerInfo customerInfo);
+    int updateByOpenId(CustomerInfo customerInfo);
 
-	List<CustomerInfo> getHistoryCustomerList(Integer storeId);
+    List<CustomerInfo> getHistoryCustomerList(Integer storeId);
 
 }

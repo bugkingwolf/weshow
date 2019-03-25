@@ -8,7 +8,6 @@ public enum OrderStatusEnum {
     SUCCESS(5, "订单完成");
 
 
-
     private Integer code;
     private String info;
 
@@ -46,7 +45,7 @@ public enum OrderStatusEnum {
         }
         return "";
     }
-    
+
     OrderStatusEnum(int code, String info) {
         this.code = code;
         this.info = info;

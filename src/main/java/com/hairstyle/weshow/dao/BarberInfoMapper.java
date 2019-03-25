@@ -17,26 +17,26 @@ public interface BarberInfoMapper {
 
     int updateByPrimaryKey(BarberInfo record);
 
-	List<BarberInfo> getByStoreId(Integer storeId);
+    List<BarberInfo> getByStoreId(Integer storeId);
 
-	List<BarberInfo> list(BarberInfo barberInfo);
+    List<BarberInfo> list(BarberInfo barberInfo);
 
-	BarberInfo getByOrderId(Integer orderId);
+    BarberInfo getByOrderId(Integer orderId);
 
-	String getBarberHeamUrlById(Integer barberId);
+    String getBarberHeamUrlById(Integer barberId);
 
-	int getBarberCountByFaceId(String faceId);
+    int getBarberCountByFaceId(String faceId);
 
-	List<BarberInfo> getMyBarberList(Integer customerId);
+    List<BarberInfo> getMyBarberList(Integer customerId);
 
-	List<BarberInfo> getHistoryBarberList(Integer storeId);
+    List<BarberInfo> getHistoryBarberList(Integer storeId);
 
-	BarberInfo getByCustomerId(Integer customerId);
+    BarberInfo getByCustomerId(Integer customerId);
 
-	int updateStoreId(BarberInfo barberInfo);
+    int updateStoreId(BarberInfo barberInfo);
 
-	BarberInfo getBarberByFaceId(String faceId);
+    BarberInfo getBarberByFaceId(String faceId);
 
-	List<BarberInfo> getListOrder(BarberInfo barberInfo);
+    List<BarberInfo> getListOrder(BarberInfo barberInfo);
 
 }

@@ -40,11 +40,11 @@ public class FaceInfo {
 
     private ImageInfo shampooImg;
 
-	private Integer haircutImgId;
+    private Integer haircutImgId;
 
-	private ImageInfo haircutImg;
+    private ImageInfo haircutImg;
 
-	private ImageInfo headImg;
+    private ImageInfo headImg;
 
     private Integer getoutImgId;
 

@@ -11,11 +11,11 @@ import lombok.ToString;
 @Setter
 @ToString
 public class OrderInfo {
-	
-	private Integer start = 0;
-	
-	private Integer limit = 10;
-	
+
+    private Integer start = 0;
+
+    private Integer limit = 10;
+
     private Integer orderId;
 
     private Integer barberId;
@@ -53,36 +53,36 @@ public class OrderInfo {
     private String alipayId;
 
     private List<OrderServiceInfo> barberServiceList;
-    
-	private Integer[] positions;
 
-	private Integer[] storeIds;
+    private Integer[] positions;
 
-	private List<String> timeList;
-	
-	private List<StoreInfo> storeList;
-	
-	private OrderRelatonInfo orderRelaton;
-	
-	private Integer status;
+    private Integer[] storeIds;
 
-	private String statusStr;
+    private List<String> timeList;
 
-	private Integer beginImgId;
-	
-	private ImageInfo beginImg;
+    private List<StoreInfo> storeList;
 
-	private Integer endImgId;
-	
-	private ImageInfo endImg;
-	
-	private CustomerInfo customer;
+    private OrderRelatonInfo orderRelaton;
 
-	private BarberInfo barber;
+    private Integer status;
 
-	private Integer type;
+    private String statusStr;
 
-	private String remark;
+    private Integer beginImgId;
 
-	private Integer code;
+    private ImageInfo beginImg;
+
+    private Integer endImgId;
+
+    private ImageInfo endImg;
+
+    private CustomerInfo customer;
+
+    private BarberInfo barber;
+
+    private Integer type;
+
+    private String remark;
+
+    private Integer code;
 }

@@ -11,11 +11,11 @@ import lombok.ToString;
 @Getter
 public class CustomerIncomeInfo {
 
-	private Integer start = 0;
-	
-	private Integer limit = 10;
-	
-	private Integer id;
+    private Integer start = 0;
+
+    private Integer limit = 10;
+
+    private Integer id;
 
     private Integer customerId;
 

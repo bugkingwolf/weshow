@@ -11,11 +11,11 @@ import lombok.ToString;
 @Setter
 @Getter
 public class CustomerAccountInfo {
-	
-	private Integer start = 0;
-	
-	private Integer limit = 10;
-	
+
+    private Integer start = 0;
+
+    private Integer limit = 10;
+
     private Integer id;
 
     private Integer customerId;
@@ -27,7 +27,7 @@ public class CustomerAccountInfo {
     private Date createdTime;
 
     private Date updatedTime;
-    
+
     private List<CustomerIncomeInfo> customerIncomeList;
 
 }

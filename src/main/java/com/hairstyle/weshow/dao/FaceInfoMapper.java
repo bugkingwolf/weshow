@@ -18,11 +18,11 @@ public interface FaceInfoMapper {
 
     int updateByPrimaryKey(FaceInfo record);
 
-	List<FaceInfo> getCustomerByStoreId(Integer storeId);
+    List<FaceInfo> getCustomerByStoreId(Integer storeId);
 
-	List<FaceInfo> getFaceInfoBySeatNo(CameraDeviceInfo cameraDeviceInfo);
+    List<FaceInfo> getFaceInfoBySeatNo(CameraDeviceInfo cameraDeviceInfo);
 
-	FaceInfo selectByFaceId(String faceId);
+    FaceInfo selectByFaceId(String faceId);
 
-	int updateByFaceId(FaceInfo faceInfo);
+    int updateByFaceId(FaceInfo faceInfo);
 }

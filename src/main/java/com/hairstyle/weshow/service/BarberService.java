@@ -12,23 +12,23 @@ import com.hairstyle.weshow.exception.ImgException;
 
 public interface BarberService {
 
-	BarberInfo getBarberInfo(Integer barberId);
+    BarberInfo getBarberInfo(Integer barberId);
 
-	List<BarberInfo> list(BarberInfo barberInfo);
+    List<BarberInfo> list(BarberInfo barberInfo);
 
-	Integer subscribeManagement(SubscribeManagementInfo subscribeManagementInfo);
+    Integer subscribeManagement(SubscribeManagementInfo subscribeManagementInfo);
 
-	List<Integer> getPosition(Integer barberId);
+    List<Integer> getPosition(Integer barberId);
 
-	int sendSms(String mobile) throws ClientException;
+    int sendSms(String mobile) throws ClientException;
 
-	int registerBarber(Integer customerId, String mobile, String code, String idCard, MultipartFile faceImageFile,
-			MultipartFile faceIdCardImageFile, MultipartFile backIdCardImageFile)  throws ImgException ;
+    int registerBarber(Integer customerId, String mobile, String code, String idCard, MultipartFile faceImageFile,
+                       MultipartFile faceIdCardImageFile, MultipartFile backIdCardImageFile) throws ImgException;
 
-	BarberInfo getBarberHome(Integer barberId);
+    BarberInfo getBarberHome(Integer barberId);
 
-	int insertBarberAddress(BarberAddressInfo barberAddressInfo);
+    int insertBarberAddress(BarberAddressInfo barberAddressInfo);
 
-	int barberUpdate(BarberInfo barberInfo, String barberImageUrl) throws Exception;
+    int barberUpdate(BarberInfo barberInfo, String barberImageUrl) throws Exception;
 
 }

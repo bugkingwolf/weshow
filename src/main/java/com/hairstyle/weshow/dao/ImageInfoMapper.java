@@ -18,10 +18,10 @@ public interface ImageInfoMapper {
     int updateByPrimaryKeySelective(ImageInfo record);
 
     int updateByPrimaryKey(ImageInfo record);
-    
+
     List<ImageInfo> getByStoreId(Integer storeId);
 
-	List<ImageInfo> getImageByfaceId(String faceId);
+    List<ImageInfo> getImageByfaceId(String faceId);
 
-	List<ImageInfo> getImageByfaceIdAndDeviceNo(@Param("faceId")String faceId, @Param("deviceNo")String deviceNo);
+    List<ImageInfo> getImageByfaceIdAndDeviceNo(@Param("faceId") String faceId, @Param("deviceNo") String deviceNo);
 }

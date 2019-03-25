@@ -10,18 +10,18 @@ import com.hairstyle.weshow.domain.DecryptDataInfo;
 
 public interface CustomerService {
 
-	CustomerInfo getByCustomerId(Integer customerId);
+    CustomerInfo getByCustomerId(Integer customerId);
 
-	List<CustomerInfo> getMyCustomerList(Integer barberId);
+    List<CustomerInfo> getMyCustomerList(Integer barberId);
 
-	int login(DecryptDataInfo decryptDataInfo);
+    int login(DecryptDataInfo decryptDataInfo);
 
-	List<BarberInfo> getMyBarberList(Integer customerId);
+    List<BarberInfo> getMyBarberList(Integer customerId);
 
-	int income(CustomerIncomeInfo customerIncomeInfo);
+    int income(CustomerIncomeInfo customerIncomeInfo);
 
-	CustomerAccountInfo getIncome(CustomerAccountInfo customerAccountInfo);
+    CustomerAccountInfo getIncome(CustomerAccountInfo customerAccountInfo);
 
-	int incomeOtherWay(CustomerIncomeInfo customerIncomeInfo);
+    int incomeOtherWay(CustomerIncomeInfo customerIncomeInfo);
 
 }

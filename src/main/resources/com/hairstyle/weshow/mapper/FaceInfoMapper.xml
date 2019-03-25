@@ -1,277 +1,278 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hairstyle.weshow.dao.FaceInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.hairstyle.weshow.domain.FaceInfo" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="store_id" property="storeId" jdbcType="INTEGER" />
-    <result column="face_id" property="faceId" jdbcType="VARCHAR" />
-    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="hair_status" property="hairStatus" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="coming_img_id" property="comingImgId" jdbcType="INTEGER" />
-    <result column="shampoo_img_id" property="shampooImgId" jdbcType="INTEGER" />
-    <result column="haircut_img_id" property="haircutImgId" jdbcType="INTEGER" />
-    <result column="getout_img_id" property="getoutImgId" jdbcType="INTEGER" />
-    <result column="coming_time" property="comingTime" jdbcType="TIMESTAMP" />
-    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, store_id, face_id, hair_status, status, coming_img_id, shampoo_img_id, haircut_img_id, 
-    getout_img_id, coming_time, created_time, update_time,group_id,username
-  </sql>
-  <sql id="Base_Column_List_Face" >
-    face.id, face.store_id, face.face_id, face.hair_status, face.status, face.coming_img_id, face.shampoo_img_id, 
-    face.haircut_img_id, face.getout_img_id, face.coming_time, face.created_time, face.update_time, face.group_id,
-    face.username
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from weshow_face
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from weshow_face
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.hairstyle.weshow.domain.FaceInfo" >
-    insert into weshow_face (id, store_id, face_id, 
-      hair_status, status, coming_img_id, 
-      shampoo_img_id, haircut_img_id,
-      getout_img_id, coming_time, created_time, 
-      update_time,group_id,username)
-    values (#{id,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{faceId,jdbcType=VARCHAR}, 
-      #{hairStatus,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{comingImgId,jdbcType=INTEGER}, 
-      #{shampooImgId,jdbcType=INTEGER}, #{haircutImgId,jdbcType=INTEGER},
-      #{getoutImgId,jdbcType=INTEGER}, #{comingTime,jdbcType=TIMESTAMP}, #{createdTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{groupId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.FaceInfo" >
-    insert into weshow_face
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="storeId != null" >
-        store_id,
-      </if>
-      <if test="faceId != null" >
-        face_id,
-      </if>
-      <if test="hairStatus != null" >
-        hair_status,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="comingImgId != null" >
-        coming_img_id,
-      </if>
-      <if test="shampooImgId != null" >
-        shampoo_img_id,
-      </if>
-      <if test="haircutImgId != null" >
-        haircut_img_id,
-      </if>
-      <if test="getoutImgId != null" >
-        getout_img_id,
-      </if>
-      <if test="comingTime != null" >
-        coming_time,
-      </if>
-      <if test="createdTime != null" >
-        created_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-      <if test="groupId != null" >
-        group_id,
-      </if>
-      <if test="username != null" >
-        username,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="storeId != null" >
-        #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="faceId != null" >
-        #{faceId,jdbcType=VARCHAR},
-      </if>
-      <if test="hairStatus != null" >
-        #{hairStatus,jdbcType=INTEGER},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="comingImgId != null" >
-        #{comingImgId,jdbcType=INTEGER},
-      </if>
-      <if test="shampooImgId != null" >
-        #{shampooImgId,jdbcType=INTEGER},
-      </if>
-      <if test="haircutImgId != null" >
-        #{haircutImgId,jdbcType=INTEGER},
-      </if>
-      <if test="getoutImgId != null" >
-        #{getoutImgId,jdbcType=INTEGER},
-      </if>
-      <if test="comingTime != null" >
-        #{comingTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createdTime != null" >
-        #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="groupId != null" >
-        #{groupId,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null" >
-        #{username,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hairstyle.weshow.domain.FaceInfo" >
-    update weshow_face
-    <set >
-      <if test="storeId != null" >
-        store_id = #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="faceId != null" >
+<mapper namespace="com.hairstyle.weshow.dao.FaceInfoMapper">
+    <resultMap id="BaseResultMap" type="com.hairstyle.weshow.domain.FaceInfo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="store_id" property="storeId" jdbcType="INTEGER"/>
+        <result column="face_id" property="faceId" jdbcType="VARCHAR"/>
+        <result column="group_id" property="groupId" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="hair_status" property="hairStatus" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="coming_img_id" property="comingImgId" jdbcType="INTEGER"/>
+        <result column="shampoo_img_id" property="shampooImgId" jdbcType="INTEGER"/>
+        <result column="haircut_img_id" property="haircutImgId" jdbcType="INTEGER"/>
+        <result column="getout_img_id" property="getoutImgId" jdbcType="INTEGER"/>
+        <result column="coming_time" property="comingTime" jdbcType="TIMESTAMP"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, store_id, face_id, hair_status, status, coming_img_id, shampoo_img_id, haircut_img_id,
+        getout_img_id, coming_time, created_time, update_time,group_id,username
+    </sql>
+    <sql id="Base_Column_List_Face">
+        face.id, face.store_id, face.face_id, face.hair_status, face.status, face.coming_img_id, face.shampoo_img_id,
+        face.haircut_img_id, face.getout_img_id, face.coming_time, face.created_time, face.update_time, face.group_id,
+        face.username
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from weshow_face
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from weshow_face
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.hairstyle.weshow.domain.FaceInfo">
+        insert into weshow_face (id, store_id, face_id,
+        hair_status, status, coming_img_id,
+        shampoo_img_id, haircut_img_id,
+        getout_img_id, coming_time, created_time,
+        update_time,group_id,username)
+        values (#{id,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{faceId,jdbcType=VARCHAR},
+        #{hairStatus,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{comingImgId,jdbcType=INTEGER},
+        #{shampooImgId,jdbcType=INTEGER}, #{haircutImgId,jdbcType=INTEGER},
+        #{getoutImgId,jdbcType=INTEGER}, #{comingTime,jdbcType=TIMESTAMP}, #{createdTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP}, #{groupId,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.FaceInfo">
+        insert into weshow_face
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="storeId != null">
+                store_id,
+            </if>
+            <if test="faceId != null">
+                face_id,
+            </if>
+            <if test="hairStatus != null">
+                hair_status,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="comingImgId != null">
+                coming_img_id,
+            </if>
+            <if test="shampooImgId != null">
+                shampoo_img_id,
+            </if>
+            <if test="haircutImgId != null">
+                haircut_img_id,
+            </if>
+            <if test="getoutImgId != null">
+                getout_img_id,
+            </if>
+            <if test="comingTime != null">
+                coming_time,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="groupId != null">
+                group_id,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="storeId != null">
+                #{storeId,jdbcType=INTEGER},
+            </if>
+            <if test="faceId != null">
+                #{faceId,jdbcType=VARCHAR},
+            </if>
+            <if test="hairStatus != null">
+                #{hairStatus,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="comingImgId != null">
+                #{comingImgId,jdbcType=INTEGER},
+            </if>
+            <if test="shampooImgId != null">
+                #{shampooImgId,jdbcType=INTEGER},
+            </if>
+            <if test="haircutImgId != null">
+                #{haircutImgId,jdbcType=INTEGER},
+            </if>
+            <if test="getoutImgId != null">
+                #{getoutImgId,jdbcType=INTEGER},
+            </if>
+            <if test="comingTime != null">
+                #{comingTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="groupId != null">
+                #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hairstyle.weshow.domain.FaceInfo">
+        update weshow_face
+        <set>
+            <if test="storeId != null">
+                store_id = #{storeId,jdbcType=INTEGER},
+            </if>
+            <if test="faceId != null">
+                face_id = #{faceId,jdbcType=VARCHAR},
+            </if>
+            <if test="hairStatus != null">
+                hair_status = #{hairStatus,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="comingImgId != null">
+                coming_img_id = #{comingImgId,jdbcType=INTEGER},
+            </if>
+            <if test="shampooImgId != null">
+                shampoo_img_id = #{shampooImgId,jdbcType=INTEGER},
+            </if>
+            <if test="haircutImgId != null">
+                haircut_img_id = #{haircutImgId,jdbcType=INTEGER},
+            </if>
+            <if test="getoutImgId != null">
+                getout_img_id = #{getoutImgId,jdbcType=INTEGER},
+            </if>
+            <if test="comingTime != null">
+                coming_time = #{comingTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="groupId != null">
+                group_id = #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hairstyle.weshow.domain.FaceInfo">
+        update weshow_face
+        set store_id = #{storeId,jdbcType=INTEGER},
         face_id = #{faceId,jdbcType=VARCHAR},
-      </if>
-      <if test="hairStatus != null" >
         hair_status = #{hairStatus,jdbcType=INTEGER},
-      </if>
-      <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="comingImgId != null" >
         coming_img_id = #{comingImgId,jdbcType=INTEGER},
-      </if>
-      <if test="shampooImgId != null" >
         shampoo_img_id = #{shampooImgId,jdbcType=INTEGER},
-      </if>
-      <if test="haircutImgId != null" >
         haircut_img_id = #{haircutImgId,jdbcType=INTEGER},
-      </if>
-      <if test="getoutImgId != null" >
         getout_img_id = #{getoutImgId,jdbcType=INTEGER},
-      </if>
-      <if test="comingTime != null" >
         coming_time = #{comingTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createdTime != null" >
         created_time = #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="groupId != null" >
         group_id = #{groupId,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.hairstyle.weshow.domain.FaceInfo" >
-    update weshow_face
-    set store_id = #{storeId,jdbcType=INTEGER},
-      face_id = #{faceId,jdbcType=VARCHAR},
-      hair_status = #{hairStatus,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      coming_img_id = #{comingImgId,jdbcType=INTEGER},
-      shampoo_img_id = #{shampooImgId,jdbcType=INTEGER},
-      haircut_img_id = #{haircutImgId,jdbcType=INTEGER},
-      getout_img_id = #{getoutImgId,jdbcType=INTEGER},
-      coming_time = #{comingTime,jdbcType=TIMESTAMP},
-      created_time = #{createdTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      group_id = #{groupId,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  
-  <select id="getFaceInfoBySeatNo" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.CameraDeviceInfo" >
-    SELECT 
-   	<include refid="Base_Column_List_Face" /> 
-    FROM weshow_image image
-	LEFT JOIN weshow_camera_device device ON device.device_no = image.device_no
-	LEFT JOIN weshow_face face ON face.face_id = image.face_id
-	WHERE 
-		device.store_id = #{storeId,jdbcType=INTEGER} AND device.seat_no = #{seatNo,jdbcType=INTEGER}
-	GROUP BY face.face_id
-  </select>
-  
-  <select id="getCustomerByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-   	SELECT 
-	<include refid="Base_Column_List" /> 
-	FROM weshow_face
-	WHERE 
-	store_id =#{storeId,jdbcType=INTEGER} 
-	AND hair_status IN (1,2,3) 
-	AND `status` = 1 
-	AND coming_time >(SELECT DATE_FORMAT(CURDATE(),'%Y-%m-%d %H:%i:%s'))
-  </select>
-  
-  
-  <update id="updateByFaceId" parameterType="com.hairstyle.weshow.domain.FaceInfo" >
-    update weshow_face
-    <set >
-      <if test="storeId != null" >
-        store_id = #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="hairStatus != null" >
-        hair_status = #{hairStatus,jdbcType=INTEGER},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="comingImgId != null" >
-        coming_img_id = #{comingImgId,jdbcType=INTEGER},
-      </if>
-      <if test="shampooImgId != null" >
-        shampoo_img_id = #{shampooImgId,jdbcType=INTEGER},
-      </if>
-      <if test="haircutImgId != null" >
-        haircut_img_id = #{haircutImgId,jdbcType=INTEGER},
-      </if>
-      <if test="getoutImgId != null" >
-        getout_img_id = #{getoutImgId,jdbcType=INTEGER},
-      </if>
-      <if test="comingTime != null" >
-        coming_time = #{comingTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createdTime != null" >
-        created_time = #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="groupId != null" >
-        group_id = #{groupId,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where face_id = #{faceId,jdbcType=VARCHAR}
-  </update>
+        username = #{username,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 
-  <select id="selectByFaceId" resultMap="BaseResultMap" parameterType="java.lang.String">
-   	SELECT 
-	<include refid="Base_Column_List" /> 
-	FROM weshow_face 
-	WHERE face_id = #{faceId,jdbcType=VARCHAR}
-  </select>
+    <select id="getFaceInfoBySeatNo" resultMap="BaseResultMap"
+            parameterType="com.hairstyle.weshow.domain.CameraDeviceInfo">
+        SELECT
+        <include refid="Base_Column_List_Face"/>
+        FROM weshow_image image
+        LEFT JOIN weshow_camera_device device ON device.device_no = image.device_no
+        LEFT JOIN weshow_face face ON face.face_id = image.face_id
+        WHERE
+        device.store_id = #{storeId,jdbcType=INTEGER} AND device.seat_no = #{seatNo,jdbcType=INTEGER}
+        GROUP BY face.face_id
+    </select>
+
+    <select id="getCustomerByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM weshow_face
+        WHERE
+        store_id =#{storeId,jdbcType=INTEGER}
+        AND hair_status IN (1,2,3)
+        AND `status` = 1
+        AND coming_time >(SELECT DATE_FORMAT(CURDATE(),'%Y-%m-%d %H:%i:%s'))
+    </select>
+
+
+    <update id="updateByFaceId" parameterType="com.hairstyle.weshow.domain.FaceInfo">
+        update weshow_face
+        <set>
+            <if test="storeId != null">
+                store_id = #{storeId,jdbcType=INTEGER},
+            </if>
+            <if test="hairStatus != null">
+                hair_status = #{hairStatus,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="comingImgId != null">
+                coming_img_id = #{comingImgId,jdbcType=INTEGER},
+            </if>
+            <if test="shampooImgId != null">
+                shampoo_img_id = #{shampooImgId,jdbcType=INTEGER},
+            </if>
+            <if test="haircutImgId != null">
+                haircut_img_id = #{haircutImgId,jdbcType=INTEGER},
+            </if>
+            <if test="getoutImgId != null">
+                getout_img_id = #{getoutImgId,jdbcType=INTEGER},
+            </if>
+            <if test="comingTime != null">
+                coming_time = #{comingTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="groupId != null">
+                group_id = #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where face_id = #{faceId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByFaceId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM weshow_face
+        WHERE face_id = #{faceId,jdbcType=VARCHAR}
+    </select>
 </mapper>

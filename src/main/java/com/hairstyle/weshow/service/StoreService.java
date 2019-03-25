@@ -12,28 +12,28 @@ import com.hairstyle.weshow.exception.ImgException;
 
 public interface StoreService {
 
-	List<StoreInfo> list(StoreInfo storeInfo);
+    List<StoreInfo> list(StoreInfo storeInfo);
 
-	StoreInfo detail(StoreInfo storeInfo);
+    StoreInfo detail(StoreInfo storeInfo);
 
-	List<StoreInfo> getServicingStore(BarberInfo barberInfo);
+    List<StoreInfo> getServicingStore(BarberInfo barberInfo);
 
-	List<StoreInfo> getMyStoreList(CustomerInfo customerInfo);
+    List<StoreInfo> getMyStoreList(CustomerInfo customerInfo);
 
-	int addStore(StoreInfo storeInfo, MultipartFile storeImgFile) throws ImgException;
+    int addStore(StoreInfo storeInfo, MultipartFile storeImgFile) throws ImgException;
 
-	int shareStore(StoreInfo storeInfo);
+    int shareStore(StoreInfo storeInfo);
 
-	StoreInfo getShareStoreDetail(StoreInfo storeInfo);
+    StoreInfo getShareStoreDetail(StoreInfo storeInfo);
 
-	List<BarberInfo> getHistoryBarber(Integer storeId);
+    List<BarberInfo> getHistoryBarber(Integer storeId);
 
-	List<CustomerInfo> getHistoryCustomer(Integer storeId);
+    List<CustomerInfo> getHistoryCustomer(Integer storeId);
 
-	List<OrderInfo> getHistoreOrder(Integer storeId);
+    List<OrderInfo> getHistoreOrder(Integer storeId);
 
-	int bindBarberAndStore(Integer storeId, Integer barberId);
+    int bindBarberAndStore(Integer storeId, Integer barberId);
 
-	int removeStore(Integer storeId, Integer barberId);
+    int removeStore(Integer storeId, Integer barberId);
 
 }

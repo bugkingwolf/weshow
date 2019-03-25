@@ -6,20 +6,20 @@ import com.hairstyle.weshow.domain.OrderInfo;
 
 public interface OrderService {
 
-	OrderInfo insert(OrderInfo orderInfo) throws Exception; 
+    OrderInfo insert(OrderInfo orderInfo) throws Exception;
 
-	List<OrderInfo> getBarberOrderlist(OrderInfo orderInfo);
+    List<OrderInfo> getBarberOrderlist(OrderInfo orderInfo);
 
-	OrderInfo getOrderDetail(OrderInfo orderInfo);
+    OrderInfo getOrderDetail(OrderInfo orderInfo);
 
-	int orderConfirm(OrderInfo orderInfo);
+    int orderConfirm(OrderInfo orderInfo);
 
-	int updateImage(Integer orderId, Integer haircutImgId);
+    int updateImage(Integer orderId, Integer haircutImgId);
 
-	List<OrderInfo> getCustomerOrderlist(OrderInfo orderInfo);
+    List<OrderInfo> getCustomerOrderlist(OrderInfo orderInfo);
 
-	int finishHaircut(Integer orderId);
+    int finishHaircut(Integer orderId);
 
-	int validateCode(int orderId, int code);
+    int validateCode(int orderId, int code);
 
 }

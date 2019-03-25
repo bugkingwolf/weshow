@@ -14,9 +14,8 @@ public class OSSClientConstants {
 //    public static final String BACKET_NAME = "barbertest";//"uploadpicture";
 //    //阿里云API的文件夹名称
 //    public static final String FOLDER="hair/";
-    
-    
-    
+
+
     //阿里云API的外网域名
     @Value("${aliyun_oss_endpoint}")
     public String ENDPOINT;
@@ -30,5 +29,5 @@ public class OSSClientConstants {
     @Value("${aliyun_oss_bucket}")
     public String BACKET_NAME;//"uploadpicture";
     //阿里云API的文件夹名称
-    public static final String FOLDER="hair/";
+    public static final String FOLDER = "hair/";
 }

@@ -15,5 +15,5 @@ public interface CustomerFaceInfoMapper {
 
     int updateByPrimaryKey(CustomerFaceInfo record);
 
-	CustomerFaceInfo selectByCustomerId(Integer customerId);
+    CustomerFaceInfo selectByCustomerId(Integer customerId);
 }

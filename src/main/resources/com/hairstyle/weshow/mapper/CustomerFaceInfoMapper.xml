@@ -1,170 +1,170 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hairstyle.weshow.dao.CustomerFaceInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.hairstyle.weshow.domain.CustomerFaceInfo" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="customer_id" property="customerId" jdbcType="INTEGER" />
-    <result column="age" property="age" jdbcType="INTEGER" />
-    <result column="gender" property="gender" jdbcType="VARCHAR" />
-    <result column="beauty" property="beauty" jdbcType="DOUBLE" />
-    <result column="face_shape" property="faceShape" jdbcType="VARCHAR" />
-    <result column="race" property="race" jdbcType="VARCHAR" />
-    <result column="glasses" property="glasses" jdbcType="VARCHAR" />
-    <result column="url" property="url" jdbcType="VARCHAR" />
-    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, customer_id, age, gender, beauty, face_shape, race, glasses, url,created_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from weshow_customer_face
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from weshow_customer_face
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.hairstyle.weshow.domain.CustomerFaceInfo" >
-    insert into weshow_customer_face (customer_id, age, 
-      gender, beauty, face_shape, 
-      race, glasses, url,created_time, 
-      update_time)
-    values ( #{customerId,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, 
-      #{gender,jdbcType=VARCHAR}, #{beauty,jdbcType=DOUBLE}, #{faceShape,jdbcType=VARCHAR}, 
-      #{race,jdbcType=VARCHAR}, #{glasses,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR},
-      #{createdTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.CustomerFaceInfo" >
-    insert into weshow_customer_face
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="customerId != null" >
-        customer_id,
-      </if>
-      <if test="age != null" >
-        age,
-      </if>
-      <if test="gender != null" >
-        gender,
-      </if>
-      <if test="beauty != null" >
-        beauty,
-      </if>
-      <if test="faceShape != null" >
-        face_shape,
-      </if>
-      <if test="race != null" >
-        race,
-      </if>
-      <if test="glasses != null" >
-        glasses,
-      </if>
-      <if test="url != null" >
-        url,
-      </if>
-      <if test="createdTime != null" >
-        created_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="customerId != null" >
-        #{customerId,jdbcType=INTEGER},
-      </if>
-      <if test="age != null" >
-        #{age,jdbcType=INTEGER},
-      </if>
-      <if test="gender != null" >
-        #{gender,jdbcType=VARCHAR},
-      </if>
-      <if test="beauty != null" >
-        #{beauty,jdbcType=DOUBLE},
-      </if>
-      <if test="faceShape != null" >
-        #{faceShape,jdbcType=VARCHAR},
-      </if>
-      <if test="race != null" >
-        #{race,jdbcType=VARCHAR},
-      </if>
-      <if test="glasses != null" >
-        #{glasses,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null" >
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="createdTime != null" >
+<mapper namespace="com.hairstyle.weshow.dao.CustomerFaceInfoMapper">
+    <resultMap id="BaseResultMap" type="com.hairstyle.weshow.domain.CustomerFaceInfo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="customer_id" property="customerId" jdbcType="INTEGER"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="beauty" property="beauty" jdbcType="DOUBLE"/>
+        <result column="face_shape" property="faceShape" jdbcType="VARCHAR"/>
+        <result column="race" property="race" jdbcType="VARCHAR"/>
+        <result column="glasses" property="glasses" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, customer_id, age, gender, beauty, face_shape, race, glasses, url,created_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from weshow_customer_face
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from weshow_customer_face
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.hairstyle.weshow.domain.CustomerFaceInfo">
+        insert into weshow_customer_face (customer_id, age,
+        gender, beauty, face_shape,
+        race, glasses, url,created_time,
+        update_time)
+        values ( #{customerId,jdbcType=INTEGER}, #{age,jdbcType=INTEGER},
+        #{gender,jdbcType=VARCHAR}, #{beauty,jdbcType=DOUBLE}, #{faceShape,jdbcType=VARCHAR},
+        #{race,jdbcType=VARCHAR}, #{glasses,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR},
         #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hairstyle.weshow.domain.CustomerFaceInfo" >
-    update weshow_customer_face
-    <set >
-      <if test="customerId != null" >
-        customer_id = #{customerId,jdbcType=INTEGER},
-      </if>
-      <if test="age != null" >
+        #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.CustomerFaceInfo">
+        insert into weshow_customer_face
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="customerId != null">
+                customer_id,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="beauty != null">
+                beauty,
+            </if>
+            <if test="faceShape != null">
+                face_shape,
+            </if>
+            <if test="race != null">
+                race,
+            </if>
+            <if test="glasses != null">
+                glasses,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="customerId != null">
+                #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="beauty != null">
+                #{beauty,jdbcType=DOUBLE},
+            </if>
+            <if test="faceShape != null">
+                #{faceShape,jdbcType=VARCHAR},
+            </if>
+            <if test="race != null">
+                #{race,jdbcType=VARCHAR},
+            </if>
+            <if test="glasses != null">
+                #{glasses,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hairstyle.weshow.domain.CustomerFaceInfo">
+        update weshow_customer_face
+        <set>
+            <if test="customerId != null">
+                customer_id = #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="beauty != null">
+                beauty = #{beauty,jdbcType=DOUBLE},
+            </if>
+            <if test="faceShape != null">
+                face_shape = #{faceShape,jdbcType=VARCHAR},
+            </if>
+            <if test="race != null">
+                race = #{race,jdbcType=VARCHAR},
+            </if>
+            <if test="glasses != null">
+                glasses = #{glasses,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hairstyle.weshow.domain.CustomerFaceInfo">
+        update weshow_customer_face
+        set customer_id = #{customerId,jdbcType=INTEGER},
         age = #{age,jdbcType=INTEGER},
-      </if>
-      <if test="gender != null" >
         gender = #{gender,jdbcType=VARCHAR},
-      </if>
-      <if test="beauty != null" >
         beauty = #{beauty,jdbcType=DOUBLE},
-      </if>
-      <if test="faceShape != null" >
         face_shape = #{faceShape,jdbcType=VARCHAR},
-      </if>
-      <if test="race != null" >
         race = #{race,jdbcType=VARCHAR},
-      </if>
-      <if test="glasses != null" >
         glasses = #{glasses,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null" >
         url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="createdTime != null" >
-        created_time = #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.hairstyle.weshow.domain.CustomerFaceInfo" >
-    update weshow_customer_face
-    set customer_id = #{customerId,jdbcType=INTEGER},
-      age = #{age,jdbcType=INTEGER},
-      gender = #{gender,jdbcType=VARCHAR},
-      beauty = #{beauty,jdbcType=DOUBLE},
-      face_shape = #{faceShape,jdbcType=VARCHAR},
-      race = #{race,jdbcType=VARCHAR},
-      glasses = #{glasses,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  
-  <select id="selectByCustomerId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from weshow_customer_face
-    where customer_id = #{customerId,jdbcType=INTEGER}
-  </select>
+        update_time = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByCustomerId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from weshow_customer_face
+        where customer_id = #{customerId,jdbcType=INTEGER}
+    </select>
 </mapper>

@@ -19,11 +19,11 @@ public interface OrderInfoMapper {
 
     int updateByPrimaryKey(OrderInfo record);
 
-	List<OrderInfo> getOrderlist(OrderInfo orderInfo);
+    List<OrderInfo> getOrderlist(OrderInfo orderInfo);
 
-	int updateImage(String string);
+    int updateImage(String string);
 
-	OrderInfo getOrderByBarberIdAndCustomerId(@Param("customerId")Integer customerId, @Param("barberId")Integer barberId);
+    OrderInfo getOrderByBarberIdAndCustomerId(@Param("customerId") Integer customerId, @Param("barberId") Integer barberId);
 
-	List<OrderInfo> getHistoryOrderList(Integer storeId);
+    List<OrderInfo> getHistoryOrderList(Integer storeId);
 }

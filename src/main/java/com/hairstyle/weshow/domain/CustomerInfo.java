@@ -57,8 +57,8 @@ public class CustomerInfo {
     private String headurl;
 
     private String name;
-    
-    private CustomerFaceInfo customerFaceInfo; 
-    
+
+    private CustomerFaceInfo customerFaceInfo;
+
     private Date hairCutTime;
 }

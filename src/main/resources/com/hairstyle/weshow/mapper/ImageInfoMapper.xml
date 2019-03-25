@@ -1,252 +1,253 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hairstyle.weshow.dao.ImageInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.hairstyle.weshow.domain.ImageInfo" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="url" property="url" jdbcType="VARCHAR" />
-    <result column="type" property="type" jdbcType="INTEGER" />
-    <result column="creator_openid" property="creatorOpenid" jdbcType="VARCHAR" />
-    <result column="file_size" property="fileSize" jdbcType="INTEGER" />
-    <result column="store_id" property="storeId" jdbcType="INTEGER" />
-    <result column="barber_id" property="barberId" jdbcType="INTEGER" />
-    <result column="customer_id" property="customerId" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
-    <result column="deleted" property="deleted" jdbcType="INTEGER" />
-    <result column="device_no" property="deviceNo" jdbcType="VARCHAR" />
-    <result column="face_id" property="faceId" jdbcType="VARCHAR" />
-    <result column="face_token" property="faceToken" jdbcType="VARCHAR" />
-    <result column="track_id" property="trackId" jdbcType="VARCHAR" />
-    <result column="hair_status" property="hairStatus" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, url, type, creator_openid, file_size, store_id, barber_id, customer_id, create_time, 
-    update_time, deleted, device_no, face_id, hair_status,face_token,track_id
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from weshow_image
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from weshow_image
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.hairstyle.weshow.domain.ImageInfo" useGeneratedKeys="true" keyProperty="id">
-    insert into weshow_image (id, url, type, 
-      creator_openid, file_size, store_id, 
-      barber_id, customer_id, create_time, 
-      update_time, deleted, device_no, 
-      face_id, hair_status,face_token,track_id)
-    values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
-      #{creatorOpenid,jdbcType=VARCHAR}, #{fileSize,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
-      #{barberId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}, #{deviceNo,jdbcType=VARCHAR}, 
-      #{faceId,jdbcType=VARCHAR}, #{hairStatus,jdbcType=INTEGER}, #{faceToken,jdbcType=VARCHAR}, 
-      #{trackId,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.ImageInfo" useGeneratedKeys="true" keyProperty="id">
-    insert into weshow_image
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="url != null" >
-        url,
-      </if>
-      <if test="type != null" >
-        type,
-      </if>
-      <if test="creatorOpenid != null" >
-        creator_openid,
-      </if>
-      <if test="fileSize != null" >
-        file_size,
-      </if>
-      <if test="storeId != null" >
-        store_id,
-      </if>
-      <if test="barberId != null" >
-        barber_id,
-      </if>
-      <if test="customerId != null" >
-        customer_id,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-      <if test="deleted != null" >
-        deleted,
-      </if>
-      <if test="deviceNo != null" >
-        device_no,
-      </if>
-      <if test="faceId != null" >
-        face_id,
-      </if>
-      <if test="faceToken != null" >
-        face_token,
-      </if>
-      <if test="trackId != null" >
-        track_id,
-      </if>
-      <if test="hairStatus != null" >
-        hair_status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="url != null" >
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=INTEGER},
-      </if>
-      <if test="creatorOpenid != null" >
-        #{creatorOpenid,jdbcType=VARCHAR},
-      </if>
-      <if test="fileSize != null" >
-        #{fileSize,jdbcType=INTEGER},
-      </if>
-      <if test="storeId != null" >
-        #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="barberId != null" >
-        #{barberId,jdbcType=INTEGER},
-      </if>
-      <if test="customerId != null" >
-        #{customerId,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="deleted != null" >
-        #{deleted,jdbcType=INTEGER},
-      </if>
-      <if test="deviceNo != null" >
-        #{deviceNo,jdbcType=VARCHAR},
-      </if>
-      <if test="faceId != null" >
-        #{faceId,jdbcType=VARCHAR},
-      </if>
-      <if test="faceToken != null" >
-        #{faceToken,jdbcType=VARCHAR},
-      </if>
-      <if test="trackId != null" >
-        #{trackId,jdbcType=VARCHAR},
-      </if>
-      <if test="hairStatus != null" >
-        #{hairStatus,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hairstyle.weshow.domain.ImageInfo" >
-    update weshow_image
-    <set >
-      <if test="url != null" >
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null" >
+<mapper namespace="com.hairstyle.weshow.dao.ImageInfoMapper">
+    <resultMap id="BaseResultMap" type="com.hairstyle.weshow.domain.ImageInfo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="creator_openid" property="creatorOpenid" jdbcType="VARCHAR"/>
+        <result column="file_size" property="fileSize" jdbcType="INTEGER"/>
+        <result column="store_id" property="storeId" jdbcType="INTEGER"/>
+        <result column="barber_id" property="barberId" jdbcType="INTEGER"/>
+        <result column="customer_id" property="customerId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" jdbcType="INTEGER"/>
+        <result column="device_no" property="deviceNo" jdbcType="VARCHAR"/>
+        <result column="face_id" property="faceId" jdbcType="VARCHAR"/>
+        <result column="face_token" property="faceToken" jdbcType="VARCHAR"/>
+        <result column="track_id" property="trackId" jdbcType="VARCHAR"/>
+        <result column="hair_status" property="hairStatus" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, url, type, creator_openid, file_size, store_id, barber_id, customer_id, create_time,
+        update_time, deleted, device_no, face_id, hair_status,face_token,track_id
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from weshow_image
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from weshow_image
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.hairstyle.weshow.domain.ImageInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into weshow_image (id, url, type,
+        creator_openid, file_size, store_id,
+        barber_id, customer_id, create_time,
+        update_time, deleted, device_no,
+        face_id, hair_status,face_token,track_id)
+        values (#{id,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},
+        #{creatorOpenid,jdbcType=VARCHAR}, #{fileSize,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER},
+        #{barberId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=INTEGER}, #{deviceNo,jdbcType=VARCHAR},
+        #{faceId,jdbcType=VARCHAR}, #{hairStatus,jdbcType=INTEGER}, #{faceToken,jdbcType=VARCHAR},
+        #{trackId,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.ImageInfo" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into weshow_image
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="creatorOpenid != null">
+                creator_openid,
+            </if>
+            <if test="fileSize != null">
+                file_size,
+            </if>
+            <if test="storeId != null">
+                store_id,
+            </if>
+            <if test="barberId != null">
+                barber_id,
+            </if>
+            <if test="customerId != null">
+                customer_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="deleted != null">
+                deleted,
+            </if>
+            <if test="deviceNo != null">
+                device_no,
+            </if>
+            <if test="faceId != null">
+                face_id,
+            </if>
+            <if test="faceToken != null">
+                face_token,
+            </if>
+            <if test="trackId != null">
+                track_id,
+            </if>
+            <if test="hairStatus != null">
+                hair_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="creatorOpenid != null">
+                #{creatorOpenid,jdbcType=VARCHAR},
+            </if>
+            <if test="fileSize != null">
+                #{fileSize,jdbcType=INTEGER},
+            </if>
+            <if test="storeId != null">
+                #{storeId,jdbcType=INTEGER},
+            </if>
+            <if test="barberId != null">
+                #{barberId,jdbcType=INTEGER},
+            </if>
+            <if test="customerId != null">
+                #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="deviceNo != null">
+                #{deviceNo,jdbcType=VARCHAR},
+            </if>
+            <if test="faceId != null">
+                #{faceId,jdbcType=VARCHAR},
+            </if>
+            <if test="faceToken != null">
+                #{faceToken,jdbcType=VARCHAR},
+            </if>
+            <if test="trackId != null">
+                #{trackId,jdbcType=VARCHAR},
+            </if>
+            <if test="hairStatus != null">
+                #{hairStatus,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hairstyle.weshow.domain.ImageInfo">
+        update weshow_image
+        <set>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="creatorOpenid != null">
+                creator_openid = #{creatorOpenid,jdbcType=VARCHAR},
+            </if>
+            <if test="fileSize != null">
+                file_size = #{fileSize,jdbcType=INTEGER},
+            </if>
+            <if test="storeId != null">
+                store_id = #{storeId,jdbcType=INTEGER},
+            </if>
+            <if test="barberId != null">
+                barber_id = #{barberId,jdbcType=INTEGER},
+            </if>
+            <if test="customerId != null">
+                customer_id = #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=INTEGER},
+            </if>
+            <if test="deviceNo != null">
+                device_no = #{deviceNo,jdbcType=VARCHAR},
+            </if>
+            <if test="faceId != null">
+                face_id = #{faceId,jdbcType=VARCHAR},
+            </if>
+            <if test="faceToken != null">
+                face_token = #{faceToken,jdbcType=VARCHAR},
+            </if>
+            <if test="trackId != null">
+                track_id = #{trackId,jdbcType=VARCHAR},
+            </if>
+            <if test="hairStatus != null">
+                hair_status = #{hairStatus,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hairstyle.weshow.domain.ImageInfo">
+        update weshow_image
+        set url = #{url,jdbcType=VARCHAR},
         type = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="creatorOpenid != null" >
         creator_openid = #{creatorOpenid,jdbcType=VARCHAR},
-      </if>
-      <if test="fileSize != null" >
         file_size = #{fileSize,jdbcType=INTEGER},
-      </if>
-      <if test="storeId != null" >
         store_id = #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="barberId != null" >
         barber_id = #{barberId,jdbcType=INTEGER},
-      </if>
-      <if test="customerId != null" >
         customer_id = #{customerId,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="deleted != null" >
         deleted = #{deleted,jdbcType=INTEGER},
-      </if>
-      <if test="deviceNo != null" >
         device_no = #{deviceNo,jdbcType=VARCHAR},
-      </if>
-      <if test="faceId != null" >
         face_id = #{faceId,jdbcType=VARCHAR},
-      </if>
-      <if test="faceToken != null" >
         face_token = #{faceToken,jdbcType=VARCHAR},
-      </if>
-      <if test="trackId != null" >
         track_id = #{trackId,jdbcType=VARCHAR},
-      </if>
-      <if test="hairStatus != null" >
-        hair_status = #{hairStatus,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.hairstyle.weshow.domain.ImageInfo" >
-    update weshow_image
-    set url = #{url,jdbcType=VARCHAR},
-      type = #{type,jdbcType=INTEGER},
-      creator_openid = #{creatorOpenid,jdbcType=VARCHAR},
-      file_size = #{fileSize,jdbcType=INTEGER},
-      store_id = #{storeId,jdbcType=INTEGER},
-      barber_id = #{barberId,jdbcType=INTEGER},
-      customer_id = #{customerId,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      deleted = #{deleted,jdbcType=INTEGER},
-      device_no = #{deviceNo,jdbcType=VARCHAR},
-      face_id = #{faceId,jdbcType=VARCHAR},
-      face_token = #{faceToken,jdbcType=VARCHAR},
-      track_id = #{trackId,jdbcType=VARCHAR},
-      hair_status = #{hairStatus,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  
-  <select id="getByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-   	select 
-   	<include refid="Base_Column_List" /> 
-   	FROM weshow_image 
-   	WHERE store_id = #{storeId,jdbcType=INTEGER}
-   	and deleted = 1
-  </select>
+        hair_status = #{hairStatus,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 
-  <select id="getImageByfaceId" resultMap="BaseResultMap" parameterType="String">
-   	select 
-   	<include refid="Base_Column_List" /> 
-	FROM weshow_image 
-	WHERE face_id = #{faceId,jdbcType=VARCHAR} 
-	AND (create_time > (SELECT DATE_FORMAT(CURDATE(),'%Y-%m-%d %H:%i:%s')) 
-	OR update_time > (SELECT DATE_FORMAT(CURDATE(),'%Y-%m-%d %H:%i:%s')))
-	ORDER BY create_time DESC
-  </select>
+    <select id="getByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        FROM weshow_image
+        WHERE store_id = #{storeId,jdbcType=INTEGER}
+        and deleted = 1
+    </select>
 
-  <select id="getImageByfaceIdAndDeviceNo" resultMap="BaseResultMap">
-   	select 
-   	<include refid="Base_Column_List" /> 
-	FROM weshow_image 
-	WHERE face_id = #{faceId,jdbcType=VARCHAR} 
-		AND device_no = = #{deviceNo,jdbcType=VARCHAR} 
-	AND (create_time > (SELECT DATE_FORMAT(CURDATE(),'%Y-%m-%d %H:%i:%s')) 
-	OR update_time > (SELECT DATE_FORMAT(CURDATE(),'%Y-%m-%d %H:%i:%s')))
-	ORDER BY create_time DESC
-  </select>
+    <select id="getImageByfaceId" resultMap="BaseResultMap" parameterType="String">
+        select
+        <include refid="Base_Column_List"/>
+        FROM weshow_image
+        WHERE face_id = #{faceId,jdbcType=VARCHAR}
+        AND (create_time > (SELECT DATE_FORMAT(CURDATE(),'%Y-%m-%d %H:%i:%s'))
+        OR update_time > (SELECT DATE_FORMAT(CURDATE(),'%Y-%m-%d %H:%i:%s')))
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="getImageByfaceIdAndDeviceNo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        FROM weshow_image
+        WHERE face_id = #{faceId,jdbcType=VARCHAR}
+        AND device_no = = #{deviceNo,jdbcType=VARCHAR}
+        AND (create_time > (SELECT DATE_FORMAT(CURDATE(),'%Y-%m-%d %H:%i:%s'))
+        OR update_time > (SELECT DATE_FORMAT(CURDATE(),'%Y-%m-%d %H:%i:%s')))
+        ORDER BY create_time DESC
+    </select>
 
 </mapper>

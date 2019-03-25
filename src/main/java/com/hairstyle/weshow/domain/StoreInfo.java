@@ -13,83 +13,83 @@ import lombok.ToString;
 @Setter
 public class StoreInfo {
 
-	/**
-	 * 开始下标
-	 */
-	private Integer start = 0;
+    /**
+     * 开始下标
+     */
+    private Integer start = 0;
 
-	/**
-	 * 界限值
-	 */
-	private Integer limit = 20;
+    /**
+     * 界限值
+     */
+    private Integer limit = 20;
 
-	private Integer storeId;
+    private Integer storeId;
 
-	private String name;
+    private String name;
 
-	private String mobile;
+    private String mobile;
 
-	private Date createdTime;
+    private Date createdTime;
 
-	private Date updatedTime;
+    private Date updatedTime;
 
-	private Integer orderType;
-	
-	private Integer category;
+    private Integer orderType;
 
-	private Integer startingPrice;
+    private Integer category;
 
-	private Integer customerId;
+    private Integer startingPrice;
 
-	private Integer shopownerId;
+    private Integer customerId;
 
-	// 面积
-	private Integer acreage;
+    private Integer shopownerId;
 
-	private Integer seatNum;
+    // 面积
+    private Integer acreage;
 
-	private String intelligentDevice;
+    private Integer seatNum;
 
-	private Integer headId;
+    private String intelligentDevice;
 
-	private Integer barberNum;
+    private Integer headId;
 
-	private Integer customerNum;
+    private Integer barberNum;
 
-	private Integer faceNum;
+    private Integer customerNum;
 
-	private String address;
+    private Integer faceNum;
 
-	private Double distance;
+    private String address;
 
-	private String headImage;
+    private Double distance;
 
-	private List<BarberInfo> barberList;
+    private String headImage;
 
-	private List<CustomerInfo> customerList;
+    private List<BarberInfo> barberList;
 
-	private List<FaceInfo> faceList;
+    private List<CustomerInfo> customerList;
 
-	private List<ImageInfo> imageList;
-	
-	private BigDecimal longitude;
-	
-	private BigDecimal latitude;
-	
-	private StoreAddressInfo storeAddress;
-	
-	private String businessTime;
+    private List<FaceInfo> faceList;
 
-	private Integer status;
+    private List<ImageInfo> imageList;
 
-	private Integer share;
+    private BigDecimal longitude;
 
-	private Integer income;
-	
-	private Integer historyBarberNum;
-	
-	private Integer historyCustomerNum;
+    private BigDecimal latitude;
 
-	private Integer historyOrderNum;
-	
+    private StoreAddressInfo storeAddress;
+
+    private String businessTime;
+
+    private Integer status;
+
+    private Integer share;
+
+    private Integer income;
+
+    private Integer historyBarberNum;
+
+    private Integer historyCustomerNum;
+
+    private Integer historyOrderNum;
+
 }

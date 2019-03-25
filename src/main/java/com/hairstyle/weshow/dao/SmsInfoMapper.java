@@ -15,5 +15,5 @@ public interface SmsInfoMapper {
 
     int updateByPrimaryKey(SmsInfo record);
 
-	SmsInfo getByMobile(String mobile);
+    SmsInfo getByMobile(String mobile);
 }

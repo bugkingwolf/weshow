@@ -35,7 +35,7 @@ public class ImageInfo {
     private String deviceNo;
 
     private String faceId;
-    
+
     private String faceToken;
 
     private String trackId;

@@ -1,137 +1,138 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hairstyle.weshow.dao.CustomerIncomeInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.hairstyle.weshow.domain.CustomerIncomeInfo" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="customer_id" property="customerId" jdbcType="INTEGER" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="amount" property="amount" jdbcType="INTEGER" />
-    <result column="type" property="type" jdbcType="INTEGER" />
-    <result column="pay_way" property="payWay" jdbcType="INTEGER" />
-    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, customer_id, title, amount, type, pay_way, created_time
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from weshow_customer_income
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from weshow_customer_income
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.hairstyle.weshow.domain.CustomerIncomeInfo" >
-    insert into weshow_customer_income (id, customer_id, title, 
-      amount, type, pay_way, created_time)
-    values (#{id,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{amount,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{payWay,jdbcType=INTEGER}, 
-      #{createdTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.CustomerIncomeInfo" >
-    insert into weshow_customer_income
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="customerId != null" >
-        customer_id,
-      </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="amount != null" >
-        amount,
-      </if>
-      <if test="type != null" >
-        type,
-      </if>
-      <if test="payWay != null" >
-        pay_way,
-      </if>
-      <if test="createdTime != null" >
-        created_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="customerId != null" >
-        #{customerId,jdbcType=INTEGER},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="amount != null" >
-        #{amount,jdbcType=INTEGER},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=INTEGER},
-      </if>
-      <if test="payWay != null" >
-        #{payWay,jdbcType=INTEGER},
-      </if>
-      <if test="createdTime != null" >
-        #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hairstyle.weshow.domain.CustomerIncomeInfo" >
-    update weshow_customer_income
-    <set >
-      <if test="customerId != null" >
-        customer_id = #{customerId,jdbcType=INTEGER},
-      </if>
-      <if test="title != null" >
+<mapper namespace="com.hairstyle.weshow.dao.CustomerIncomeInfoMapper">
+    <resultMap id="BaseResultMap" type="com.hairstyle.weshow.domain.CustomerIncomeInfo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="customer_id" property="customerId" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="amount" property="amount" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="pay_way" property="payWay" jdbcType="INTEGER"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, customer_id, title, amount, type, pay_way, created_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from weshow_customer_income
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from weshow_customer_income
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.hairstyle.weshow.domain.CustomerIncomeInfo">
+        insert into weshow_customer_income (id, customer_id, title,
+        amount, type, pay_way, created_time)
+        values (#{id,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
+        #{amount,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{payWay,jdbcType=INTEGER},
+        #{createdTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.CustomerIncomeInfo">
+        insert into weshow_customer_income
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="customerId != null">
+                customer_id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="payWay != null">
+                pay_way,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="customerId != null">
+                #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="payWay != null">
+                #{payWay,jdbcType=INTEGER},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.hairstyle.weshow.domain.CustomerIncomeInfo">
+        update weshow_customer_income
+        <set>
+            <if test="customerId != null">
+                customer_id = #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="payWay != null">
+                pay_way = #{payWay,jdbcType=INTEGER},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.hairstyle.weshow.domain.CustomerIncomeInfo">
+        update weshow_customer_income
+        set customer_id = #{customerId,jdbcType=INTEGER},
         title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="amount != null" >
         amount = #{amount,jdbcType=INTEGER},
-      </if>
-      <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="payWay != null" >
         pay_way = #{payWay,jdbcType=INTEGER},
-      </if>
-      <if test="createdTime != null" >
-        created_time = #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.hairstyle.weshow.domain.CustomerIncomeInfo" >
-    update weshow_customer_income
-    set customer_id = #{customerId,jdbcType=INTEGER},
-      title = #{title,jdbcType=VARCHAR},
-      amount = #{amount,jdbcType=INTEGER},
-      type = #{type,jdbcType=INTEGER},
-      pay_way = #{payWay,jdbcType=INTEGER},
-      created_time = #{createdTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        created_time = #{createdTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 
-  <select id="getByCustomerId" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.CustomerAccountInfo" >
-    select 
-    <include refid="Base_Column_List" />
-    from weshow_customer_income
-    <where>
-    	customer_id = #{customerId,jdbcType=INTEGER}
-    	<if test="type != null">
-    		AND type = #{type,jdbcType=INTEGER}
-    	</if>
-    </where>
-    limit #{start},#{limit}
-  </select>
+    <select id="getByCustomerId" resultMap="BaseResultMap"
+            parameterType="com.hairstyle.weshow.domain.CustomerAccountInfo">
+        select
+        <include refid="Base_Column_List"/>
+        from weshow_customer_income
+        <where>
+            customer_id = #{customerId,jdbcType=INTEGER}
+            <if test="type != null">
+                AND type = #{type,jdbcType=INTEGER}
+            </if>
+        </where>
+        limit #{start},#{limit}
+    </select>
 
-  <select id="getTotalIncomeByBarberId" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
-    SELECT SUM(income.amount) 
-    FROM weshow_customer_income income
-	LEFT JOIN weshow_barber barber ON income.customer_id = barber.user_id
-	WHERE barber.barber_id = #{barberId,jdbcType=INTEGER}
-	AND income.type = 1
-  </select>
+    <select id="getTotalIncomeByBarberId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        SELECT SUM(income.amount)
+        FROM weshow_customer_income income
+        LEFT JOIN weshow_barber barber ON income.customer_id = barber.user_id
+        WHERE barber.barber_id = #{barberId,jdbcType=INTEGER}
+        AND income.type = 1
+    </select>
 </mapper>

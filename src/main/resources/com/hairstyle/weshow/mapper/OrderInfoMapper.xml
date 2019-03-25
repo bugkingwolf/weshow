@@ -1,485 +1,486 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hairstyle.weshow.dao.OrderInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.hairstyle.weshow.domain.OrderInfo" >
-    <id column="order_id" property="orderId" jdbcType="INTEGER" />
-    <result column="barber_id" property="barberId" jdbcType="INTEGER" />
-    <result column="customer_id" property="customerId" jdbcType="INTEGER" />
-    <result column="store_id" property="storeId" jdbcType="INTEGER" />
-    <result column="settlement_time" property="settlementTime" jdbcType="TIMESTAMP" />
-    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
-    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
-    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
-    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
-    <result column="service_ids" property="serviceIds" jdbcType="VARCHAR" />
-    <result column="service_num" property="serviceNum" jdbcType="INTEGER" />
-    <result column="browse_num" property="browseNum" jdbcType="INTEGER" />
-    <result column="pay_status" property="payStatus" jdbcType="INTEGER" />
-    <result column="pay_method" property="payMethod" jdbcType="INTEGER" />
-    <result column="amount" property="amount" jdbcType="INTEGER" />
-    <result column="open_id" property="openId" jdbcType="VARCHAR" />
-    <result column="alipay_id" property="alipayId" jdbcType="VARCHAR" />
-    <result column="begin_img_id" property="beginImgId" jdbcType="INTEGER" />
-    <result column="end_img_id" property="endImgId" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
-    <result column="code" property="code" jdbcType="INTEGER" />
-    <collection property="barberServiceList" column="order_id"
-			ofType="com.hairstyle.weshow.domain.OrderServiceInfo" javaType="ArrayList"
-			select="com.hairstyle.weshow.dao.OrderServiceInfoMapper.getByOrderId">
-	</collection>
-  </resultMap>
-  
-  <sql id="Base_Column_List" >
-    order_id, barber_id, customer_id, store_id, settlement_time, start_time, end_time, created_time, 
-    updated_time, service_ids, service_num, browse_num, pay_status, pay_method, amount, 
-    open_id, alipay_id,begin_img_id,end_img_id, `status`,remark,code
-  </sql>
+<mapper namespace="com.hairstyle.weshow.dao.OrderInfoMapper">
+    <resultMap id="BaseResultMap" type="com.hairstyle.weshow.domain.OrderInfo">
+        <id column="order_id" property="orderId" jdbcType="INTEGER"/>
+        <result column="barber_id" property="barberId" jdbcType="INTEGER"/>
+        <result column="customer_id" property="customerId" jdbcType="INTEGER"/>
+        <result column="store_id" property="storeId" jdbcType="INTEGER"/>
+        <result column="settlement_time" property="settlementTime" jdbcType="TIMESTAMP"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+        <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
+        <result column="service_ids" property="serviceIds" jdbcType="VARCHAR"/>
+        <result column="service_num" property="serviceNum" jdbcType="INTEGER"/>
+        <result column="browse_num" property="browseNum" jdbcType="INTEGER"/>
+        <result column="pay_status" property="payStatus" jdbcType="INTEGER"/>
+        <result column="pay_method" property="payMethod" jdbcType="INTEGER"/>
+        <result column="amount" property="amount" jdbcType="INTEGER"/>
+        <result column="open_id" property="openId" jdbcType="VARCHAR"/>
+        <result column="alipay_id" property="alipayId" jdbcType="VARCHAR"/>
+        <result column="begin_img_id" property="beginImgId" jdbcType="INTEGER"/>
+        <result column="end_img_id" property="endImgId" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="INTEGER"/>
+        <collection property="barberServiceList" column="order_id"
+                    ofType="com.hairstyle.weshow.domain.OrderServiceInfo" javaType="ArrayList"
+                    select="com.hairstyle.weshow.dao.OrderServiceInfoMapper.getByOrderId">
+        </collection>
+    </resultMap>
 
-  <sql id="Base_Column_List_Relation" >
-    orders.order_id, 
-    orders.barber_id, 
-    orders.customer_id, 
-    orders.store_id, 
-    orders.settlement_time, 
-    orders.start_time, 
-    orders.end_time, 
-    orders.created_time, 
-    orders.updated_time, 
-    orders.service_ids, 
-    orders.service_num, 
-    orders.browse_num, 
-    orders.pay_status, 
-    orders.pay_method, 
-    orders.amount, 
-    orders.open_id, 
-    orders.alipay_id,
-    orders.begin_img_id,
-    orders.end_img_id, 
-    orders.`status`,
-    orders.remark,
-    orders.code,
-    relation.id, 
-    relation.no_limit_time, 
-    relation.adjust_time,
-    relation.positions,
-    relation.no_limit_store,
-    relation.adjust_store,
-    relation.store_ids
-  </sql>
-  
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from weshow_order
-    where order_id = #{orderId,jdbcType=INTEGER}
-  </select>
-  
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from weshow_order
-    where order_id = #{orderId,jdbcType=INTEGER}
-  </delete>
-  
-  <insert id="insert" parameterType="com.hairstyle.weshow.domain.OrderInfo" useGeneratedKeys="true" keyProperty="orderId">
-    insert into weshow_order (barber_id, customer_id, store_id,
-      settlement_time, start_time, end_time, 
-      created_time, updated_time, service_ids, 
-      service_num, browse_num, pay_status, 
-      pay_method, amount, open_id, 
-      alipay_id,begin_img_id,end_img_id, `status`,remark, code)
-    values (#{barberId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
-      #{settlementTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
-      #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{serviceIds,jdbcType=VARCHAR}, 
-      #{serviceNum,jdbcType=INTEGER}, #{browseNum,jdbcType=INTEGER}, #{payStatus,jdbcType=INTEGER}, 
-      #{payMethod,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, 
-      #{alipayId,jdbcType=VARCHAR}, #{beginImgId,jdbcType=INTEGER}, #{endImgId,jdbcType=INTEGER},
-      #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{code,jdbcType=INTEGER})
-  </insert>
-  
-  <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.OrderInfo" >
-    insert into weshow_order
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="orderId != null" >
-        order_id,
-      </if>
-      <if test="barberId != null" >
-        barber_id,
-      </if>
-      <if test="customerId != null" >
-        customer_id,
-      </if>
-      <if test="storeId != null" >
-        store_id,
-      </if>
-      <if test="settlementTime != null" >
-        settlement_time,
-      </if>
-      <if test="startTime != null" >
-        start_time,
-      </if>
-      <if test="endTime != null" >
-        end_time,
-      </if>
-      <if test="createdTime != null" >
-        created_time,
-      </if>
-      <if test="updatedTime != null" >
-        updated_time,
-      </if>
-      <if test="serviceIds != null" >
-        service_ids,
-      </if>
-      <if test="serviceNum != null" >
-        service_num,
-      </if>
-      <if test="browseNum != null" >
-        browse_num,
-      </if>
-      <if test="payStatus != null" >
-        pay_status,
-      </if>
-      <if test="payMethod != null" >
-        pay_method,
-      </if>
-      <if test="amount != null" >
-        amount,
-      </if>
-      <if test="openId != null" >
-        open_id,
-      </if>
-      <if test="alipayId != null" >
-        alipay_id,
-      </if>
-      <if test="beginImgId != null" >
-        begin_img_id,
-      </if>
-      <if test="endnImgId != null" >
-        end_img_id,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="remark != null" >
-        remark,
-      </if>
-      <if test="code != null" >
-        code,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="orderId != null" >
-        #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="barberId != null" >
-        #{barberId,jdbcType=INTEGER},
-      </if>
-      <if test="customerId != null" >
-        #{customerId,jdbcType=INTEGER},
-      </if>
-      <if test="storeId != null" >
-        #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="settlementTime != null" >
-        #{settlementTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="startTime != null" >
-        #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createdTime != null" >
-        #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatedTime != null" >
-        #{updatedTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="serviceIds != null" >
-        #{serviceIds,jdbcType=VARCHAR},
-      </if>
-      <if test="serviceNum != null" >
-        #{serviceNum,jdbcType=INTEGER},
-      </if>
-      <if test="browseNum != null" >
-        #{browseNum,jdbcType=INTEGER},
-      </if>
-      <if test="payStatus != null" >
-        #{payStatus,jdbcType=INTEGER},
-      </if>
-      <if test="payMethod != null" >
-        #{payMethod,jdbcType=INTEGER},
-      </if>
-      <if test="amount != null" >
-        #{amount,jdbcType=INTEGER},
-      </if>
-      <if test="openId != null" >
-        #{openId,jdbcType=VARCHAR},
-      </if>
-      <if test="alipayId != null" >
-        #{alipayId,jdbcType=VARCHAR},
-      </if>
-      <if test="beginImgId != null" >
-        #{beginImgId,jdbcType=INTEGER},
-      </if>
-      <if test="endImgId != null" >
-        #{endImgId,jdbcType=INTEGER},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null" >
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="code != null" >
-        #{code,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  
-  <update id="updateByPrimaryKeySelective" parameterType="com.hairstyle.weshow.domain.OrderInfo" >
-    update weshow_order
-    <set >
-      <if test="barberId != null" >
-        barber_id = #{barberId,jdbcType=INTEGER},
-      </if>
-      <if test="customerId != null" >
+    <sql id="Base_Column_List">
+        order_id, barber_id, customer_id, store_id, settlement_time, start_time, end_time, created_time,
+        updated_time, service_ids, service_num, browse_num, pay_status, pay_method, amount,
+        open_id, alipay_id,begin_img_id,end_img_id, `status`,remark,code
+    </sql>
+
+    <sql id="Base_Column_List_Relation">
+        orders.order_id,
+        orders.barber_id,
+        orders.customer_id,
+        orders.store_id,
+        orders.settlement_time,
+        orders.start_time,
+        orders.end_time,
+        orders.created_time,
+        orders.updated_time,
+        orders.service_ids,
+        orders.service_num,
+        orders.browse_num,
+        orders.pay_status,
+        orders.pay_method,
+        orders.amount,
+        orders.open_id,
+        orders.alipay_id,
+        orders.begin_img_id,
+        orders.end_img_id,
+        orders.`status`,
+        orders.remark,
+        orders.code,
+        relation.id,
+        relation.no_limit_time,
+        relation.adjust_time,
+        relation.positions,
+        relation.no_limit_store,
+        relation.adjust_store,
+        relation.store_ids
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from weshow_order
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from weshow_order
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.hairstyle.weshow.domain.OrderInfo" useGeneratedKeys="true"
+            keyProperty="orderId">
+        insert into weshow_order (barber_id, customer_id, store_id,
+        settlement_time, start_time, end_time,
+        created_time, updated_time, service_ids,
+        service_num, browse_num, pay_status,
+        pay_method, amount, open_id,
+        alipay_id,begin_img_id,end_img_id, `status`,remark, code)
+        values (#{barberId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER},
+        #{settlementTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
+        #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{serviceIds,jdbcType=VARCHAR},
+        #{serviceNum,jdbcType=INTEGER}, #{browseNum,jdbcType=INTEGER}, #{payStatus,jdbcType=INTEGER},
+        #{payMethod,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR},
+        #{alipayId,jdbcType=VARCHAR}, #{beginImgId,jdbcType=INTEGER}, #{endImgId,jdbcType=INTEGER},
+        #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{code,jdbcType=INTEGER})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.hairstyle.weshow.domain.OrderInfo">
+        insert into weshow_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="barberId != null">
+                barber_id,
+            </if>
+            <if test="customerId != null">
+                customer_id,
+            </if>
+            <if test="storeId != null">
+                store_id,
+            </if>
+            <if test="settlementTime != null">
+                settlement_time,
+            </if>
+            <if test="startTime != null">
+                start_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+            <if test="serviceIds != null">
+                service_ids,
+            </if>
+            <if test="serviceNum != null">
+                service_num,
+            </if>
+            <if test="browseNum != null">
+                browse_num,
+            </if>
+            <if test="payStatus != null">
+                pay_status,
+            </if>
+            <if test="payMethod != null">
+                pay_method,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="openId != null">
+                open_id,
+            </if>
+            <if test="alipayId != null">
+                alipay_id,
+            </if>
+            <if test="beginImgId != null">
+                begin_img_id,
+            </if>
+            <if test="endnImgId != null">
+                end_img_id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="barberId != null">
+                #{barberId,jdbcType=INTEGER},
+            </if>
+            <if test="customerId != null">
+                #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="storeId != null">
+                #{storeId,jdbcType=INTEGER},
+            </if>
+            <if test="settlementTime != null">
+                #{settlementTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="startTime != null">
+                #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="serviceIds != null">
+                #{serviceIds,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceNum != null">
+                #{serviceNum,jdbcType=INTEGER},
+            </if>
+            <if test="browseNum != null">
+                #{browseNum,jdbcType=INTEGER},
+            </if>
+            <if test="payStatus != null">
+                #{payStatus,jdbcType=INTEGER},
+            </if>
+            <if test="payMethod != null">
+                #{payMethod,jdbcType=INTEGER},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="openId != null">
+                #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="alipayId != null">
+                #{alipayId,jdbcType=VARCHAR},
+            </if>
+            <if test="beginImgId != null">
+                #{beginImgId,jdbcType=INTEGER},
+            </if>
+            <if test="endImgId != null">
+                #{endImgId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.hairstyle.weshow.domain.OrderInfo">
+        update weshow_order
+        <set>
+            <if test="barberId != null">
+                barber_id = #{barberId,jdbcType=INTEGER},
+            </if>
+            <if test="customerId != null">
+                customer_id = #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="storeId != null">
+                store_id = #{storeId,jdbcType=INTEGER},
+            </if>
+            <if test="settlementTime != null">
+                settlement_time = #{settlementTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="serviceIds != null">
+                service_ids = #{serviceIds,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceNum != null">
+                service_num = #{serviceNum,jdbcType=INTEGER},
+            </if>
+            <if test="browseNum != null">
+                browse_num = #{browseNum,jdbcType=INTEGER},
+            </if>
+            <if test="payStatus != null">
+                pay_status = #{payStatus,jdbcType=INTEGER},
+            </if>
+            <if test="payMethod != null">
+                pay_method = #{payMethod,jdbcType=INTEGER},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="openId != null">
+                open_id = #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="alipayId != null">
+                alipay_id = #{alipayId,jdbcType=VARCHAR},
+            </if>
+            <if test="beginImgId != null">
+                begin_img_id = #{beginImgId,jdbcType=INTEGER},
+            </if>
+            <if test="endImgId != null">
+                end_img_id = #{endImgId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                code = #{code,jdbcType=INTEGER},
+            </if>
+        </set>
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.hairstyle.weshow.domain.OrderInfo">
+        update weshow_order
+        set barber_id = #{barberId,jdbcType=INTEGER},
         customer_id = #{customerId,jdbcType=INTEGER},
-      </if>
-      <if test="storeId != null" >
         store_id = #{storeId,jdbcType=INTEGER},
-      </if>
-      <if test="settlementTime != null" >
         settlement_time = #{settlementTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="startTime != null" >
         start_time = #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
         end_time = #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createdTime != null" >
         created_time = #{createdTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatedTime != null" >
         updated_time = #{updatedTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="serviceIds != null" >
         service_ids = #{serviceIds,jdbcType=VARCHAR},
-      </if>
-      <if test="serviceNum != null" >
         service_num = #{serviceNum,jdbcType=INTEGER},
-      </if>
-      <if test="browseNum != null" >
         browse_num = #{browseNum,jdbcType=INTEGER},
-      </if>
-      <if test="payStatus != null" >
         pay_status = #{payStatus,jdbcType=INTEGER},
-      </if>
-      <if test="payMethod != null" >
         pay_method = #{payMethod,jdbcType=INTEGER},
-      </if>
-      <if test="amount != null" >
         amount = #{amount,jdbcType=INTEGER},
-      </if>
-      <if test="openId != null" >
         open_id = #{openId,jdbcType=VARCHAR},
-      </if>
-      <if test="alipayId != null" >
-        alipay_id = #{alipayId,jdbcType=VARCHAR},
-      </if>
-      <if test="beginImgId != null" >
+        alipay_id = #{alipayId,jdbcType=VARCHAR}
         begin_img_id = #{beginImgId,jdbcType=INTEGER},
-      </if>
-      <if test="endImgId != null" >
         end_img_id = #{endImgId,jdbcType=INTEGER},
-      </if>
-      <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null" >
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="code != null" >
         code = #{code,jdbcType=INTEGER},
-      </if>
-    </set>
-    where order_id = #{orderId,jdbcType=INTEGER}
-  </update>
-  
-  <update id="updateByPrimaryKey" parameterType="com.hairstyle.weshow.domain.OrderInfo" >
-    update weshow_order
-    set barber_id = #{barberId,jdbcType=INTEGER},
-      customer_id = #{customerId,jdbcType=INTEGER},
-      store_id = #{storeId,jdbcType=INTEGER},
-      settlement_time = #{settlementTime,jdbcType=TIMESTAMP},
-      start_time = #{startTime,jdbcType=TIMESTAMP},
-      end_time = #{endTime,jdbcType=TIMESTAMP},
-      created_time = #{createdTime,jdbcType=TIMESTAMP},
-      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
-      service_ids = #{serviceIds,jdbcType=VARCHAR},
-      service_num = #{serviceNum,jdbcType=INTEGER},
-      browse_num = #{browseNum,jdbcType=INTEGER},
-      pay_status = #{payStatus,jdbcType=INTEGER},
-      pay_method = #{payMethod,jdbcType=INTEGER},
-      amount = #{amount,jdbcType=INTEGER},
-      open_id = #{openId,jdbcType=VARCHAR},
-      alipay_id = #{alipayId,jdbcType=VARCHAR}
-      begin_img_id = #{beginImgId,jdbcType=INTEGER},
-      end_img_id = #{endImgId,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      code = #{code,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR}
-    where order_id = #{orderId,jdbcType=INTEGER}
-  </update>
-  
-  <select id="getOrderlist" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.OrderInfo" >
-    select 
-    <include refid="Base_Column_List" />
-    from weshow_order 
-    <where>
-    		1=1
-	      <if test="barberId != null" >
-	        AND barber_id = #{barberId,jdbcType=INTEGER}
-	      </if>
-	      <if test="customerId != null" >
-	        AND customer_id = #{customerId,jdbcType=INTEGER}
-	      </if>
-	      <if test="storeId != null" >
-	        AND store_id = #{storeId,jdbcType=INTEGER}
-	      </if>
-	      <if test="settlementTime != null" >
-	        AND settlement_time = #{settlementTime,jdbcType=TIMESTAMP}
-	      </if>
-	      <if test="startTime != null" >
-	        AND start_time = #{startTime,jdbcType=TIMESTAMP}
-	      </if>
-	      <if test="endTime != null" >
-	        AND end_time = #{endTime,jdbcType=TIMESTAMP}
-	      </if>
-	      <if test="createdTime != null" >
-	        AND created_time = #{createdTime,jdbcType=TIMESTAMP}
-	      </if>
-	      <if test="updatedTime != null" >
-	        AND updated_time = #{updatedTime,jdbcType=TIMESTAMP}
-	      </if>
-	      <if test="serviceIds != null" >
-	        AND service_ids = #{serviceIds,jdbcType=VARCHAR}
-	      </if>
-	      <if test="serviceNum != null" >
-	        AND service_num = #{serviceNum,jdbcType=INTEGER}
-	      </if>
-	      <if test="browseNum != null" >
-	        AND browse_num = #{browseNum,jdbcType=INTEGER}
-	      </if>
-	      <if test="payStatus != null" >
-	        AND pay_status = #{payStatus,jdbcType=INTEGER}
-	      </if>
-	      <if test="payMethod != null" >
-	        AND pay_method = #{payMethod,jdbcType=INTEGER}
-	      </if>
-	      <if test="amount != null" >
-	        AND amount = #{amount,jdbcType=INTEGER}
-	      </if>
-	      <if test="openId != null" >
-	        AND open_id = #{openId,jdbcType=VARCHAR}
-	      </if>
-	      <if test="alipayId != null" >
-	        AND alipay_id = #{alipayId,jdbcType=VARCHAR}
-	      </if>
-	      <if test="beginImgId != null" >
-	        AND begin_img_id = #{beginImgId,jdbcType=INTEGER}
-	      </if>
-	      <if test="endImgId != null" >
-	        AND end_img_id = #{endImgId,jdbcType=INTEGER}
-	      </if>
-	      <if test="remark != null" >
-	        AND remark = #{remark,jdbcType=VARCHAR}
-	      </if>
-	      <if test="statusStr != null" >
-	       AND `status`  in (${statusStr})
-	      </if>
-    </where>
-  </select>
- 
-   <select id="getOrderByBarberIdAndCustomerId" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from weshow_order 
-    WHERE
-    	barber_id = #{barberId,jdbcType=INTEGER}
-	AND customer_id = #{customerId,jdbcType=INTEGER}
-	ORDER BY created_time desc
-	limit 1
-  </select>
+        remark = #{remark,jdbcType=VARCHAR}
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </update>
 
-   <select id="getHistoryOrderList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-    select 
-    <include refid="Base_Column_List" />
-    from weshow_order 
-    WHERE store_id = #{storeId,jdbcType=INTEGER}
-	ORDER BY created_time DESC
-  </select>
-  <!--   
-  <select id="getBarberOrderlist" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.OrderInfo" >
-    select 
-    <include refid="Base_Column_List_Relation" />
-    from weshow_order orders
-    left join weshow_order_relation relation ON relation.order_id = orders.order_id
-    <where>
-	      <if test="customerId != null" >
-	        customer_id = #{customerId,jdbcType=INTEGER},
-	      </if>
-	      <if test="settlementTime != null" >
-	        settlement_time = #{settlementTime,jdbcType=TIMESTAMP},
-	      </if>
-	      <if test="startTime != null" >
-	        start_time = #{startTime,jdbcType=TIMESTAMP},
-	      </if>
-	      <if test="endTime != null" >
-	        end_time = #{endTime,jdbcType=TIMESTAMP},
-	      </if>
-	      <if test="createdTime != null" >
-	        created_time = #{createdTime,jdbcType=TIMESTAMP},
-	      </if>
-	      <if test="updatedTime != null" >
-	        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
-	      </if>
-	      <if test="serviceIds != null" >
-	        service_ids = #{serviceIds,jdbcType=VARCHAR},
-	      </if>
-	      <if test="serviceNum != null" >
-	        service_num = #{serviceNum,jdbcType=INTEGER},
-	      </if>
-	      <if test="browseNum != null" >
-	        browse_num = #{browseNum,jdbcType=INTEGER},
-	      </if>
-	      <if test="payStatus != null" >
-	        pay_status = #{payStatus,jdbcType=INTEGER},
-	      </if>
-	      <if test="payMethod != null" >
-	        pay_method = #{payMethod,jdbcType=INTEGER},
-	      </if>
-	      <if test="amount != null" >
-	        amount = #{amount,jdbcType=INTEGER},
-	      </if>
-	      <if test="openId != null" >
-	        open_id = #{openId,jdbcType=VARCHAR},
-	      </if>
-	      <if test="alipayId != null" >
-	        alipay_id = #{alipayId,jdbcType=VARCHAR},
-	      </if>
-	      <if test="beginImgId != null" >
-	        begin_img_id = #{beginImgId,jdbcType=INTEGER},
-	      </if>
-	      <if test="endImgId != null" >
-	        end_img_id = #{endImgId,jdbcType=INTEGER},
-	      </if>
-	      <if test="status != null" >
-	        `status` = #{status,jdbcType=INTEGER},
-	      </if>
-	      barber_id = #{barberId,jdbcType=INTEGER}
-    </where>
-  </select>
-  -->
-  
+    <select id="getOrderlist" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.OrderInfo">
+        select
+        <include refid="Base_Column_List"/>
+        from weshow_order
+        <where>
+            1=1
+            <if test="barberId != null">
+                AND barber_id = #{barberId,jdbcType=INTEGER}
+            </if>
+            <if test="customerId != null">
+                AND customer_id = #{customerId,jdbcType=INTEGER}
+            </if>
+            <if test="storeId != null">
+                AND store_id = #{storeId,jdbcType=INTEGER}
+            </if>
+            <if test="settlementTime != null">
+                AND settlement_time = #{settlementTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="startTime != null">
+                AND start_time = #{startTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="endTime != null">
+                AND end_time = #{endTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createdTime != null">
+                AND created_time = #{createdTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="updatedTime != null">
+                AND updated_time = #{updatedTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="serviceIds != null">
+                AND service_ids = #{serviceIds,jdbcType=VARCHAR}
+            </if>
+            <if test="serviceNum != null">
+                AND service_num = #{serviceNum,jdbcType=INTEGER}
+            </if>
+            <if test="browseNum != null">
+                AND browse_num = #{browseNum,jdbcType=INTEGER}
+            </if>
+            <if test="payStatus != null">
+                AND pay_status = #{payStatus,jdbcType=INTEGER}
+            </if>
+            <if test="payMethod != null">
+                AND pay_method = #{payMethod,jdbcType=INTEGER}
+            </if>
+            <if test="amount != null">
+                AND amount = #{amount,jdbcType=INTEGER}
+            </if>
+            <if test="openId != null">
+                AND open_id = #{openId,jdbcType=VARCHAR}
+            </if>
+            <if test="alipayId != null">
+                AND alipay_id = #{alipayId,jdbcType=VARCHAR}
+            </if>
+            <if test="beginImgId != null">
+                AND begin_img_id = #{beginImgId,jdbcType=INTEGER}
+            </if>
+            <if test="endImgId != null">
+                AND end_img_id = #{endImgId,jdbcType=INTEGER}
+            </if>
+            <if test="remark != null">
+                AND remark = #{remark,jdbcType=VARCHAR}
+            </if>
+            <if test="statusStr != null">
+                AND `status` in (${statusStr})
+            </if>
+        </where>
+    </select>
+
+    <select id="getOrderByBarberIdAndCustomerId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from weshow_order
+        WHERE
+        barber_id = #{barberId,jdbcType=INTEGER}
+        AND customer_id = #{customerId,jdbcType=INTEGER}
+        ORDER BY created_time desc
+        limit 1
+    </select>
+
+    <select id="getHistoryOrderList" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from weshow_order
+        WHERE store_id = #{storeId,jdbcType=INTEGER}
+        ORDER BY created_time DESC
+    </select>
+    <!--
+    <select id="getBarberOrderlist" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.OrderInfo" >
+      select
+      <include refid="Base_Column_List_Relation" />
+      from weshow_order orders
+      left join weshow_order_relation relation ON relation.order_id = orders.order_id
+      <where>
+            <if test="customerId != null" >
+              customer_id = #{customerId,jdbcType=INTEGER},
+            </if>
+            <if test="settlementTime != null" >
+              settlement_time = #{settlementTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="startTime != null" >
+              start_time = #{startTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null" >
+              end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdTime != null" >
+              created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null" >
+              updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="serviceIds != null" >
+              service_ids = #{serviceIds,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceNum != null" >
+              service_num = #{serviceNum,jdbcType=INTEGER},
+            </if>
+            <if test="browseNum != null" >
+              browse_num = #{browseNum,jdbcType=INTEGER},
+            </if>
+            <if test="payStatus != null" >
+              pay_status = #{payStatus,jdbcType=INTEGER},
+            </if>
+            <if test="payMethod != null" >
+              pay_method = #{payMethod,jdbcType=INTEGER},
+            </if>
+            <if test="amount != null" >
+              amount = #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="openId != null" >
+              open_id = #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="alipayId != null" >
+              alipay_id = #{alipayId,jdbcType=VARCHAR},
+            </if>
+            <if test="beginImgId != null" >
+              begin_img_id = #{beginImgId,jdbcType=INTEGER},
+            </if>
+            <if test="endImgId != null" >
+              end_img_id = #{endImgId,jdbcType=INTEGER},
+            </if>
+            <if test="status != null" >
+              `status` = #{status,jdbcType=INTEGER},
+            </if>
+            barber_id = #{barberId,jdbcType=INTEGER}
+      </where>
+    </select>
+    -->
+
 </mapper>

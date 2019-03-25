@@ -11,9 +11,9 @@ import com.hairstyle.weshow.exception.ImgException;
 
 public interface FaceService {
 
-	CustomerFaceInfo getFaceInfo(Integer customerId, String url);
+    CustomerFaceInfo getFaceInfo(Integer customerId, String url);
 
-	int faceUpload(MultipartFile faceImgFile, FaceInfo faceInfo) throws ImgException;
+    int faceUpload(MultipartFile faceImgFile, FaceInfo faceInfo) throws ImgException;
 
-	List<FaceInfo> getFaceInfoBySeatNo(CameraDeviceInfo cameraDeviceInfo);
+    List<FaceInfo> getFaceInfoBySeatNo(CameraDeviceInfo cameraDeviceInfo);
 }

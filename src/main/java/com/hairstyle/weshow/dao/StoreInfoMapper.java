@@ -21,16 +21,16 @@ public interface StoreInfoMapper {
 
     List<StoreInfo> list(StoreInfo storeInfo);
 
-	List<StoreInfo> getServicingStore(BarberInfo barberInfo);
+    List<StoreInfo> getServicingStore(BarberInfo barberInfo);
 
-	List<StoreInfo> getMyStoreList(CustomerInfo customerInfo);
+    List<StoreInfo> getMyStoreList(CustomerInfo customerInfo);
 
-	Integer getSumIncome(Integer storeId);
+    Integer getSumIncome(Integer storeId);
 
-	Integer getOrderNum(Integer storeId);
+    Integer getOrderNum(Integer storeId);
 
-	List<StoreInfo> listNearStore(StoreInfo storeInfo);
+    List<StoreInfo> listNearStore(StoreInfo storeInfo);
 
-	List<StoreInfo> getListOrder(StoreInfo storeInfo);
+    List<StoreInfo> getListOrder(StoreInfo storeInfo);
 
 }

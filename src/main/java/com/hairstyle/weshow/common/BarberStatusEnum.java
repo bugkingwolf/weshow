@@ -1,10 +1,9 @@
 package com.hairstyle.weshow.common;
 
 public enum BarberStatusEnum {
-	RESTING(1, "休息中"),
-	FREEING(2, "空闲中"),
+    RESTING(1, "休息中"),
+    FREEING(2, "空闲中"),
     HAIRCUTING(3, "理发中");
-
 
 
     private Integer code;
@@ -36,7 +35,7 @@ public enum BarberStatusEnum {
         }
         return "";
     }
-    
+
     BarberStatusEnum(int code, String info) {
         this.code = code;
         this.info = info;

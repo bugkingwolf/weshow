@@ -15,7 +15,7 @@ public interface StoreBarberRelationInfoMapper {
 
     int updateByPrimaryKey(StoreBarberRelationInfo record);
 
-	int deleteByStoreIdAndBarberId(StoreBarberRelationInfo storeBarberRelationInfo);
+    int deleteByStoreIdAndBarberId(StoreBarberRelationInfo storeBarberRelationInfo);
 
-	StoreBarberRelationInfo getByStoreIdAndBarberId(StoreBarberRelationInfo storeBarberRelationInfo);
+    StoreBarberRelationInfo getByStoreIdAndBarberId(StoreBarberRelationInfo storeBarberRelationInfo);
 }

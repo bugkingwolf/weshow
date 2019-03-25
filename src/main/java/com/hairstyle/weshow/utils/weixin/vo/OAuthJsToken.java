@@ -9,19 +9,24 @@ public class OAuthJsToken {
     public String getOpenid() {
         return openid;
     }
+
     public void setOpenid(String openid) {
         this.openid = openid;
     }
+
     public int getExpires_in() {
         return expires_in;
     }
+
     public void setExpires_in(int expires_in) {
         this.expires_in = expires_in;
         this.exprexpiredTime = System.currentTimeMillis() + expires_in * 1000;
     }
+
     public String getSession_key() {
         return session_key;
     }
+
     public void setSession_key(String session_key) {
         this.session_key = session_key;
     }
@@ -29,9 +34,11 @@ public class OAuthJsToken {
     public long getExprexpiredTime() {
         return exprexpiredTime;
     }
+
     public void setExprexpiredTime(long exprexpiredTime) {
         this.exprexpiredTime = exprexpiredTime;
     }
+
     /**
      * 判断用户凭证是否过期
      *

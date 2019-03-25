@@ -19,5 +19,5 @@ public interface BarberServiceServiceInfoMapper {
 
     List<BarberServiceServiceInfo> getByBarberServiceId(Integer barberServiceId);
 
-	int deleteByBarberServiceId(Integer barberServiceId);
+    int deleteByBarberServiceId(Integer barberServiceId);
 }

@@ -16,11 +16,9 @@ public class HttpRequestBody {
 
 
     /**
-     *  请求参数的集合，最大长度不限，除公共参数外所有请求参数都必须放在这个参数中传递，
+     * 请求参数的集合，最大长度不限，除公共参数外所有请求参数都必须放在这个参数中传递，
      */
     private Object bizContent;
-
-
 
 
     public String getTimestamp() {
@@ -40,16 +38,15 @@ public class HttpRequestBody {
     }
 
 
-
     public String getBizContent() {
-		return JsonUtils.toJSON(bizContent);
-	}
+        return JsonUtils.toJSON(bizContent);
+    }
 
-	public void setBizContent(Object bizContent) {
-		this.bizContent = bizContent;
-	}
+    public void setBizContent(Object bizContent) {
+        this.bizContent = bizContent;
+    }
 
-	@Override
+    @Override
     public String toString() {
         return JsonUtils.toJSON(this);
     }

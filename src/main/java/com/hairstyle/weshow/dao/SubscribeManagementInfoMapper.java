@@ -17,9 +17,9 @@ public interface SubscribeManagementInfoMapper {
 
     int updateByPrimaryKey(SubscribeManagementInfo record);
 
-	List<Integer> getByBarberId(Integer barberId);
+    List<Integer> getByBarberId(Integer barberId);
 
-	SubscribeManagementInfo getByTime(int time);
+    SubscribeManagementInfo getByTime(int time);
 
-	int deleteByTime(Integer id);
+    int deleteByTime(Integer id);
 }

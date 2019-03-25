@@ -7,7 +7,7 @@ import com.hairstyle.weshow.service.TestService;
 @Service
 public class TestServiceImpl implements TestService {
 
-	public String test() {
-		return "";
-	}
+    public String test() {
+        return "";
+    }
 }

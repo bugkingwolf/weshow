@@ -18,7 +18,7 @@ public interface CustomerIncomeInfoMapper {
 
     int updateByPrimaryKey(CustomerIncomeInfo record);
 
-	List<CustomerIncomeInfo> getByCustomerId(CustomerAccountInfo customerAccountInfo);
+    List<CustomerIncomeInfo> getByCustomerId(CustomerAccountInfo customerAccountInfo);
 
-	Integer getTotalIncomeByBarberId(Integer barberId);
+    Integer getTotalIncomeByBarberId(Integer barberId);
 }
