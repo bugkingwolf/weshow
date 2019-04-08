@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,6 +38,7 @@ public class StoreController {
     StoreService storeService;
 
     @PostMapping("/list")
+    @ResponseBody
     public HttpResponseBody list(HttpServletRequest request, @RequestBody(required = true) String body) {
         HttpResponseBody httpResponseBody = new HttpResponseBody(GlobalErrorMessage.SUCCESS);
         Map<String, List<StoreInfo>> result = new HashMap<>();

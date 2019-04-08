@@ -458,7 +458,8 @@
         open_id = #{openId,jdbcType=VARCHAR}
     </select>
 
-    <update id="updateByOpenId" parameterType="com.hairstyle.weshow.domain.CustomerInfo">
+    <update id="updateByOpenId" parameterType="com.hairstyle.weshow.domain.CustomerInfo" useGeneratedKeys="true"
+            keyProperty="customerId">
         update weshow_customer
         <set>
             <if test="headId != null">
@@ -569,5 +570,13 @@
         orders.store_id = #{storeId,jdbcType=INTEGER}
         GROUP BY
         orders.customer_id
+    </select>
+    
+    <select id="getBarberId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        SELECT 
+        	barber_id 
+        FROM 
+        	weshow_barber 
+        WHERE user_id = #{customerId,jdbcType=INTEGER}
     </select>
 </mapper>

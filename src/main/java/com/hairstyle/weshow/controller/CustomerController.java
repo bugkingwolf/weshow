@@ -42,6 +42,8 @@ public class CustomerController {
     CustomerService customerService;
     @Autowired
     FaceService faceService;
+    @Autowired
+    private AliyunOSSClientUtil aliyunOSSClientUtil;
 
     /**
      * 获取百度云 用户人脸信息接口
@@ -71,8 +73,8 @@ public class CustomerController {
                 return httpResponseBody;
             }
             //上传阿里云
-            AliyunOSSClientUtil ossClient = new AliyunOSSClientUtil();
-            String imgUrl = ossClient.uploadImg2Oss(faceImgFile);
+//            AliyunOSSClientUtil ossClient = new AliyunOSSClientUtil();
+            String imgUrl = aliyunOSSClientUtil.uploadImg2Oss(faceImgFile);
             //转换数据
             CustomerInfo customerInfo = JsonUtils.fromJSON(bizContent, CustomerInfo.class);
             //顾客id
@@ -315,6 +317,42 @@ public class CustomerController {
             log.info("调用获取顾客收入信息接口【income】结束，结果：" + JsonUtils.toJSON(httpResponseBody));
         }
         return httpResponseBody;
+    }
+    
+    @SuppressWarnings("rawtypes")
+    @PostMapping("/getbarberid")
+    public HttpResponseBody getBarberId(HttpServletRequest request, @RequestBody(required = true) String body) {
+    	HttpResponseBody httpResponseBody = new HttpResponseBody(GlobalErrorMessage.SUCCESS);
+    	Map<String, Integer> result = new HashMap<>();
+    	try {
+    		int status = 0;//0未注册 1已注册
+    		log.info("调用通过顾客id获取理发师id接口【getbarberId】开始，body：" + body);
+    		HttpRequestBody httpRequestBody = ConvertUtils.convertData(body);
+    		String bizContent = httpRequestBody.getBizContent();
+    		log.info("调用通过顾客id获取理发师id接口【getbarberId】开始，请求参数：" + bizContent);
+    		
+    		Map paramMap = JsonUtils.fromJSON(bizContent, Map.class);
+    		if (paramMap.get("customerId") == null || StringUtils.isEmpty(paramMap.get("customerId").toString().trim())) {
+    			httpResponseBody.setErrorMessage(GlobalErrorMessage.MISSING_PARAMETERS);
+    			return httpResponseBody;
+    		}
+    		
+    		Integer customerId = Integer.parseInt(String.valueOf(paramMap.get("customerId")));
+    		Integer barberId = customerService.getBarberId(customerId);
+    		if(barberId != null){
+    			status = 1;
+    			result.put("barberId", barberId);
+    		}
+    		result.put("status", status);
+    		httpResponseBody.setBizContent(result);
+    		
+    	} catch (Exception e) {
+    		log.info("调用通过顾客id获取理发师id接口【getbarberId】异常 :异常[" + e.getMessage() + "]", e);
+    		httpResponseBody = new HttpResponseBody(GlobalErrorMessage.BUSINESS_FAILED);
+    	} finally {
+    		log.info("调用通过顾客id获取理发师id接口【getbarberId】结束，结果：" + JsonUtils.toJSON(httpResponseBody));
+    	}
+    	return httpResponseBody;
     }
 
     protected Integer getTime(Date beginDate, Date endDate) {

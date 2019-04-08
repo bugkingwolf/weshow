@@ -11,54 +11,47 @@ import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectResult;
-import com.hairstyle.weshow.common.OSSClientConstants;
 import com.hairstyle.weshow.exception.ImgException;
+
+import lombok.Getter;
+import lombok.Setter;
 
 
 /**
  * 阿里云 OSS工具类
  */
+@Setter
+@Getter
+@Component
+@ConfigurationProperties(prefix="oss")
 public class AliyunOSSClientUtil {
 
     public static final Logger logger = LoggerFactory.getLogger(AliyunOSSClientUtil.class);
-//	// endpoint
-//	private String endpoint = OSSClientConstants.ENDPOINT;
-//	// accessKey
-//	private String accessKeyId = OSSClientConstants.ACCESS_KEY_ID;
-//	private String accessKeySecret = OSSClientConstants.ACCESS_KEY_SECRET;
-//	// 空间
-//	private String bucketName = OSSClientConstants.BACKET_NAME;
-//	// 文件存储目录
-//	private String filedir = OSSClientConstants.FOLDER;
 
     //阿里云API的外网域名
-    @Value("${aliyun_oss_endpoint}")
     private String endpoint;
     //阿里云API的密钥Access Key ID
-    @Value("${aliyun_oss_accesskeyid}")
     private String accessKeyId;
     //阿里云API的密钥Access Key Secret
-    @Value("${aliyun_oss_accesskeysecret}")
     private String accessKeySecret;
     //阿里云API的bucket名称
-    @Value("${aliyun_oss_bucket}")
     private String bucketName;//"uploadpicture";
     //阿里云API的文件夹名称
     private String filedir = "hair/";
+    
+	private OSSClient ossClient;
 
-
-    private OSSClient ossClient;
-
-    public AliyunOSSClientUtil() {
-        ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
-    }
+//    public AliyunOSSClientUtil() {
+//        ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
+//    }
 
     /**
      * 初始化
@@ -132,6 +125,13 @@ public class AliyunOSSClientUtil {
      * @return 出错返回"" ,唯一MD5数字签名
      */
     public String uploadFile2OSS(InputStream instream, String fileName) {
+    	
+    	if(ossClient == null){
+    		logger.info("===endpoint:"+endpoint+"===accessKeyId:"+accessKeyId+
+    				"===accessKeySecret:"+accessKeySecret+"===bucketName:"+bucketName);
+    		ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
+    	}
+    	
         String ret = "";
         try {
             // 创建上传Object的Metadata

@@ -244,7 +244,7 @@
         <include refid="Base_Column_List"/>
         FROM weshow_image
         WHERE face_id = #{faceId,jdbcType=VARCHAR}
-        AND device_no = = #{deviceNo,jdbcType=VARCHAR}
+        AND device_no = #{deviceNo,jdbcType=VARCHAR}
         AND (create_time > (SELECT DATE_FORMAT(CURDATE(),'%Y-%m-%d %H:%i:%s'))
         OR update_time > (SELECT DATE_FORMAT(CURDATE(),'%Y-%m-%d %H:%i:%s')))
         ORDER BY create_time DESC

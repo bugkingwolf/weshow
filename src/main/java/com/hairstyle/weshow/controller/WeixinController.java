@@ -61,9 +61,6 @@ public class WeixinController extends WeixinSupport {
     private static final String secret = "aa2c4031799c35fb656da3ea2a0071b3";    //微信小程序密钥
     private static final String grant_type = "authorization_code";
 
-    @Value("$(wxpay_callback_url)")
-    public String notify_url;
-
     @Autowired
     CustomerService customerServiceImpl;
     @Autowired
@@ -77,6 +74,8 @@ public class WeixinController extends WeixinSupport {
         Map<String, Integer> result = new HashMap<>();
         try {
 
+        	int status = 0;//0失败 1成功
+        	
             HttpRequestBody httpRequestBody = ConvertUtils.convertData(body);
             String bizContent = httpRequestBody.getBizContent();
             log.info("调用小程序登录注册接口【login】开始，请求参数：" + bizContent);
@@ -91,8 +90,12 @@ public class WeixinController extends WeixinSupport {
             log.info("调用小程序登录注册接口【login】decryptData：" + decryptData);
 
             DecryptDataInfo decryptDataInfo = JsonUtils.fromJSON(decryptData, DecryptDataInfo.class);
-            int status = customerServiceImpl.login(decryptDataInfo);
-
+            int customerId = customerServiceImpl.login(decryptDataInfo);
+            if(customerId != 0){
+            	//成功
+            	status = 1;
+            	result.put("customerId", customerId);
+            }
             result.put("status", status);
             httpResponseBody.setBizContent(result);
         } catch (Exception e) {
@@ -183,7 +186,7 @@ public class WeixinController extends WeixinSupport {
             Integer payType = Integer.parseInt(paramMap.get("payType") + "");//支付方式 1小程序支付 2扫码支付
             String openId = "";//支付方式 1小程序支付 2扫码支付
             if (payType == 1) {
-                openId = paramMap.get("payType") + "";
+                openId = paramMap.get("openId") + "";
             }
             //tradeType 1小程序支付 2扫码支付
             String tradeType = WxPayConfig.TRADETYPE_JSAPI;
@@ -202,7 +205,7 @@ public class WeixinController extends WeixinSupport {
             packageParams.put("out_trade_no", orderNo);//商户订单号
             packageParams.put("total_fee", money);//支付金额，这边需要转成字符串类型，否则后面的签名会失败
             packageParams.put("spbill_create_ip", spbill_create_ip);
-            packageParams.put("notify_url", notify_url);
+            packageParams.put("notify_url", WxPayConfig.notify_url);
             packageParams.put("trade_type", tradeType);
             if (payType == 1) {
                 packageParams.put("openid", openId);
@@ -221,10 +224,10 @@ public class WeixinController extends WeixinSupport {
             if (payType == 1) {
 
                 xml = "<xml>" + "<appid>" + WxPayConfig.appid + "</appid>"
-                        + "<body><![CDATA[" + body + "]]></body>"
+                        + "<body><![CDATA[" + body2 + "]]></body>"
                         + "<mch_id>" + WxPayConfig.mch_id + "</mch_id>"
                         + "<nonce_str>" + nonce_str + "</nonce_str>"
-                        + "<notify_url>" + notify_url + "</notify_url>"
+                        + "<notify_url>" + WxPayConfig.notify_url + "</notify_url>"
                         + "<openid>" + openId + "</openid>"
                         + "<out_trade_no>" + orderNo + "</out_trade_no>"
                         + "<spbill_create_ip>" + spbill_create_ip + "</spbill_create_ip>"
@@ -235,10 +238,10 @@ public class WeixinController extends WeixinSupport {
             } else if (payType == 2) {
 
                 xml = "<xml>" + "<appid>" + WxPayConfig.appid + "</appid>"
-                        + "<body><![CDATA[" + body + "]]></body>"
+                        + "<body><![CDATA[" + body2 + "]]></body>"
                         + "<mch_id>" + WxPayConfig.mch_id + "</mch_id>"
                         + "<nonce_str>" + nonce_str + "</nonce_str>"
-                        + "<notify_url>" + notify_url + "</notify_url>"
+                        + "<notify_url>" + WxPayConfig.notify_url + "</notify_url>"
                         + "<out_trade_no>" + orderNo + "</out_trade_no>"
                         + "<spbill_create_ip>" + spbill_create_ip + "</spbill_create_ip>"
                         + "<total_fee>" + money + "</total_fee>"

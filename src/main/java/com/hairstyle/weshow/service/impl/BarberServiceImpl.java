@@ -72,6 +72,9 @@ public class BarberServiceImpl implements BarberService {
     BarberAddressInfoMapper barberAddressInfoMapper;
 
     @Autowired
+    private AliyunOSSClientUtil aliyunOSSClientUtil;
+
+    @Autowired
     RedisTemplate<String, String> redisTemplate;
 
     @Override
@@ -371,10 +374,10 @@ public class BarberServiceImpl implements BarberService {
             }
         }
         //上传阿里云
-        AliyunOSSClientUtil ossClient = new AliyunOSSClientUtil();
-        String faceimgUrl = ossClient.uploadImg2Oss(faceImageFile);
-        String faceIdCardImgUrl = ossClient.uploadImg2Oss(faceIdCardImageFile);
-        String backIdCardImgUrl = ossClient.uploadImg2Oss(backIdCardImageFile);
+//        AliyunOSSClientUtil ossClient = new AliyunOSSClientUtil();
+        String faceimgUrl = aliyunOSSClientUtil.uploadImg2Oss(faceImageFile);
+        String faceIdCardImgUrl = aliyunOSSClientUtil.uploadImg2Oss(faceIdCardImageFile);
+        String backIdCardImgUrl = aliyunOSSClientUtil.uploadImg2Oss(backIdCardImageFile);
 
         // 初始化一个AipFace
         AipFace client = new AipFace(Constant.APP_ID, Constant.API_KEY, Constant.SECRET_KEY);

@@ -33,4 +33,6 @@ public interface CustomerInfoMapper {
 
     List<CustomerInfo> getHistoryCustomerList(Integer storeId);
 
+	Integer getBarberId(Integer customerId);
+
 }

@@ -23,7 +23,6 @@ import com.hairstyle.weshow.domain.BarberInfo;
 import com.hairstyle.weshow.domain.SubscribeManagementInfo;
 import com.hairstyle.weshow.service.BarberService;
 import com.hairstyle.weshow.service.CustomerService;
-import com.hairstyle.weshow.service.FaceService;
 import com.hairstyle.weshow.utils.AliyunOSSClientUtil;
 import com.hairstyle.weshow.utils.ConvertUtils;
 import com.hairstyle.weshow.utils.JsonUtils;
@@ -39,9 +38,9 @@ public class BarberController {
     @Autowired
     CustomerService customerService;
     @Autowired
-    FaceService faceService;
-    @Autowired
     BarberService barberService;
+    @Autowired
+    private AliyunOSSClientUtil aliyunOSSClientUtil;
 
     /**
      * 获取理发师详情
@@ -451,8 +450,8 @@ public class BarberController {
             }
 
             if (barberImageFile != null) {
-                AliyunOSSClientUtil ossClient = new AliyunOSSClientUtil();
-                barberImageUrl = ossClient.uploadImg2Oss(barberImageFile);
+//                AliyunOSSClientUtil ossClient = new AliyunOSSClientUtil();
+                barberImageUrl = aliyunOSSClientUtil.uploadImg2Oss(barberImageFile);
             }
 
             BarberInfo barberInfo = JsonUtils.fromJSON(bizContent, BarberInfo.class);

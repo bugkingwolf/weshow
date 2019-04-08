@@ -53,6 +53,9 @@ public class StoreServiceImpl implements StoreService {
     @Autowired
     StoreBarberRelationInfoMapper storeBarberRelationInfoMapper;
 
+    @Autowired
+    private AliyunOSSClientUtil aliyunOSSClientUtil;
+    
     @Override
     public List<StoreInfo> list(StoreInfo storeInfo) {
 
@@ -211,8 +214,8 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public int addStore(StoreInfo storeInfo, MultipartFile storeImgFile) throws ImgException {
         //上传阿里云
-        AliyunOSSClientUtil ossClient = new AliyunOSSClientUtil();
-        String imgUrl = ossClient.uploadImg2Oss(storeImgFile);
+//        AliyunOSSClientUtil ossClient = new AliyunOSSClientUtil();
+        String imgUrl = aliyunOSSClientUtil.uploadImg2Oss(storeImgFile);
 
         ImageInfo imageInfo = new ImageInfo();
         imageInfo.setUrl(imgUrl);
@@ -243,9 +246,13 @@ public class StoreServiceImpl implements StoreService {
         Integer storeId = storeInfo.getStoreId();
         StoreInfo store = storeInfoMapper.selectByPrimaryKey(storeId);
 
-        List<ImageInfo> imageInfoList = imageInfoMapper.getByStoreId(storeId);//店铺图片
-        if (imageInfoList != null && !imageInfoList.isEmpty()) {
-            store.setHeadImage(imageInfoList.get(0).getUrl());
+//        List<ImageInfo> imageInfoList = imageInfoMapper.getByStoreId(storeId);//店铺图片
+//        if (imageInfoList != null && !imageInfoList.isEmpty()) {
+//            store.setHeadImage(imageInfoList.get(0).getUrl());
+//        }
+        ImageInfo imageInfo = imageInfoMapper.selectByPrimaryKey(storeInfo.getHeadId());//店铺图片
+        if (imageInfo != null) {
+            storeInfo.setHeadImage(imageInfo.getUrl());
         }
 
         //收益

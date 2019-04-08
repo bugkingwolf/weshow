@@ -41,6 +41,8 @@ public class FaceServiceImpl implements FaceService {
     FaceInfoMapper faceInfoMapper;
     @Autowired
     BarberInfoMapper barberInfoMapper;
+    @Autowired
+    private AliyunOSSClientUtil aliyunOSSClientUtil;
 
     @Override
     public CustomerFaceInfo getFaceInfo(Integer customerId, String url) {
@@ -109,8 +111,8 @@ public class FaceServiceImpl implements FaceService {
         int row = 0;
         Date createTime = new Date();
         //上传阿里云
-        AliyunOSSClientUtil ossClient = new AliyunOSSClientUtil();
-        String imgUrl = ossClient.uploadImg2Oss(faceImgFile);
+//        AliyunOSSClientUtil ossClient = new AliyunOSSClientUtil();
+        String imgUrl = aliyunOSSClientUtil.uploadImg2Oss(faceImgFile);
 
         String deviceNo = faceInfo.getDeviceNo();
         Integer hairStatus = faceInfo.getHairStatus();

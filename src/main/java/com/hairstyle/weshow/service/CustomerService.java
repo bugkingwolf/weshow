@@ -24,4 +24,6 @@ public interface CustomerService {
 
     int incomeOtherWay(CustomerIncomeInfo customerIncomeInfo);
 
+	Integer getBarberId(Integer customerId);
+
 }

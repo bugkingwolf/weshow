@@ -58,7 +58,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public int login(DecryptDataInfo decryptDataInfo) {
-
+    	
+    	Integer customerId;
         int status = 0;
 
         String openId = decryptDataInfo.getOpenId();
@@ -89,23 +90,28 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
 
+        
         if (customer == null) {
             customerInfo.setStatus(1);
             int insert = customerInfoMapper.insert(customerInfo);
             log.info("顾客注册登录=======注册,条数:" + insert);
             if (insert > 0) {
-                status = 1;
+				customerId = customerInfo.getCustomerId();
+//                status = 1;
+				return customerId;
             }
 //			customer = customerInfoMapper.selectByPrimaryKey(customerInfo.getCustomerId());
         } else {
             int update = customerInfoMapper.updateByOpenId(customerInfo);
             log.info("顾客注册登录=======登录,条数:" + update);
             if (update > 0) {
-                status = 1;
+            	customerId = customerInfo.getCustomerId();
+//                status = 1;
+            	return customerId;
             }
         }
 
-        return status;
+        return 0;
     }
 
     @Override
@@ -149,7 +155,7 @@ public class CustomerServiceImpl implements CustomerService {
             if (type == 1) {
                 customerAccountInfo.setAmount(amount);
             } else if (type == 2) {
-                customerAccountInfo.setAmount(0);
+                customerAccountInfo.setAmount(amount);
             }
             customerAccountInfo.setCustomerId(customerId);
             customerAccountInfo.setCreatedTime(date);
@@ -228,4 +234,8 @@ public class CustomerServiceImpl implements CustomerService {
         return status;
     }
 
+	@Override
+	public Integer getBarberId(Integer customerId) {
+		return customerInfoMapper.getBarberId(customerId);
+	}
 }
