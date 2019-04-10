@@ -379,22 +379,25 @@ public class OrderServiceImpl implements OrderService {
                 //set orderrelation
                 OrderRelatonInfo orderRelatonInfo = orderRelatonInfoMapper.selectByOrderId(orderId);
                 if (orderRelatonInfo != null) {
+                	if(orderRelatonInfo.getPositions() != null){
+                		String positions = orderRelatonInfo.getPositions();
+                		String[] positionArr = positions.split(",");
+                		for (String position : positionArr) {
+                			String subscribeTime = getsubscribeTime(Integer.parseInt(position)) + "";
+                			timeList.add(subscribeTime);
+                		}
+                		orderRelatonInfo.setTimeList(timeList);
+                	}
 
-                    String positions = orderRelatonInfo.getPositions();
-                    String[] positionArr = positions.split(",");
-                    for (String position : positionArr) {
-                        String subscribeTime = getsubscribeTime(Integer.parseInt(position)) + "";
-                        timeList.add(subscribeTime);
-                    }
-                    orderRelatonInfo.setTimeList(timeList);
-
-                    String storeIds = orderRelatonInfo.getStoreIds();
-                    String[] storeIdArr = storeIds.split(",");
-                    for (String storeId : storeIdArr) {
-                        StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(Integer.parseInt(storeId));
-                        storeList.add(storeInfo);
-                    }
-                    orderRelatonInfo.setStoreList(storeList);
+                	if(orderRelatonInfo.getStoreIds() != null){
+                		String storeIds = orderRelatonInfo.getStoreIds();
+                		String[] storeIdArr = storeIds.split(",");
+                		for (String storeId : storeIdArr) {
+                			StoreInfo storeInfo = storeInfoMapper.selectByPrimaryKey(Integer.parseInt(storeId));
+                			storeList.add(storeInfo);
+                		}
+                		orderRelatonInfo.setStoreList(storeList);
+                	}
                     order.setOrderRelaton(orderRelatonInfo);
                 }
 

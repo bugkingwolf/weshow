@@ -7,11 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hairstyle.weshow.domain.CameraDeviceInfo;
 import com.hairstyle.weshow.domain.CustomerFaceInfo;
 import com.hairstyle.weshow.domain.FaceInfo;
+import com.hairstyle.weshow.exception.FaceException;
 import com.hairstyle.weshow.exception.ImgException;
 
 public interface FaceService {
 
-    CustomerFaceInfo getFaceInfo(Integer customerId, String url);
+    CustomerFaceInfo getFaceInfo(Integer customerId, String url) throws FaceException;
 
     int faceUpload(MultipartFile faceImgFile, FaceInfo faceInfo) throws ImgException;
 

@@ -22,6 +22,7 @@ import com.hairstyle.weshow.domain.CameraDeviceInfo;
 import com.hairstyle.weshow.domain.CustomerFaceInfo;
 import com.hairstyle.weshow.domain.FaceInfo;
 import com.hairstyle.weshow.domain.ImageInfo;
+import com.hairstyle.weshow.exception.FaceException;
 import com.hairstyle.weshow.exception.ImgException;
 import com.hairstyle.weshow.service.FaceService;
 import com.hairstyle.weshow.utils.AliyunOSSClientUtil;
@@ -45,7 +46,7 @@ public class FaceServiceImpl implements FaceService {
     private AliyunOSSClientUtil aliyunOSSClientUtil;
 
     @Override
-    public CustomerFaceInfo getFaceInfo(Integer customerId, String url) {
+    public CustomerFaceInfo getFaceInfo(Integer customerId, String url) throws FaceException {
         // 初始化一个AipFace
         AipFace client = new AipFace(Constant.APP_ID, Constant.API_KEY, Constant.SECRET_KEY);
 
@@ -59,6 +60,11 @@ public class FaceServiceImpl implements FaceService {
         HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.put("face_field", "age,beauty,faceshape,gender,glasses,race");
         JSONObject res = client.detect(url, Constant.IMAGE_TYPE_URL, hashMap);
+        log.info("========百度人脸识别 返回:" + res.toString());
+        if(!"0".equals(res.getJSONObject("result").toString())){
+        	log.info("========获取百度人脸识别 返回信息失败");
+        	throw new FaceException("获取人脸识别 返回信息失败");
+        }
         //格式化百度数据
         CustomerFaceInfo customerFaceInfo = getBaiduFaceInfo(res, customerId);
         log.info("========百度人脸识别信息:" + customerFaceInfo);

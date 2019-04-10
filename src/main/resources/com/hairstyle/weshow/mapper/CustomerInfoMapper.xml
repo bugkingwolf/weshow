@@ -429,7 +429,7 @@
         orders.created_time DESC
         limit #{count,jdbcType=INTEGER}
         ) temp
-        GROUP BY temp.customer_id
+        GROUP BY temp.customer_id                  
     </select>
 
     <select id="getMyCustomerOrderCount" resultType="int" parameterType="java.lang.Integer">

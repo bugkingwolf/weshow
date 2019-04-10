@@ -25,6 +25,7 @@ import com.hairstyle.weshow.domain.CustomerAccountInfo;
 import com.hairstyle.weshow.domain.CustomerFaceInfo;
 import com.hairstyle.weshow.domain.CustomerIncomeInfo;
 import com.hairstyle.weshow.domain.CustomerInfo;
+import com.hairstyle.weshow.exception.FaceException;
 import com.hairstyle.weshow.service.CustomerService;
 import com.hairstyle.weshow.service.FaceService;
 import com.hairstyle.weshow.utils.AliyunOSSClientUtil;
@@ -85,10 +86,12 @@ public class CustomerController {
             result.put("faceinfo", faceInfo);
             httpResponseBody.setBizContent(result);
 
-        } catch (Exception e) {
+        } catch (FaceException e) {
+            log.info("调用获取用户人脸信息接口【getFaceInfo】异常 :异常[" + e.getMessage() + "]", e);
+            httpResponseBody = new HttpResponseBody(GlobalErrorMessage.GET_BAIDUFACE_FAIL);
+        }catch (Exception e) {
             log.info("调用获取用户人脸信息接口【getFaceInfo】异常 :异常[" + e.getMessage() + "]", e);
             httpResponseBody = new HttpResponseBody(GlobalErrorMessage.BUSINESS_FAILED);
-            e.printStackTrace();
         } finally {
             log.info("调用获取用户人脸信息接口【getFaceInfo】结束，结果：" + JsonUtils.toJSON(httpResponseBody));
         }
