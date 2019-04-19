@@ -250,9 +250,9 @@ public class StoreServiceImpl implements StoreService {
 //        if (imageInfoList != null && !imageInfoList.isEmpty()) {
 //            store.setHeadImage(imageInfoList.get(0).getUrl());
 //        }
-        ImageInfo imageInfo = imageInfoMapper.selectByPrimaryKey(storeInfo.getHeadId());//店铺图片
+        ImageInfo imageInfo = imageInfoMapper.selectByPrimaryKey(store.getHeadId());//店铺图片
         if (imageInfo != null) {
-            storeInfo.setHeadImage(imageInfo.getUrl());
+        	store.setHeadImage(imageInfo.getUrl());
         }
 
         //收益

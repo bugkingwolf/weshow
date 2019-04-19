@@ -57,8 +57,8 @@ public class WeixinController extends WeixinSupport {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    private static final String appid = "wxba71617fb1ac4213";        //微信小程序appid
-    private static final String secret = "aa2c4031799c35fb656da3ea2a0071b3";    //微信小程序密钥
+    private static final String appid = "wxe17d544601c53b2a";        //微信小程序appid
+    private static final String secret = "58c992f95b3d767e6d288cfa1eab57e0";    //微信小程序密钥
     private static final String grant_type = "authorization_code";
 
     @Autowired

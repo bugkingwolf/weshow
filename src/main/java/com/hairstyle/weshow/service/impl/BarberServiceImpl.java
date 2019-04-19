@@ -426,7 +426,7 @@ public class BarberServiceImpl implements BarberService {
 
         Integer barberId = barberInfo.getBarberId();
 
-        if (barberImageUrl == null) {
+        if (barberImageUrl != null) {
             ImageInfo imageInfo = new ImageInfo();
             imageInfo.setUrl(barberImageUrl);
             imageInfo.setCreateTime(new Date());

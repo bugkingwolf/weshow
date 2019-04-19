@@ -431,8 +431,7 @@ public class BarberController {
 
     @SuppressWarnings("rawtypes")
     @PostMapping("/barberupdate")
-    public HttpResponseBody barberUpdate(HttpServletRequest request, @RequestPart(required = true) String body,
-                                         @RequestBody(required = false) MultipartFile barberImageFile) {
+    public HttpResponseBody barberUpdate(HttpServletRequest request, @RequestBody(required = true) String body) {
         HttpResponseBody httpResponseBody = new HttpResponseBody(GlobalErrorMessage.SUCCESS);
         Map<String, Integer> result = new HashMap<>();
         try {
@@ -449,9 +448,13 @@ public class BarberController {
                 return httpResponseBody;
             }
 
-            if (barberImageFile != null) {
-//                AliyunOSSClientUtil ossClient = new AliyunOSSClientUtil();
-                barberImageUrl = aliyunOSSClientUtil.uploadImg2Oss(barberImageFile);
+            if(paramMap.get("barberImageFile") != null && !StringUtils.isEmpty(paramMap.get("barberImageFile").toString().trim())){
+            	String barberImageFileStr = paramMap.get("barberImageFile") + "";
+            	MultipartFile barberImageFile = MultipartFileUtil.base64ToMultipart(barberImageFileStr);
+            	if (barberImageFile != null) {
+            		barberImageUrl = aliyunOSSClientUtil.uploadImg2Oss(barberImageFile);
+            	}
+            	
             }
 
             BarberInfo barberInfo = JsonUtils.fromJSON(bizContent, BarberInfo.class);
@@ -467,4 +470,43 @@ public class BarberController {
         }
         return httpResponseBody;
     }
+    
+//    @SuppressWarnings("rawtypes")
+//    @PostMapping("/barberupdate")
+//    public HttpResponseBody barberUpdate(HttpServletRequest request, @RequestPart(required = true) String body,
+//                                         @RequestBody(required = false) MultipartFile barberImageFile) {
+//        HttpResponseBody httpResponseBody = new HttpResponseBody(GlobalErrorMessage.SUCCESS);
+//        Map<String, Integer> result = new HashMap<>();
+//        try {
+//            String barberImageUrl = null;
+//
+//            log.info("调用修改理发师资料接口【barberUpdate】开始，body：" + body);
+//            HttpRequestBody httpRequestBody = ConvertUtils.convertData(body);
+//            String bizContent = httpRequestBody.getBizContent();
+//            log.info("调用修改理发师资料接口【barberUpdate】开始，请求参数：" + bizContent);
+//
+//            Map paramMap = JsonUtils.fromJSON(bizContent, Map.class);
+//            if (paramMap.get("barberId") == null || StringUtils.isEmpty(paramMap.get("barberId").toString().trim())) {
+//                httpResponseBody.setErrorMessage(GlobalErrorMessage.MISSING_PARAMETERS);
+//                return httpResponseBody;
+//            }
+//
+//            if (barberImageFile != null) {
+////                AliyunOSSClientUtil ossClient = new AliyunOSSClientUtil();
+//                barberImageUrl = aliyunOSSClientUtil.uploadImg2Oss(barberImageFile);
+//            }
+//
+//            BarberInfo barberInfo = JsonUtils.fromJSON(bizContent, BarberInfo.class);
+//            int status = barberService.barberUpdate(barberInfo, barberImageUrl);// stauts 0失败 1成功
+//            result.put("status", status);
+//            httpResponseBody.setBizContent(result);
+//
+//        } catch (Exception e) {
+//            log.info("调用修改理发师资料接口【barberUpdate】异常 :异常[" + e.getMessage() + "]", e);
+//            httpResponseBody = new HttpResponseBody(GlobalErrorMessage.BUSINESS_FAILED);
+//        } finally {
+//            log.info("调用修改理发师资料接口【barberUpdate】结束，结果：" + JsonUtils.toJSON(httpResponseBody));
+//        }
+//        return httpResponseBody;
+//    }
 }
