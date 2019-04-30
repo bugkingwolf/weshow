@@ -26,6 +26,7 @@ import com.hairstyle.weshow.domain.StoreInfo;
 import com.hairstyle.weshow.service.StoreService;
 import com.hairstyle.weshow.utils.ConvertUtils;
 import com.hairstyle.weshow.utils.JsonUtils;
+import com.hairstyle.weshow.utils.MultipartFileUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -159,8 +160,7 @@ public class StoreController {
 
     @SuppressWarnings("rawtypes")
     @PostMapping("/add")
-    public HttpResponseBody addStore(HttpServletRequest request, @RequestPart(required = true) String body,
-                                     @RequestBody(required = true) MultipartFile storeImgFile) {
+    public HttpResponseBody addStore(HttpServletRequest request, @RequestBody(required = true) String body) {
 
         HttpResponseBody httpResponseBody = new HttpResponseBody(GlobalErrorMessage.SUCCESS);
         Map<String, Integer> result = new HashMap<>();
@@ -178,11 +178,15 @@ public class StoreController {
                     || paramMap.get("seatNum") == null || StringUtils.isEmpty(paramMap.get("seatNum").toString().trim())
                     || paramMap.get("businessTime") == null || StringUtils.isEmpty(paramMap.get("businessTime").toString().trim())
                     || paramMap.get("address") == null || StringUtils.isEmpty(paramMap.get("address").toString().trim())
-                    || paramMap.get("acreage") == null || StringUtils.isEmpty(paramMap.get("acreage").toString().trim())) {
+                    || paramMap.get("acreage") == null || StringUtils.isEmpty(paramMap.get("acreage").toString().trim())
+            		|| paramMap.get("storeImgFile") == null || StringUtils.isEmpty(paramMap.get("storeImgFile").toString().trim())) {
                 httpResponseBody.setErrorMessage(GlobalErrorMessage.MISSING_PARAMETERS);
                 return httpResponseBody;
             }
-
+            
+            String storeImgFileBase64 = paramMap.get("storeImgFile") + "";
+            MultipartFile storeImgFile = MultipartFileUtil.base64ToMultipart(storeImgFileBase64);
+            
             StoreInfo storeInfo = JsonUtils.fromJSON(bizContent, StoreInfo.class);
             int status = storeService.addStore(storeInfo, storeImgFile);
             result.put("status", status);

@@ -501,9 +501,10 @@
 
     <select id="getByStoreId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
-        <include refid="Base_Column_List"/>
-        from weshow_barber
-        where store_id = #{storeId,jdbcType=INTEGER}
+        <include refid="Base_Column_List_Order"/>
+        from weshow_barber barber
+		LEFT JOIN weshow_store_barber_relation relation  ON barber.barber_id = relation.barber_id
+        where relation.store_id = #{storeId,jdbcType=INTEGER}
     </select>
 
     <select id="list" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.StoreInfo">
@@ -613,14 +614,14 @@
         SET store_id = #{storeId,jdbcType=INTEGER}
         WHERE face_id = #{faceId,jdbcType=VARCHAR}
     </update>
-    <select id="getListOrder" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.StoreInfo">
+    <select id="getListOrder" resultMap="BaseResultMap" parameterType="com.hairstyle.weshow.domain.BarberInfo">
         select
         <include refid="Base_Column_List_Address"/>,
         (round(6367000 * 2 *
-        asin(sqrt(pow(sin(((address.latitude * pi()) / 180 - (39.93 * pi()) / 180) / 2),2) +
-        cos((39.93 * pi()) / 180) *
+        asin(sqrt(pow(sin(((address.latitude * pi()) / 180 - (#{latitude} * pi()) / 180) / 2),2) +
+        cos((#{latitude} * pi()) / 180) *
         cos((address.latitude * pi()) / 180) *
-        pow(sin(((address.longitude * pi()) / 180 - (116.45 * pi()) / 180) / 2),2)))
+        pow(sin(((address.longitude * pi()) / 180 - (#{longitude} * pi()) / 180) / 2),2)))
         )
         ) AS distance,temps.orderNum AS orderNum
 

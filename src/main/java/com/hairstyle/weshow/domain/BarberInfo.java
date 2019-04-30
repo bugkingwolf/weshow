@@ -31,7 +31,7 @@ public class BarberInfo {
 
     private String headImageUrl;
 
-    private int gender;
+    private Integer gender;
 
     private Integer age;
 
@@ -73,7 +73,7 @@ public class BarberInfo {
 
     private Integer serviceStatus;
 
-    private int status;
+    private Integer status;
 
     private Integer storeId;
 
@@ -93,9 +93,9 @@ public class BarberInfo {
 
     private BarberAddressInfo barberAddress;
 
-    private int orderType;
+    private Integer orderType;
 
-    private int type;
+    private Integer type;
 
     private Integer startingPrice;
 

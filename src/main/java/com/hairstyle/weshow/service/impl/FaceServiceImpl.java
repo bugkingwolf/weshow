@@ -61,7 +61,7 @@ public class FaceServiceImpl implements FaceService {
         hashMap.put("face_field", "age,beauty,faceshape,gender,glasses,race");
         JSONObject res = client.detect(url, Constant.IMAGE_TYPE_URL, hashMap);
         log.info("========百度人脸识别 返回:" + res.toString());
-        if(!"0".equals(res.getJSONObject("result").toString())){
+        if(!"0".equals(res.get("error_code").toString())){
         	log.info("========获取百度人脸识别 返回信息失败");
         	throw new FaceException("获取人脸识别 返回信息失败");
         }

@@ -54,6 +54,6 @@ public class FaceInfo {
 
     private Date updateTime;
 
-    private int inStoreTime;
+    private Integer inStoreTime;
 
 }
