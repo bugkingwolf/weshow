@@ -270,10 +270,6 @@ public class BarberController {
 
             String mobile = paramMap.get("mobile") + "";
             int status = barberService.sendSms(mobile);// stauts 0失败 1成功 2已注册
-            if (status == 2) {
-                httpResponseBody.setErrorMessage(GlobalErrorMessage.SMS_CODE_FAIL);
-                return httpResponseBody;
-            }
             result.put("status", status);
             httpResponseBody.setBizContent(result);
 

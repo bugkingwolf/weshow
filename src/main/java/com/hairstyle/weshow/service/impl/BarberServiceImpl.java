@@ -325,12 +325,6 @@ public class BarberServiceImpl implements BarberService {
     @Override
     public int sendSms(String mobile) throws ClientException {
 
-        SmsInfo sms = smsInfoMapper.getByMobile(mobile);
-        if (sms != null) {
-            //此手机号已注册
-            return 2;
-        }
-
         int status = 0;
         // 发送短信
         String code = SmsUtils.getCode();

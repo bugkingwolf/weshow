@@ -68,7 +68,6 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerInfo customerInfo = new CustomerInfo();
 
         customerInfo.setOpenId(openId);
-        customerInfo.setRegisterTime(new Date());
 
         if (decryptDataInfo.getAvatarUrl() != null) {
             customerInfo.setHeadurl(decryptDataInfo.getAvatarUrl());
@@ -93,11 +92,11 @@ public class CustomerServiceImpl implements CustomerService {
         
         if (customer == null) {
             customerInfo.setStatus(1);
+            customerInfo.setRegisterTime(new Date());
             int insert = customerInfoMapper.insert(customerInfo);
             log.info("顾客注册登录=======注册,条数:" + insert);
             if (insert > 0) {
 				customerId = customerInfo.getCustomerId();
-//                status = 1;
 				return customerId;
             }
 //			customer = customerInfoMapper.selectByPrimaryKey(customerInfo.getCustomerId());
@@ -105,8 +104,7 @@ public class CustomerServiceImpl implements CustomerService {
             int update = customerInfoMapper.updateByOpenId(customerInfo);
             log.info("顾客注册登录=======登录,条数:" + update);
             if (update > 0) {
-            	customerId = customerInfo.getCustomerId();
-//                status = 1;
+            	customerId = customer.getCustomerId();
             	return customerId;
             }
         }
